@@ -10,3 +10,4 @@ buildNumber.properties
 *.class
 *.jar
 hs_err_pid*
+nbactions.xml
