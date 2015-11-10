@@ -16,21 +16,31 @@
  */
 package gtaligner;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * A line of text (spaces are not considered)
+ * A line of text where spaces are not considered
  *
  * @author rafa
  */
 public class TextLine {
-//    String rawText;
-
     String text;
     int weight;
+    Set<Character> chars;
+
+    private Set<Character> getChars(String s) {
+        Set<Character> set = new HashSet<>();
+        for (int n = 0; n < s.length(); ++n) {
+            set.add(s.charAt(n));
+        }
+        return set;
+    }
 
     public TextLine(String text, int weight) {
-        //       this.rawText = text;
         this.text = text.replaceAll("\\p{Space}", "");
         this.weight = weight;
+        this.chars = getChars(this.text);
     }
 
     public String getText() {
@@ -41,6 +51,10 @@ public class TextLine {
         return weight;
     }
 
+    public Set<Character> getChars() {
+        return chars;
+    }
+    
     public int length() {
         return text.length();
     }

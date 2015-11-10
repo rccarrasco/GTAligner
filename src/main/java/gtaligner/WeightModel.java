@@ -44,7 +44,6 @@ public class WeightModel {
 
         for (int n = 0; n < s.length(); ++n) {
             weight += get(s.charAt(n));
-            System.out.println(s.charAt(n)+" w="+get(s.charAt(n))+"="+weight);
         }
 
         return weight;

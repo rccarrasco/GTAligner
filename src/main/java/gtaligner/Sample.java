@@ -41,18 +41,23 @@ public class Sample {
         }
     }
 
+    private double square(double x) {
+        return x * x;
+    }
+
     public double errorPerChar(WeightModel model) {
         double err = 0;
         int numchar = 0;
 
         for (TextLine line : lines) {
             double linePredictedWeight = model.get(line.getText());
-            System.out.println(line.getWeight()+" pred="+linePredictedWeight);
+            //System.out.println(line.getWeight() + " pred=" + linePredictedWeight);
             err += Math.abs(line.getWeight() - linePredictedWeight);
+            //err += square(line.getWeight() - linePredictedWeight);
             numchar += line.length();
         }
 
-        return err / numchar;
+        return (err / numchar);
     }
 
     /**
@@ -68,17 +73,17 @@ public class Sample {
         for (TextLine line : lines) {
             double linePredictedWeight = model.get(line.getText());
             double lineDelta = line.getWeight() - linePredictedWeight;
+//            System.out.println("delta=" + lineDelta + " " + line.getText() + " " + line.length());
+            double charDelta = lineDelta / (lines.size() * line.length());
 
-            System.out.println("delta=" + lineDelta + " " + line.getText() + " " + line.length());
-            for (int n = 0; n < line.length(); ++n) {
-                double charDelta = lineDelta / (lines.size() * line.length());
-                deltas.add(line.charAt(n), charDelta);
+            for (Character c : line.getChars()) {
+                deltas.add(c, charDelta);
             }
         }
-        System.out.println("err=" + errorPerChar(model));
-        System.out.println("deltas=" + deltas);
+        //System.out.println("err=" + errorPerChar(model));
+        //System.out.println("deltas=" + deltas);
         model.add(deltas);
-        System.out.println("err=" + errorPerChar(model));
+        //System.out.println("err=" + errorPerChar(model));
     }
 
     /**
@@ -94,13 +99,13 @@ public class Sample {
             double linePredictedWeight = model.get(line.getText());
             double lineDelta = line.getWeight() - linePredictedWeight;
 
-            for (int n = 0; n < line.length(); ++n) {
-                double charPredictedWeight = model.get(line.charAt(n));
+            for (Character c : line.getChars()) {
+                double charPredictedWeight = model.get(c);
                 double charDelta
                         = (lineDelta * charPredictedWeight)
                         / (lines.size() * linePredictedWeight);
 
-                deltas.add(line.charAt(n), charDelta);
+                deltas.add(c, charDelta);
             }
         }
         model.add(deltas);
@@ -121,7 +126,7 @@ public class Sample {
         }
 
         for (int n = 0; n < numiter; ++n) {
-            System.out.println(model);
+            //System.out.println(model);
             errors[n] = errorPerChar(model);
             switch (method) {
                 case UNIFORM:
