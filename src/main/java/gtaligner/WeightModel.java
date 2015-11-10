@@ -38,6 +38,16 @@ public class WeightModel {
             return 0;
         }
     }
+    
+    public double get(String s) {
+        double weight = 0;
+        
+        for (int n  =0; n < s.length(); ++n) {
+            weight += get(s.charAt(n));
+        }
+        
+        return weight;
+    }
 
     public double put(Character c, double delta) {
         return weights.put(c, delta);

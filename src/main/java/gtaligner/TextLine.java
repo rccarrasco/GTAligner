@@ -49,24 +49,4 @@ public class TextLine {
         return text.charAt(pos);
     }
 
-    public double predictedWeight(WeightModel model) {
-        double prediction = 0;
-
-        for (int n = 0; n < text.length(); ++n) {
-            prediction += model.get(text.charAt(n));
-        }
-
-        return prediction;
-    }
-
-    /**
-     * Missing weight
-     *
-     * @param model
-     * @return
-     */
-    public double delta(WeightModel model) {
-        return weight - predictedWeight(model);
-    }
-
 }

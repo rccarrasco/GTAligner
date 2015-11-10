@@ -33,7 +33,8 @@ public class Sample {
         int numchar = 0;
 
         for (TextLine line : lines) {
-            err += Math.abs(line.delta(model));
+            double linePredictedWeight = model.get(line.getText());
+            err += Math.abs(line.getWeight() - linePredictedWeight);
             numchar += line.length();
         }
 
@@ -41,16 +42,18 @@ public class Sample {
     }
 
     /**
-     * Single iteration training
+     * Single iteration training with uniform distribution among all characters
+     * in line
      *
      * @param model
      */
-    public void step(WeightModel model) {
+    public void stepU(WeightModel model) {
         WeightModel deltas = new WeightModel();
         double error = 0;
 
         for (TextLine line : lines) {
-            double lineDelta = line.delta(model);
+            double linePredictedWeight = model.get(line.getText());
+            double lineDelta = line.getWeight() - linePredictedWeight;
 
             for (int n = 0; n < line.length(); ++n) {
                 double charDelta = lineDelta / (lines.size() * line.length());
@@ -61,18 +64,62 @@ public class Sample {
         model.add(deltas);
     }
 
+    public void initializeModel(WeightModel model, double value) {
+         for (TextLine line : lines) {
+             String text = line.getText();
+             for (int n = 0; n < text.length(); ++n) {
+                 model.put(line.charAt(n), value);
+             }
+         }
+    }
+    
+    /**
+     * Single iteration training with proportional (linear) distribution
+     *
+     * @param model
+     */
+    public void stepL(WeightModel model) {
+        WeightModel deltas = new WeightModel();
+        double error = 0;
+
+        for (TextLine line : lines) {
+            double linePredictedWeight = model.get(line.getText());
+            double lineDelta = line.getWeight() - linePredictedWeight;
+
+            for (int n = 0; n < line.length(); ++n) {
+                double charPredictedWeight = model.get(line.charAt(n));
+                double charDelta
+                        = (lineDelta * charPredictedWeight)
+                        / (lines.size() * linePredictedWeight);
+
+                deltas.add(line.charAt(n), charDelta);
+            }
+        }
+        model.add(deltas);
+    }
+
     /**
      *
      * @param model
+     * @param method
      * @param numiter
      * @return average error per character at every iteration
      */
-    public double[] train(WeightModel model, int numiter) {
+    public double[] train(WeightModel model, TrainingMethod method, int numiter) {
         double[] errors = new double[numiter + 1];
 
+        if (method == TrainingMethod.LINEAR) {
+            initializeModel(model, 1);
+        }
+        
         for (int n = 0; n < numiter; ++n) {
             errors[n] = errorPerChar(model);
-            step(model);
+            switch (method) {
+                case UNIFORM:
+                    stepU(model);
+                case LINEAR:
+                    stepL(model);
+            }
         }
         errors[numiter] = errorPerChar(model);
         return errors;
