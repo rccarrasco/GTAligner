@@ -24,19 +24,9 @@ public class GTAligner {
                 method = TrainingMethod.LINEAR;
             }
 
-            double[] errors = sample.train(model, method, 50);
+            double[] errors = sample.train(model, method, numiter);
 
             System.out.println(Arrays.toString(errors));
         }
     }
-    /**
-     * String[] texts = {"hola amigo", "adiós amigo", "la miga mola"}; int[]
-     * weights = {45, 50, 60};
-     *
-     * lines = new ArrayList<>();
-     *
-     * for (int n = 0; n < texts.length; ++n) { TextLine line = new
-     * TextLine(texts[n], weights[n]); lines.add(line); }
-        *
-     */
 }

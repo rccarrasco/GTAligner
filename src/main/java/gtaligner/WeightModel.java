@@ -38,14 +38,15 @@ public class WeightModel {
             return 0;
         }
     }
-    
+
     public double get(String s) {
         double weight = 0;
-        
-        for (int n  =0; n < s.length(); ++n) {
+
+        for (int n = 0; n < s.length(); ++n) {
             weight += get(s.charAt(n));
+            System.out.println(s.charAt(n)+" w="+get(s.charAt(n))+"="+weight);
         }
-         
+
         return weight;
     }
 
@@ -65,6 +66,10 @@ public class WeightModel {
             add(entry.getKey(), entry.getValue());
         }
 
+    }
+
+    public String toString() {
+        return weights.toString();
     }
 
 }

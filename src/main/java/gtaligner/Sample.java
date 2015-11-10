@@ -33,20 +33,21 @@ public class Sample {
     List<TextLine> lines;
 
     private void initializeModel(WeightModel model, double value) {
-         for (TextLine line : lines) {
-             String text = line.getText();
-             for (int n = 0; n < line.length(); ++n) {
-                 model.put(line.charAt(n), value);
-             }
-         }
+        for (TextLine line : lines) {
+            String text = line.getText();
+            for (int n = 0; n < line.length(); ++n) {
+                model.put(line.charAt(n), value);
+            }
+        }
     }
-    
+
     public double errorPerChar(WeightModel model) {
         double err = 0;
         int numchar = 0;
 
         for (TextLine line : lines) {
             double linePredictedWeight = model.get(line.getText());
+            System.out.println(line.getWeight()+" pred="+linePredictedWeight);
             err += Math.abs(line.getWeight() - linePredictedWeight);
             numchar += line.length();
         }
@@ -68,15 +69,18 @@ public class Sample {
             double linePredictedWeight = model.get(line.getText());
             double lineDelta = line.getWeight() - linePredictedWeight;
 
+            System.out.println("delta=" + lineDelta + " " + line.getText() + " " + line.length());
             for (int n = 0; n < line.length(); ++n) {
                 double charDelta = lineDelta / (lines.size() * line.length());
-
                 deltas.add(line.charAt(n), charDelta);
             }
         }
+        System.out.println("err=" + errorPerChar(model));
+        System.out.println("deltas=" + deltas);
         model.add(deltas);
+        System.out.println("err=" + errorPerChar(model));
     }
-    
+
     /**
      * Single iteration training with proportional (linear) distribution
      *
@@ -115,8 +119,9 @@ public class Sample {
         if (method == TrainingMethod.LINEAR) {
             initializeModel(model, 1);
         }
-        
+
         for (int n = 0; n < numiter; ++n) {
+            System.out.println(model);
             errors[n] = errorPerChar(model);
             switch (method) {
                 case UNIFORM:
@@ -129,16 +134,26 @@ public class Sample {
         return errors;
     }
 
-    public Sample(File file) throws FileNotFoundException, IOException {
+    private List<TextLine> readFile(File file) throws IOException {
+        List<TextLine> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(file));
 
-        lines = new ArrayList<>();
-        while(reader.ready()) {
+        while (reader.ready()) {
             String text = reader.readLine();
             int weight = Integer.parseInt(reader.readLine().trim());
             TextLine line = new TextLine(text, weight);
-            lines.add(line);
+            list.add(line);
         }
+
+        return list;
+    }
+
+    public Sample(List<TextLine> lines) {
+        this.lines = lines;
+    }
+
+    public Sample(File file) throws IOException {
+        lines = readFile(file);
     }
 
 }
