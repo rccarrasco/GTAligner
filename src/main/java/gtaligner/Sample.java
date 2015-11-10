@@ -16,7 +16,11 @@
  */
 package gtaligner;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,15 @@ public class Sample {
 
     List<TextLine> lines;
 
+    private void initializeModel(WeightModel model, double value) {
+         for (TextLine line : lines) {
+             String text = line.getText();
+             for (int n = 0; n < line.length(); ++n) {
+                 model.put(line.charAt(n), value);
+             }
+         }
+    }
+    
     public double errorPerChar(WeightModel model) {
         double err = 0;
         int numchar = 0;
@@ -62,15 +75,6 @@ public class Sample {
             }
         }
         model.add(deltas);
-    }
-
-    public void initializeModel(WeightModel model, double value) {
-         for (TextLine line : lines) {
-             String text = line.getText();
-             for (int n = 0; n < text.length(); ++n) {
-                 model.put(line.charAt(n), value);
-             }
-         }
     }
     
     /**
@@ -125,17 +129,14 @@ public class Sample {
         return errors;
     }
 
-    public Sample(File file) {
-        /**
-         * To be implemented
-         */
-        String[] texts = {"hola amigo", "adiós amigo", "la miga mola"};
-        int[] weights = {45, 50, 60};
+    public Sample(File file) throws FileNotFoundException, IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
 
         lines = new ArrayList<>();
-
-        for (int n = 0; n < texts.length; ++n) {
-            TextLine line = new TextLine(texts[n], weights[n]);
+        while(reader.ready()) {
+            String text = reader.readLine();
+            int weight = Integer.parseInt(reader.readLine().trim());
+            TextLine line = new TextLine(text, weight);
             lines.add(line);
         }
     }

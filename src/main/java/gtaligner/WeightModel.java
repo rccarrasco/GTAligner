@@ -45,12 +45,12 @@ public class WeightModel {
         for (int n  =0; n < s.length(); ++n) {
             weight += get(s.charAt(n));
         }
-        
+         
         return weight;
     }
 
-    public double put(Character c, double delta) {
-        return weights.put(c, delta);
+    public void put(Character c, double delta) {
+        weights.put(c, delta);
     }
 
     public double add(Character c, double delta) {
