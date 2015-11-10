@@ -1,0 +1,476 @@
+<sentence>diﬁnicion à lo diﬁnido: y antes de contarla, no dexè</sentence> <value>17052</value>
+<sentence>dicho quienes y quales fueron mis padres, y confuſo na-</sentence> <value>16657</value>
+<sentence>cimiento, que en ſu tanto,  deos huuiera de eſcreuir-</sentence> <value>16182</value>
+<sentence>ſe, fuera n duda mas agradable y bien recebida que ea</sentence> <value>17358</value>
+<sentence>mia: tomarè por mayor lo mas importante, dexando lo</sentence> <value>16190</value>
+<sentence>que no me es licito, para que otro haga la vaza. Y aunque</sentence> <value>15929</value>
+<sentence>à ninguno conuiene tener la propiedad de la Hiena, que</sentence> <value>17116</value>
+<sentence>ſe ſuenta deſenterrando cuerpos muertos; yo aegu-</sentence> <value>16822</value>
+<sentence>ro, ſegun oy ay en el mundo cenſores, que no les falten</sentence> <value>16090</value>
+<sentence>Coronias: y no es de marauiar, que aun ea pequeña</sentence> <value>17279</value>
+<sentence>ſombra querras dea inferir que les cortò de tixera, y</sentence> <value>15924</value>
+<sentence>temerariamente me daras mil atributos, que ſerà el me-</sentence> <value>16236</value>
+<sentence>nor deos tonto ò necio, porque no guardando mis fal-</sentence> <value>15574</value>
+<sentence>tas, mejor deſcubrirè las agenas. Alabo tu razon por</sentence> <value>15523</value>
+<sentence>buena, pero quiero te aduertir, que aunque me tendras</sentence> <value>16878</value>
+<sentence>por malo, no lo quiera parecer, que es peor ſerlo, y</sentence> <value>15435</value>
+<sentence>honrarſe deo. Y que contrauiniendo à vn tan ſanto</sentence> <value>15571</value>
+<sentence>precepto, como el quarto del honor y reuerencia que</sentence> <value>15302</value>
+<sentence>les deuo, quiera cubrir mis ﬂaquezas con las de mis ma-</sentence> <value>16640</value>
+<sentence>yores: pues nace de viles y baxos penſamientos, tratar</sentence> <value>15899</value>
+<sentence>de honrarſe con afrentas agenas, ſegun de ordinario ſe</sentence> <value>17228</value>
+<sentence>acoumbra: lo qual condeno por necedad ſolene de</sentence> <value>15984</value>
+<sentence>ete capas, como ﬁea doble, y no lo puede ſer mayor,</sentence> <value>16797</value>
+<sentence>pues deſcubro mi punto, no ſaluando mi yerro, el de mi</sentence> <value>17387</value>
+<sentence>vezino, ò deudo. Siempre vemos vituperado el maldi-</sentence> <value>16429</value>
+<sentence>ciente: mas à mi no me ſucede aſ, porque adornando la</sentence> <value>17235</value>
+<sentence>hioria (endome neceario) todos diran: Bien aya el</sentence> <value>18143</value>
+<sentence>que à los ſu yos parece, euandome eas bendiciones de</sentence> <value>17808</value>
+<sentence>camino. Demas que fue ſu vida tan ſabida, y todo à todos</sentence> <value>19239</value>
+<sentence>tan maniﬁeo, que pretenderlo negar, ſeria locura, y à</sentence> <value>19543</value>
+<sentence>reo abierto dar nueua materia de murmuracion. Antes</sentence> <value>19984</value>
+<sentence>entiendo que les hago ( aſ dezirſe puede) maniﬁea</sentence> <value>19476</value>
+<sentence>cortea en exprear el puro y verdadero texto, con que</sentence> <value>19673</value>
+<sentence>deſmentirè las gloas que ſobre el ſe han hecho. Pues ca-</sentence> <value>20660</value>
+<sentence>da vez que alguno algo deo cuenta, lo multiplica con</sentence> <value>19819</value>
+<sentence>los zeros de ſu antojo, vna vez mas, y nunca menos, como</sentence> <value>19568</value>
+<sentence> ſe le ofrece propoto para quadrar ſu cuento, deshar à</sentence> <value>19266</value>
+<sentence>las Piramides de Egypto, haziendo de la pulga gigante,</sentence> <value>18963</value>
+<sentence>de la preſuncion euidencia, de lo oydo vio, y ciencia</sentence> <value>15926</value>
+<sentence>de la opinion, ſolo por ﬂorear ſu eloquencia, y acreditar</sentence> <value>17110</value>
+<sentence>ſu diſcrecion. Aſ acontece ordinario, y ſe vio en vn</sentence> <value>15630</value>
+<sentence>cauaero erangero, que en Madrid conocì: el qual co-</sentence> <value>18107</value>
+<sentence>mo fuee aﬁcionado à cauaos Eſpañoles, deeando</sentence> <value>17793</value>
+<sentence>euar à ſu tierra el ﬁel retrato, tanto para ſu guo,</sentence> <value>16366</value>
+<sentence>como para enſeñarlo à ſus amigos, por ſer de nacion muy</sentence> <value>18615</value>
+<sentence>remota, y no endole permitido, ni poſble euarlos</sentence> <value>17966</value>
+<sentence>viuos, teniendo en ſu caſa los dos mas hermoſos de tae</sentence> <value>18446</value>
+<sentence>que ſe haauan en la Corte: pidio à dos famoſos pintores</sentence> <value>18174</value>
+<sentence>que cada vno le retratae el ſuyo. Prometiendo, de mas</sentence> <value>17992</value>
+<sentence>de la paga, cierto premio, al que mas en ſu arte ſe ex-</sentence> <value>16890</value>
+<sentence>tremae. El vno pintò vn houero, con tanta perfeccion,</sentence> <value>17472</value>
+<sentence>que ſolo faltò darle lo impoſble, que fue el alma. Por-</sentence> <value>18146</value>
+<sentence>que en lo mas (engañando à la via, por no hazer del</sentence> <value>17211</value>
+<sentence>natural diferencia) cegàra de improuiſo qualquier deſ-</sentence> <value>18200</value>
+<sentence>cuydado entendimiento. Con eo ſolo acabò ſu quadro,</sentence> <value>18296</value>
+<sentence>dando en todo lo del reante, claros, y oſcuros, en las par-</sentence> <value>18087</value>
+<sentence>tes, y ſegun que conuenia.</sentence> <value>8462</value>
+<sentence>El otro pinto vn rucio rodado, color de cielo, y aun-</sentence> <value>16607</value>
+<sentence>que ſu obra muy buena, no egò con gran parte à la que</sentence> <value>18432</value>
+<sentence>os he referido: pero eremòſe en vna coſa, de que el</sentence> <value>17427</value>
+<sentence>era muy diero: y fue, que pintando el cauao, à otras</sentence> <value>18745</value>
+<sentence>partes en las que haò blancos, por lo alto dibuxò admi-</sentence> <value>18771</value>
+<sentence>rables lexos, nuues, arreboles, ediﬁcios arruynados, y</sentence> <value>18458</value>
+<sentence>varios encaſamentos. Por lo baxo del ſuelo carcano, can-</sentence> <value>19702</value>
+<sentence>tidad de arboledas, yeruas ﬂoridas, prados y riſcos: y</sentence> <value>19420</value>
+<sentence>en vna parte del quadro colgando de vn tronco los jae-</sentence> <value>19757</value>
+<sentence>zes, y al pie dèl eaua vna a gineta: tan cooſamen-</sentence> <value>20135</value>
+<sentence>te obrado y bien acabado, quanto ſe puede encarecer.</sentence> <value>18709</value>
+<sentence>Quando vio el cauaero ſus quadros, aﬁcionado (y con</sentence> <value>20609</value>
+<sentence>razon) al primero: fue el primero à que puſo precio, y</sentence> <value>19340</value>
+<sentence>n reparar en el que por el pidieron, dando en premio</sentence> <value>19809</value>
+<sentence>vna rica ſortĳa al ingenioſo pintor, lo dexò pagado, y</sentence> <value>19956</value>
+<sentence>con la ventaja de ſu pintura Tanto ſe deſuaneciò el</sentence> <value>20537</value>
+<sentence>otro con la ſuya, y con la liberalidad franca de la paga,</sentence> <value>17977</value>
+<sentence>que pidio por ea vn exceſuo precio. El cauaero ab-</sentence> <value>16735</value>
+<sentence>ſorto de auerle pedido tanto, y que apenas pudiera pa-</sentence> <value>17557</value>
+<sentence>garle, dixo: Vos, hermano, porque no conderays lo que</sentence> <value>18331</value>
+<sentence>me coò aquee otro lienço, à quien el vuero no ſe</sentence> <value>16732</value>
+<sentence>auentaja? En lo que es el cauao (reſpondio el pintor)</sentence> <value>17954</value>
+<sentence>vueſa merced tiene razon: pero arbol y ruynas ay en el</sentence> <value>16698</value>
+<sentence>mio, que valen tanto como el principal de ee otro. El</sentence> <value>17020</value>
+<sentence>cauaero replicò: No me conuenia, ni era neceario e-</sentence> <value>17705</value>
+<sentence>uar à mi tierra tanta balumba de arboles, y carga de edi-</sentence> <value>18046</value>
+<sentence>ﬁcios, que aà tenemos muchos y muy buenos. Demas</sentence> <value>18517</value>
+<sentence>que no les tengo la aﬁcion que à los cauaos, y lo que</sentence> <value>17542</value>
+<sentence>de otro modo que por pintura no puedo gozar, eo</sentence> <value>16484</value>
+<sentence>huelgo de euar. Boluio el pintor à dezir: En lienço</sentence> <value>17612</value>
+<sentence>tan grande, pareciera muy mal vn ſolo cauao: y es im-</sentence> <value>17304</value>
+<sentence>portante, y aun forçoſo para la via y ornato, compo-</sentence> <value>17022</value>
+<sentence>ner la pintura de otras coſas diferentes que la caliﬁquen</sentence> <value>18254</value>
+<sentence>y den lure: de tal manera, que pareciendo aſ mejor,</sentence> <value>17265</value>
+<sentence>es muy juo euar con el cauao ſus guarniciones y</sentence> <value>17625</value>
+<sentence>a: eſpecialmente eando con tal perfeccion obrado,</sentence> <value>17905</value>
+<sentence>que  de oro me dieen otras tales, no las tomarè por las</sentence> <value>17255</value>
+<sentence>pintadas. El cauaero, que ya tenia lo importante à ſu</sentence> <value>17684</value>
+<sentence>deeo, (pareciendole lo demas impertinente, aunque</sentence> <value>18687</value>
+<sentence>en ſu tanto muy bueno) y no haandoſe tan ſobrado que</sentence> <value>18114</value>
+<sentence>lo pudiera pagar, con diſcrecion le dixo: Yo os pedì vn</sentence> <value>17626</value>
+<sentence>cauao ſolo, y tal como por bueno os lo pagarè,  me lo</sentence> <value>18347</value>
+<sentence>quereys vender: los jaezes quedaos con eos, ò dadlos à</sentence> <value>18659</value>
+<sentence>otro, que no los he meneer. El pintor quedò corrido,</sentence> <value>18715</value>
+<sentence>y n paga, por ſu obra añadida, y auerſe alargado à la</sentence> <value>19464</value>
+<sentence>eieccion de ſu aluedrio, creyendo que por mas compo-</sentence> <value>19415</value>
+<sentence>cion, le fuera mas bien premiado, y gratiﬁcado ſu tra-</sentence> <value>20303</value>
+<sentence>Comun y general coumbre ha do, y es de los</sentence> <value>19542</value>
+<sentence>hombres, quando les pedis reciten ò reﬁeran lo que oye-</sentence> <value>19773</value>
+<sentence>ron ò vieron, ò que os digan la verdad y ſuancia de vna</sentence> <value>19971</value>
+<sentence>coſa, en maſcarala, y afeytarla, que ſe deſconoce como</sentence> <value>19275</value>
+<sentence>ya para exagerar, incitar, aniquila, ò diuertir, ſegun ſu</sentence> <value>20245</value>
+<sentence>paſon le dita. Aſ la eira con los dientes para que al-</sentence> <value>17657</value>
+<sentence>cance, la lima y pule, para que entae, leuantando de</sentence> <value>17145</value>
+<sentence>punto lo que ſe les antoja, graduando como Conde Pala-</sentence> <value>18694</value>
+<sentence>tino, al necio de ſabio, al feo de hermoſo, y al couarde de</sentence> <value>18208</value>
+<sentence>valiente. Quilatando con ſu eimacion las coſas, no pen-</sentence> <value>18299</value>
+<sentence>ſando cumplen con pintar el cauao,  lo dexan encer-</sentence> <value>16953</value>
+<sentence>ro, y deſenjaezado, ni dizen la coſa, no la cometan co-</sentence> <value>16732</value>
+<sentence>mo mas viene à cuento à cada vno. Tal ſucediò à mi</sentence> <value>15958</value>
+<sentence>padre, que reſpeo de la verdad, ya no ſe dize coſa que</sentence> <value>17594</value>
+<sentence>lo ſea. De tres han hecho treze, y los treze trecientos,</sentence> <value>16699</value>
+<sentence>porque à todos les parece añadir algo mas, y deos algos</sentence> <value>18404</value>
+<sentence>han hecho vn mucho que no tiene fondo, ni ſe le haa</sentence> <value>17673</value>
+<sentence>ſuelo. Reforçandoſe vnas à otras añadiduras, y lo que</sentence> <value>17760</value>
+<sentence>en ngular cada vna no preaua, muchas juntas hazen</sentence> <value>17907</value>
+<sentence>daño. Son lenguas engañoſas y falſas, que como ſaetas</sentence> <value>18401</value>
+<sentence>agudas, y braſas encendidas, les han querido herir las</sentence> <value>17440</value>
+<sentence>honras, y abraſar las famas, de que à eos y à mi reſul-</sentence> <value>16794</value>
+<sentence>tan cada dia notables afrentas. Podraſme bien creer, que</sentence> <value>18815</value>
+<sentence> valiera elegir de adonde nos pareciera que de la maſa</sentence> <value>17852</value>
+<sentence>de Adan procurara eſcoger la mejor parte, aunque andu-</sentence> <value>18305</value>
+<sentence>uieramos al puñete por eo. Mas no vale à eo, no</sentence> <value>16619</value>
+<sentence>à tomar cada vno lo que le cupiere, pues el que lo re-</sentence> <value>15694</value>
+<sentence>partio, pudo y ſupo bien lo que hizo: el ſea loado, que</sentence> <value>17033</value>
+<sentence>aunque tuue jarretes y manchas, cayeron en ſangre no-</sentence> <value>17320</value>
+<sentence>ble de todas partes, la ſangre ſe hereda, y el vicio ſe ape-</sentence> <value>17870</value>
+<sentence>ga: quien fuere qual deue, ſerà como tal premiado, y</sentence> <value>17755</value>
+<sentence>no purgarà las culpas de ſus padres. Quanto à lo prime-</sentence> <value>19000</value>
+<sentence>ro, el mio y ſus deudos fueron leuantiſcos. Vinieron à</sentence> <value>17793</value>
+<sentence>redir à Genoua, donde fueron agregados à la nobleza.</sentence> <value>19394</value>
+<sentence>Y aunque de ai no naturales, aqui los aurè de nombrar</sentence> <value>19008</value>
+<sentence>como tales. Era ſu trato el ordinario de aquea tierra,</sentence> <value>18586</value>
+<sentence>y lo es ya por nueros pecados en la nuera, cambios, y</sentence> <value>19860</value>
+<sentence>recambios por todo el mundo. Haa en eo lo perguie-</sentence> <value>20992</value>
+<sentence>ron, infamandolo de logrero: muchas vezes lo oyò à ſus</sentence> <value>19635</value>
+<sentence>oydos, y con ſu buena condicion paaua por eo. No</sentence> <value>18756</value>
+<sentence>tenian razon, que los cambios han do y ſon permitidos.</sentence> <value>21099</value>
+<sentence>No quiero yo loar, ni Dios lo quiera, que deﬁenda ſer</sentence> <value>18813</value>
+<sentence>licito lo que algunos dizen, prear dinero por dinero,</sentence> <value>17296</value>
+<sentence>ſobre prendas de oro ò plata, por tiempo limitado, ò que</sentence> <value>17700</value>
+<sentence>ſe queden rematadas. Ni otros tratios paliados, ni los</sentence> <value>17665</value>
+<sentence>que aman cambio ſeco, ni que corra el dinero deferia</sentence> <value>17637</value>
+<sentence>en feria, donde jamas tuuieron hombre ni trato, que e-</sentence> <value>17660</value>
+<sentence>uan la boz de lacob, y las manos de Eſau, y à tiro de eſ-</sentence> <value>17095</value>
+<sentence>copeta deſcubren el engaño. Que las tales, aunque ſe</sentence> <value>18538</value>
+<sentence>las achacaron, ya no las vì, ni deas darè ſeñas. Mas lo</sentence> <value>17614</value>
+<sentence>que abſolutamente ſe entiende cambio, es obra indife-</sentence> <value>18539</value>
+<sentence>rente, de que ſe puede vſar bien y mal, y como tal (aun-</sentence> <value>17960</value>
+<sentence>que injuamente) no me marauio que no deuiendola</sentence> <value>17896</value>
+<sentence>tener por mala, ſe reprueue. Mas la euidentemente bue-</sentence> <value>18231</value>
+<sentence>na n ſombra de coſa que no lo ſea, que ſe murmure y</sentence> <value>17356</value>
+<sentence>vitupere, eo es lo que me aombra. Dezir,  viee à</sentence> <value>17929</value>
+<sentence>vn Religioſo entrar à la media noche por vna ventana,</sentence> <value>16941</value>
+<sentence>en parte ſoſpechoſa, la eſpada en la mano, y el broquel en</sentence> <value>18376</value>
+<sentence>el cinto: que và à darlos Sacramentos, es locura, que ni</sentence> <value>16501</value>
+<sentence>quiere Dios, ni ſu Iglea permite, que yo ſea tonto, y de</sentence> <value>17894</value>
+<sentence>lo tal euidentemente malo enta bien. Que vn hombre</sentence> <value>18006</value>
+<sentence>reze, frequente virtuoſos exercicios, oyga Mia, con-</sentence> <value>17293</value>
+<sentence>ﬁee y comulgue à menudo, y por eo le amen hypo-</sentence> <value>17751</value>
+<sentence>crita, no lo puedo ſufrir, ni ay maldad ſemejante à ea.</sentence> <value>17108</value>
+<sentence>Tenia mi padre vn largo roſario entero de quinze diezes,</sentence> <value>17664</value>
+<sentence>en que ſe enſeñò à rezar (en lengua Caeana hablò)</sentence> <value>17142</value>
+<sentence>las cuentas grueas mas que aueanas: ee ſe lo dio mi</sentence> <value>17472</value>
+<sentence>madre que lo heredò de la ſuya: nunca ſe le caia de las</sentence> <value>16962</value>
+<sentence>manos, cada mañana ohia ſu Mia, ſentadas ambas ro-</sentence> <value>17809</value>
+<sentence>dias en el ſuelo, juntas las manos, leuantadas del pecho</sentence> <value>17744</value>
+<sentence>arriba, el ſombrero encima deas. Arguyeronle maldi-</sentence> <value>17466</value>
+<sentence>zientes, que eaua de aquea manera rezando, para no</sentence> <value>17765</value>
+<sentence>oyr, y el ſombrero alto, para no ver. Iuzguen dee juy-</sentence> <value>16944</value>
+<sentence>zio los que ſe haan deſapaſonados, y digan  aya do</sentence> <value>18523</value>
+<sentence>peruerſo y temerario, de gente deſalmada, n concien-</sentence> <value>17781</value>
+<sentence>cia. Tambien es verdad, que ea murmuracion tuuo</sentence> <value>16913</value>
+<sentence>cauſa, y fue ſu principio, que auiendoſe alçado en Seuia</sentence> <value>18918</value>
+<sentence>vn ſu compañero, y euandole gran ſuma de dineros, ve-</sentence> <value>20788</value>
+<sentence>nia en ſu ſeguimiento, tanto à remediar lo que pudiera</sentence> <value>19301</value>
+<sentence>del daño, como à componer otras coſas. La naue fue ſa-</sentence> <value>17141</value>
+<sentence>queada, y el con los mas que en ea venian, cautiuo y e-</sentence> <value>17125</value>
+<sentence>uado en Argel, donde medroſo y deſeſperado, el temor</sentence> <value>16871</value>
+<sentence>de no ſaber, como, ò con  boluer en libertad, deſeſpera-</sentence> <value>17800</value>
+<sentence>do de cobrar la deuda por bien de paz, como quien no</sentence> <value>16708</value>
+<sentence>dize nada, renegò: aà ſe casò con vna Mora hermoſa y</sentence> <value>17569</value>
+<sentence>principal, con buena hazienda, que en materia de inte-</sentence> <value>16734</value>
+<sentence>res (por lo general de quien empre voy tratando, n</sentence> <value>17248</value>
+<sentence>perjuyzio de mucho numero de nobles cauaeros, y</sentence> <value>16233</value>
+<sentence>gente graue y principales, que en todas partes ay de to-</sentence> <value>17008</value>
+<sentence>do) dirê de pao lo que en algunos deudos de mi padre</sentence> <value>16454</value>
+<sentence>conocì el tiempo que los tratè. Eran amigos de ſolicitar</sentence> <value>16858</value>
+<sentence>caſas agenas, oluidandoſe de las propias. Que ſe les tra-</sentence> <value>17878</value>
+<sentence>tae verdad, y de no dezirla: que ſe les pagae lo que ſe</sentence> <value>17515</value>
+<sentence>les deuia, y no pagar lo que deuian; ganar y gaar lar-</sentence> <value>16778</value>
+<sentence>go, diee donde diee, que ya eaua rematada la pren-</sentence> <value>18324</value>
+<sentence>da, y (como dizen) à Roma por todo. Sucedio pues, que</sentence> <value>18076</value>
+<sentence>aegurado el compañero de no auer quien le pidiee,</sentence> <value>17709</value>
+<sentence>acordò tomar medios con los acreedores preſentes, po-</sentence> <value>16966</value>
+<sentence>niendo condiciones y plaços con que pudo quedar de ai</sentence> <value>18720</value>
+<sentence>en adelante rico, y ſatisfechas las deudas.</sentence> <value>13221</value>
+<sentence>Quando eo ſupo mi padre, naciole nueuo deeo de</sentence> <value>17766</value>
+<sentence>venirſe con ſecreto y diligencia: y para engañar à la</sentence> <value>16364</value>
+<sentence>Mora, le dixo, ſe queria ocupar en ciertos tratos de mer-</sentence> <value>17904</value>
+<sentence>cancias. Vendio la hazienda y puea en zequies (mone-</sentence> <value>17757</value>
+<sentence>da de oro ﬁno Berberiſca) con las mas joyas que pudo,</sentence> <value>18083</value>
+<sentence>dexandola ſola y pobre, ſe vino huyendo: y n que al-</sentence> <value>18150</value>
+<sentence>gun amigo ni enemigo lo ſupiera, reduziendoſe à la Fê</sentence> <value>18889</value>
+<sentence>de Ieſu Chrio, arrepentido y oroſo delatò de  miſmo,</sentence> <value>20488</value>
+<sentence>pidiendo miſericordioſa penitencia. La qual endole da-</sentence> <value>21081</value>
+<sentence>da deſpues de cumplida, paſsò adelante à cobrar ſu deuda.</sentence> <value>20087</value>
+<sentence>Ea fue la cauſa, porque jamas le creyeron obra que hi-</sentence> <value>19748</value>
+<sentence>ziee buena. Si otra les piden, diran lo que muchas ve-</sentence> <value>19135</value>
+<sentence>zes (con impertinencia y n propoto) me dixeron: Que</sentence> <value>20424</value>
+<sentence>quien vna vez ha do malo, empre ſe preſume ſerlo en</sentence> <value>20358</value>
+<sentence>aquel genero de maldad. La propocion es verdadera,</sentence> <value>26524</value>
+<sentence>pero no ay alguna n excepcion. Que ſabe nadie de la</sentence> <value>18607</value>
+<sentence>manera que toca Dios à cada vno, y  conforme dize vna</sentence> <value>17362</value>
+<sentence>Autentica, tenia ya reintegradas las coumbres?</sentence> <value>15840</value>
+<sentence>Veys aqui, n mas acà, ni mas aà, los linderos de mi</sentence> <value>16608</value>
+<sentence>padre, porque dezir,  ſe alçò dos o tres vezes con hazien-</sentence> <value>18145</value>
+<sentence>das agenas: tambien ſe le alçaron à el, no es marauia:</sentence> <value>16850</value>
+<sentence>los hombres no ſon de azero, ni ean obligados à tener</sentence> <value>17307</value>
+<sentence>como los clauos. Que aun à eos les falta la fuerça, y</sentence> <value>16718</value>
+<sentence>ſuelen ſoltar y aﬂoxar. Eratagemas ſon de mercaderes,</sentence> <value>18231</value>
+<sentence>que donde quiera ſe pratican, en Eſpaña eſpecialmente</sentence> <value>17208</value>
+<sentence>donde lo han hecho grangeria ordinaria. No ay de que</sentence> <value>17146</value>
+<sentence>nos aombremos, aà ſe entienden, aá ſe lo ayan, à ſus</sentence> <value>16958</value>
+<sentence>Confeores dan larga cuenta deo: ſolo es Dios el juez</sentence> <value>16491</value>
+<sentence>de aqueas coſas, mire quien los abſuelue lo que haze.</sentence> <value>15795</value>
+<sentence>Muchos veo que lo traen por vſo, y à ninguno ahorcado</sentence> <value>16710</value>
+<sentence>por eo. Si fuera delito, mala coſa, ò hurto, claro eà</sentence> <value>15854</value>
+<sentence>que ſe caigara, pues por menos de ſeys reales, vèmos</sentence> <value>16545</value>
+<sentence>açotar y echar cien pobretes à las galeras.</sentence> <value>12537</value>
+<sentence>Por no ſer contra mi padre, quiera caar lo que en-</sentence> <value>16155</value>
+<sentence>to, aun  de he ſeguir al Filoſofo, mi amigo es Platon, y</sentence> <value>18046</value>
+<sentence>mucho mas la verdad, conformandome con ea, perdone</sentence> <value>17719</value>
+<sentence>todo viuiente, que canonizo ee caſo por muy gran</sentence> <value>16251</value>
+<sentence>beaqueria, digna de muy exemplar caigo. Alguno</sentence> <value>17514</value>
+<sentence>del arte mercante me dirà: Mirad, porque Conorio de</sentence> <value>17669</value>
+<sentence>Pontiﬁce y Cardenales, va determinado; quien mete al</sentence> <value>17722</value>
+<sentence>idiota, galeote, picaro, en eablecer leyes, ni caliﬁcar los</sentence> <value>18203</value>
+<sentence>tratos que no entiende? Ya veo que yerro, en dezir lo</sentence> <value>16409</value>
+<sentence>que no ha de aprouechar, que de buena gana ſufriera tus</sentence> <value>18284</value>
+<sentence>oprobrios, en tal que ſe caigara, y tuuiera remedio ea</sentence> <value>18739</value>
+<sentence>honroſa manera de robar: aunque mi padre erenara la</sentence> <value>18531</value>
+<sentence>horca. Corra como corre, que la reformacion de ſeme-</sentence> <value>17873</value>
+<sentence>jantes coſas importantes, y otras que lo ſon mas, van de</sentence> <value>17753</value>
+<sentence>capa cayda, y à mi no me toca, es dar bozes al lobo, tener</sentence> <value>18568</value>
+<sentence>el Sol, y predicar en deerto.</sentence> <value>9776</value>
+<sentence>Bueluo à lo que mas le achacaron, que euuo preo</sentence> <value>18081</value>
+<sentence>por lo que tu dizes, ò à ti te dixeron. Que por ſer hom-</sentence> <value>17532</value>
+<sentence>bre rico, y como dizen, el padre Alcalde, y compadre el</sentence> <value>19525</value>
+<sentence>eſcriuano, ſe librò. Que hartos indicios huuo para ſer</sentence> <value>17531</value>
+<sentence>caigado. Hermano mio, los indicios no ſon capaces de</sentence> <value>16364</value>
+<sentence>caigo por  ſolos. Aſ te pienſo concluyr, que todas han</sentence> <value>16980</value>
+<sentence>do conſejas de horneras, mentiras y falſos teimonios</sentence> <value>16689</value>
+<sentence>leuantados. Porque confeandote vna parte, no nega-</sentence> <value>16748</value>
+<sentence>ras de la mia ſer juo defenderte la otra. Digo, que tener</sentence> <value>17390</value>
+<sentence>compadres eſcriuanos, es conforme al dinero con que ca-</sentence> <value>16434</value>
+<sentence>da vno pleytea. Que en robar à ojos vias, tienen algu-</sentence> <value>16426</value>
+<sentence>nos el alma del Gitano, y haran de la iuicia el juego de</sentence> <value>16602</value>
+<sentence>paa paa, poniendola en el lugar que ſe les antojare, n</sentence> <value>17133</value>
+<sentence>que las partes lo puedan impedir, ni los Letrados lo ſe-</sentence> <value>15544</value>
+<sentence>pan defender, ni el juez juzgar. Y antes que me huya de</sentence> <value>15637</value>
+<sentence>la memoria, oye lo que en Ia Iglea de ſan Gil de Madrid,</sentence> <value>17016</value>
+<sentence>predicò à los ſeñores del Conſejo ſupremo, vn doo</sentence> <value>15541</value>
+<sentence>predicador, vn Viernes de la Quareſma: Fue diſcurrien-</sentence> <value>16541</value>
+<sentence>do por todos los miniros de juicia, haa egar al eſ-</sentence> <value>16232</value>
+<sentence>criuano, al qual dexò de induria para la pore, y dixo:</sentence> <value>16297</value>
+<sentence>Aqui ha parado el carro, metido y ſonrodado eà en el</sentence> <value>15971</value>
+<sentence>lodo. No sè como ſalga,  el a Angel de Dios no rebuelue</sentence> <value>16760</value>
+<sentence>la piſcina. Conﬁeo ſeñores, que de treynta y mas años</sentence> <value>16545</value>
+<sentence>à ea parte, tengo vias y oydas confeſones de muchos</sentence> <value>17018</value>
+<sentence>pecadores, que caydos en vn pecado, reincidieron mu-</sentence> <value>15662</value>
+<sentence>chas vezes en el, y à todos por la miſericordia de Dios, </sentence> <value>16441</value>
+<sentence>han ſalido del, reformando ſus vidas y conciencias. Al a-</sentence> <value>16445</value>
+<sentence>mancebado conſumieron el tiempo y la mala muger: y al</sentence> <value>17404</value>
+<sentence>jugador, deſengañò el tablajero,  como ſanguĳuela de</sentence> <value>18461</value>
+<sentence>vnos y otros, poco à poco chupa la ſangre: oy ganas,</sentence> <value>15981</value>
+<sentence>mañana pierdes, rueda el dinero, vaſele quedando, y los</sentence> <value>17481</value>
+<sentence>que juegan n el. Al famoſo ladron reformaron el mie-</sentence> <value>17784</value>
+<sentence>do y la verguença. Al temerario murmurador, la perle-</sentence> <value>17509</value>
+<sentence>a, de que pocos eſcapan. Al ſoberuio, ſu miſma miſeria</sentence> <value>18047</value>
+<sentence>lo deſengaña, conociendoſe que es lodo. Al mentiroſo</sentence> <value>17633</value>
+<sentence>puſo freno la mala boz, y afrentas que de ordinario recibe</sentence> <value>18499</value>
+<sentence>en ſus miſmas baruas. Al deſatinado blasfemo corrigie-</sentence> <value>17969</value>
+<sentence>ron continuas reprehenones de ſus amigos y deudos.</sentence> <value>18030</value>
+<sentence>Todos tarde ò temprano ſacan fruto, y dexan como la</sentence> <value>17039</value>
+<sentence>culebra el habito viejo, aunque para eo ſe ereche. A</sentence> <value>19294</value>
+<sentence>todos he haado ſeñales de ſu ſaluacion. En ſolo el eſcri-</sentence> <value>19616</value>
+<sentence>uano pierdo la quenta, ni le hao en mienda, mas oy que</sentence> <value>17410</value>
+<sentence>ayer, ee año que los treynta paados, que empre es el</sentence> <value>17416</value>
+<sentence>miſmo. ni sè como ſe conﬁea, ni quien lo abſuelue (digo</sentence> <value>16982</value>
+<sentence>al que no vſa ﬁelmente de ſu oﬁcio) porque informan, y</sentence> <value>17184</value>
+<sentence>eſcriuen lo que ſe les antoja, y por dos ducados, ò por con-</sentence> <value>15931</value>
+<sentence>placer al amigo, y aun à la amiga (que negocian mucho</sentence> <value>16347</value>
+<sentence>los mantos) quitan las vidas, las honras, y las haziendas,</sentence> <value>17204</value>
+<sentence>dando puerta à inﬁnito numero de pecados. Pecan de</sentence> <value>16659</value>
+<sentence>codicia inſaciable, tienen hambre canina, con vn calor de</sentence> <value>18027</value>
+<sentence>fuego infernal en el alma, que les haze tragar n mazcar,</sentence> <value>18261</value>
+<sentence>à diero y à niero la hazienda agena. Y como reciben</sentence> <value>18032</value>
+<sentence>por momentos lo que no ſe les deue, y aquel dinero pue-</sentence> <value>17426</value>
+<sentence>o en las palmas de las manos, en el punto ſe conuierte</sentence> <value>17210</value>
+<sentence>ſangre y carne, no lo pueden boluer à echar de , y al</sentence> <value>16198</value>
+<sentence>mundo, y al diablo . Y aſ me parece, que quando al-</sentence> <value>17347</value>
+<sentence>guno ſe ſalua (que no todos deuen de ſer como los que</sentence> <value>17438</value>
+<sentence>yo he egado à tratar) al entrar en la gloria diran los An-</sentence> <value>17687</value>
+<sentence>geles vnos à otros enos de alegria, Ltamini in Dño, eſcri-</sentence> <value>18217</value>
+<sentence>uano en el cielo, fruta nueua fruta nueua. Con eo aca-</sentence> <value>17347</value>
+<sentence>bò ſu ſermon. Que ayan buelto al eſcriuano, pae, tam-</sentence> <value>18327</value>
+<sentence>bien ſabrà reſponder por , dando à ſu culpa diſculpa,</sentence> <value>18207</value>
+<sentence>que el hierro tambien ſe puede dorar; y diràn que ſon los</sentence> <value>18747</value>
+<sentence>aranzeles del tiempo viejo, que los mantenimientos cada</sentence> <value>18635</value>
+<sentence>dia valen mas que los pechos y derechos crecen, que no</sentence> <value>17666</value>
+<sentence>les dieron de valde los oﬁcios, que de ſu dinero han de ſa-</sentence> <value>18662</value>
+<sentence>car la renta, y pagarſe de la ocupacion de ſu perſona. Y</sentence> <value>17276</value>
+<sentence>aſ deuio de ſer en todo tiempo, pues Arioteles dize, que</sentence> <value>19863</value>
+<sentence>el mayor daño que puede venir à la Republica, es de la</sentence> <value>19088</value>
+<sentence>venta de los oﬁcios, y Alcameno Eſpartano, endo pre-</sentence> <value>20140</value>
+<sentence>guntado, como ſerà vn Reyno bienauenturado? Re-</sentence> <value>19296</value>
+<sentence>ſpondio, que menoſpreciando el Rey ſu propia ganan-</sentence> <value>20305</value>
+<sentence>cia: mas el juez que ſe lo dieron gracioſo, en conﬁança,</sentence> <value>19594</value>
+<sentence>para hazer oﬁcio de Dios, y aſ fe aman dioſes de la tier-</sentence> <value>20835</value>
+<sentence>ra, dezir dee tal que vende la juicia, dexando de ca-</sentence> <value>19040</value>
+<sentence>igar lo malo, y premiar lo bueno, y que  le haara ra-</sentence> <value>20453</value>
+<sentence>ro de pecado, lo ſaluara, niegolo, y con euidencia lo</sentence> <value>19956</value>
+<sentence>prueuo. Quien ha de creer aya en el mundo juez tan</sentence> <value>18108</value>
+<sentence>malo, deſcompueo, ni deſuergonçado (que tal ſeria el</sentence> <value>18256</value>
+<sentence>que tal hiziee) que rompe la ley, y le doble la vara vn</sentence> <value>16702</value>
+<sentence>monte de oro? Bien, que por ahi dizen algunos, que eo</sentence> <value>19001</value>
+<sentence>de pretender oﬁcios y judicaturas, va por ciertas indire-</sentence> <value>17250</value>
+<sentence>as y deiladeras (ò por mejor dezir) falſas relaciones</sentence> <value>17820</value>
+<sentence>con aue ſe alcançen, y deſpues de conituydos en eos,</sentence> <value>17779</value>
+<sentence>para boluer algunos à poner ſu caudal en pie, ſe bueluen</sentence> <value>18393</value>
+<sentence>como pulpos. No ay poro ni coyuntura en todo ſu cuer-</sentence> <value>17348</value>
+<sentence>po, que no ſean bocas y garras. Por ai les entra y aga-</sentence> <value>17733</value>
+<sentence>rran el trigo, la cebada, el vino, el azeyte, el tozino, el</sentence> <value>16949</value>
+<sentence>pan, el lienço, ſedas, joyas, y dineros. Deſde las tapi-</sentence> <value>16703</value>
+<sentence>cerias, haa las eſpecerias: deſde ſu cama, haa la de ſu</sentence> <value>17259</value>
+<sentence>mula: deſde lo mas granado, haa lo mas menudo. De</sentence> <value>18149</value>
+<sentence>que ſolo el arpon de la muerte los puede deſaſr: porque</sentence> <value>17816</value>
+<sentence>en començandoſe à corromper, quedan para empre da-</sentence> <value>17751</value>
+<sentence>ñados con el mal vſo: y aſ reciben, como  fueen ga-</sentence> <value>16988</value>
+<sentence>jes: de manera que no guardan juicia, diſmulan con</sentence> <value>17250</value>
+<sentence>los ladrones, porque les contribuyen con las primicias</sentence> <value>16700</value>
+<sentence>de lo que roban, tienen ganado el fauor, y perdido el</sentence> <value>15889</value>
+<sentence>temor, tanto el mercader como el regaton, y con aque-</sentence> <value>16426</value>
+<sentence>o cada vno tiene ſu Angel de guarda comprado por ſu</sentence> <value>16694</value>
+<sentence>dinero (ò con lo mas diﬁcil de enagenar) para las imper-</sentence> <value>16419</value>
+<sentence>tinentes neceſdades del cuerpo, de mas del que Dios les</sentence> <value>17011</value>
+<sentence>dio para las importantes del alma. Bien puede ſer que al-</sentence> <value>17480</value>
+<sentence>go deo ſuceda, y no por eo ſe ha de preſumir: mas el</sentence> <value>17060</value>
+<sentence>que diere con la codicia en ſemejante baxeza, ſerà de mil</sentence> <value>16995</value>
+<sentence>vno mal nacido, y de viles penſamientos, y no les quie-</sentence> <value>15851</value>
+<sentence>ras mayor mal, ni deſuentura: congo eua el caigo,</sentence> <value>17470</value>
+<sentence>pues anda ſeñalado con el dedo, es murmurado de los</sentence> <value>17107</value>
+<sentence>hombres, aborrecido de los Angeles, en publico y ſecre-</sentence> <value>17852</value>
+<sentence>to vituperado de todos. Y aſ, no por ee han de perder</sentence> <value>17340</value>
+<sentence>los demas: y  alguno ſe quexa de agrauiado, deues creer</sentence> <value>17846</value>
+<sentence>que como ſean los pleytos contiendas de diuerſos ﬁnes,</sentence> <value>17971</value>
+<sentence>no es poſble que ambas partes queden contentas de vn</sentence> <value>18288</value>
+<sentence>juyzio. Quexoſos ha de auer con razon, ò n ea: pero</sentence> <value>18573</value>
+<sentence>falta ſera la culpa tuya; y no ſerà mucho que pierdas tu</sentence> <value>17354</value>
+<sentence>derecho, no ſabiendo hazer tu hecho. Y que el juez te-</sentence> <value>15964</value>
+<sentence>niegue la juicia, que muchas vezes la dexa de dar al</sentence> <value>15767</value>
+<sentence>que le cona tenerla, porque no la prueua, y lo hizo el</sentence> <value>15766</value>
+<sentence>contrario, bien, mal, ò como pudo. Y otras por negli-</sentence> <value>15699</value>
+<sentence>gencia de la parte, ò porque les falta fuerça, y dineros</sentence> <value>16522</value>
+<sentence>con que ſeguirla, y tener opotor poderoſo. Y aſ no es</sentence> <value>16338</value>
+<sentence>bien culpar juezes, y menos en ſuperiores tribunales,</sentence> <value>16596</value>
+<sentence>donde ſon muchos y eſcogidos entre los mejores. Y</sentence> <value>15341</value>
+<sentence>quando vno por alguna paſon quiee precipitarſe, los</sentence> <value>18968</value>
+<sentence>otros no la tienen, y le yrian à la mano. Acuerdome</sentence> <value>16087</value>
+<sentence>que vn labrador en Granada ſolicitaua (por ſu interee)</sentence> <value>17051</value>
+<sentence>vn pleyto en boz de Concejo, contra el ſeñor de ſu pue-</sentence> <value>16611</value>
+<sentence>blo. Pareciendole, que lo auia con Pero Creſpo el Al-</sentence> <value>15961</value>
+<sentence>calde del, y que pudiera traer los Oydores de la oreja. Y</sentence> <value>16779</value>
+<sentence>eando vn dia en la plaça nueua, mirando la portada de</sentence> <value>17419</value>
+<sentence>la Chancieria, que es vno de los mas famoſos ediﬁcios</sentence> <value>17132</value>
+<sentence>(en ſu tanto) de todos los de Eſpaña, y à quien (de los de</sentence> <value>16362</value>
+<sentence>ſu manera) no ſe le conoce ygual en eos tiempos. Vio</sentence> <value>15869</value>
+<sentence>que las armas Reales tenian en el remate, à los dos lados,</sentence> <value>17239</value>
+<sentence>la juicia y fortaleza. Preguntandole otro labrador de</sentence> <value>16293</value>
+<sentence>de ſu tierra, que hazia, porque no entraua à ſolicitar ſu</sentence> <value>16037</value>
+<sentence>negocio, le reſpondio: Eoy conderando, que eas coſas</sentence> <value>17846</value>
+<sentence>no ſon para mi, y de buena gana me fuera para mi caſa,</sentence> <value>16356</value>
+<sentence>porque en ea tienen tan alta la juicia, que no ſe dexa</sentence> <value>17288</value>
+<sentence>ſobaxar, ni ſe la podrè alcançar.</sentence> <value>9826</value>
+<sentence>No es marauia (como dixe) y lo ſeria, aunque vno la</sentence> <value>16118</value>
+<sentence>tenga, no ſabiendo ni pudiendola defender,  ſe la dieen.</sentence> <value>18874</value>
+<sentence>A mi padre ſe la dieron, porque latu, la ſupo, y</sentence> <value>15709</value>
+<sentence>pudo pleytear, demas que en el tormento purgò los</sentence> <value>16661</value>
+<sentence>indicios, y tachò los teigos de publica enemiad,</sentence> <value>16502</value>
+<sentence>que deponian de vanas preſumpciones, y de vano</sentence> <value>16475</value>
+<sentence>fundamento.</sentence> <value>4718</value>
+<sentence>Ya oygo al murmurador, diziendo la mala boz que</sentence> <value>17660</value>
+<sentence>tuuo, rizarſe, afeytarſe, y otras coſas que cao, dineros</sentence> <value>17863</value>
+<sentence>que buian, preſentes que cruzauan, mugeres que ſolici-</sentence> <value>19244</value>
+<sentence>tauan, me dexan la eſpina en el dedo. Hombre de la mal-</sentence> <value>19952</value>
+<sentence>dicion, mucho me aprietas, y canſado me tienes: pienſo</sentence> <value>18590</value>
+<sentence>dea vez dexarte ſatisfecho, y no reſponder mas tus re-</sentence> <value>17060</value>
+<sentence>plicatos, que ſeria proceder en inﬁnito, aguardar à tus</sentence> <value>17735</value>
+<sentence>ſoﬁerias. Y aſ, no digo que dizes diſparates, ni coſa</sentence> <value>17137</value>
+<sentence>de que no puedas obtener la parte que quieres, en quan-</sentence> <value>17930</value>
+<sentence>to la verdad ſe determina. Y quando los pleytos andan</sentence> <value>17489</value>
+<sentence>de ee modo, eſcandalizan, mas todo es meneer: Li-</sentence> <value>17367</value>
+<sentence>brete Dios de juez con leyes de encaxe, y eſcriuano ene-</sentence> <value>17423</value>
+<sentence>migo, y de qualquier deos cohechado. Mas quando te</sentence> <value>18207</value>
+<sentence>quieras dexar euar de la opinion y boz del vulgo (que</sentence> <value>17059</value>
+<sentence>empre es la mas flaca y menos verdadera, por ſerlo el</sentence> <value>16909</value>
+<sentence>ſugeto de donde ſale) dime, como cuerdo, todo quanto</sentence> <value>17260</value>
+<sentence>has dicho, es parte para que (indubitablemente) mi pa-</sentence> <value>17714</value>
+<sentence>dre fue culpado. Y mas, que  es cierta la opinion de</sentence> <value>18362</value>
+<sentence>algunos medicos, que lo tienen por enfermedad, quien</sentence> <value>18355</value>
+<sentence>puede juzgar,  mi padre no eaua ſano? Y à lo que es</sentence> <value>17659</value>
+<sentence>tratar de rizados, y mas porquenas, no lo alabo. Ni à los</sentence> <value>17604</value>
+<sentence>que en Eſpaña lo conenten, quanto mas à los que lo ha-</sentence> <value>18044</value>
+<sentence>zen. Lo que le vì, el tiempo que lo conocì, te puedo de-</sentence> <value>17073</value>
+<sentence>zir. Era blanco, rubio, colorado, rizo, y creo de natura-</sentence> <value>16783</value>
+<sentence>leza tenia los ojos grandes, turquezados, trahia copete, y</sentence> <value>17997</value>
+<sentence>enes enſortĳadas:  eo era propio, no fuera juo,</sentence> <value>17369</value>
+<sentence>dandoſelo Dios, que ſe tiznara la cara, ni arrojara en la</sentence> <value>17373</value>
+<sentence>cae ſemejantes prendas. Pero  es verdad, como dizes,</sentence> <value>18565</value>
+<sentence>que ſe valia de vntos y artiﬁcios de ſebios,  los dientes</sentence> <value>19235</value>
+<sentence>y manos  tanto le loauan, era à poder de poluios, hieles,</sentence> <value>20523</value>
+<sentence>xabonetes, y otras porquerias, confearete quanto del</sentence> <value>18758</value>
+<sentence>dixeres, y ſere ſu capital enemigo, y de todos los que de</sentence> <value>19054</value>
+<sentence>coſa ſemejante tratan. Pues de mas que ſon aos de aſe-</sentence> <value>20629</value>
+<sentence>minados maricas, dando ocaon para que deos mur-</sentence> <value>19766</value>
+<sentence>muren, y ſe ſoſpeche toda vileza, viendolos embarrados y</sentence> <value>20340</value>
+<sentence>compueos con las coſas tan ſolamente à mugeres per-</sentence> <value>20096</value>
+<sentence>mitidas, que por no tener baante hermoſura, ſe ayudan</sentence> <value>20261</value>
+<sentence>de pinturas y barnizes, à coa de ſu ſalud y dinero. Y es</sentence> <value>20000</value>
+<sentence>laima de rer, que no ſolo las feas ſon las que aqueo ha-</sentence> <value>20499</value>
+<sentence>zen, no aun las muy hermoſas. Que penſando parecerlo</sentence> <value>20363</value>
+<sentence>mas, comiençan en la cama por la mañana, y acaban</sentence> <value>19744</value>
+<sentence>à medio dia la meſa puea. De donde (no n razon) digo</sentence> <value>21237</value>
+<sentence>que la muger, quanto mas mirare la cara, tanto mas de-</sentence> <value>18421</value>
+<sentence>ruye la caſa. Si eo es (aun en mugeres) vituperio, quan-</sentence> <value>19700</value>
+<sentence>to lo ſerà mas en los hombres?</sentence> <value>9987</value>
+<sentence>O fealdad ſobre toda fealdad, afrenta de todas las afren-</sentence> <value>19457</value>
+<sentence>tas: no me podras dezir, que amor paterno me ciega,</sentence> <value>16972</value>
+<sentence>ni el natural de la patria me cohecha, ni me haaras fue-</sentence> <value>18355</value>
+<sentence>ra de razon y verdad. Pero  en lo malo ay deſcargo,</sentence> <value>17183</value>
+<sentence>quando en alguna parte huuiera do mi padre culpado,</sentence> <value>19721</value>
+<sentence>quiero dezirte vna curiodad, por ſer ee ſu lugar, y to-</sentence> <value>18549</value>
+<sentence>do ſucedio ca en vn tiempo. A ti ſeruirà de auiſo, y à</sentence> <value>17253</value>
+<sentence>mi de conſuelo, como mal de muchos.</sentence> <value>12431</value>
+<sentence>El año de mil y quinientos y doze, en Rabeña, poco</sentence> <value>17527</value>
+<sentence>antes que fuee ſaqueada, huuo en Italia crueles guerras:</sentence> <value>19224</value>
+<sentence>y en ea ciudad nacio vn monruo muy eraño, que</sentence> <value>16751</value>
+<sentence>puſo grandiſma admiracion. Tenia de la cintura para</sentence> <value>17934</value>
+<sentence>arriba todo ſu cuerpo, cabeça y roro de criatura huma-</sentence> <value>16970</value>
+<sentence>na; pero vn cuerno en la frente. Faltauanle los braços,</sentence> <value>16730</value>
+<sentence>y diole naturaleza por eos en ſu lugar, dos alas de mur-</sentence> <value>16790</value>
+<sentence>ciegalo: tenia en el pecho ﬁgurada la (Y) Pytagorica, y</sentence> <value>17438</value>
+<sentence>en el eomago, azia el vientre vna cruz †. bien formada.</sentence> <value>16752</value>
+<sentence>Era Ermafrodito, y muy formados los dos naturales</sentence> <value>16967</value>
+<sentence>ſexos. No tenia mas de vn muſlo, y el vna pierna con ſu</sentence> <value>16827</value>
+<sentence>pie de milano, y las garras de la miſma forma. En el</sentence> <value>17458</value>
+<sentence>ñudo de la rodia tenia vn ojo ſolo. De aqueas mon-</sentence> <value>18103</value>
+<sentence>ruodades teman todos muy gran admiracion: y con-</sentence> <value>19426</value>
+<sentence>derando perſonas muy doas, que empre ſemejantes</sentence> <value>20353</value>
+<sentence>monruos ſuelen ſer prodigioſos, pueronſe à eſpecular</sentence> <value>20932</value>
+<sentence>ſu gniﬁcacion. Y entre las mas que ſe dieron, fue ſola</sentence> <value>20612</value>
+<sentence>bien recebida la guiente; Que el cuerno gniﬁcaua or-</sentence> <value>22408</value>
+<sentence>guo y ambicion. Las alas inconancia y ligereza. Falta</sentence> <value>20702</value>
+<sentence>de braços, falta de buenas obras. El pie de aue de rapiña,</sentence> <value>20692</value>
+<sentence>robos, vſuras, y auaricias. El ojo en la rodia, aﬁcion à</sentence> <value>19752</value>
+<sentence>vanidades, y coſas mundanas. Los dos ſexos, ſodomia,</sentence> <value>19986</value>
+<sentence>y beia bruteza. En todos los quales vicios abundaua</sentence> <value>20439</value>
+<sentence>por entonces toda Italia. Por lo qual Dios la caigaua</sentence> <value>20816</value>
