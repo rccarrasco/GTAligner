@@ -20,10 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Provides a weight (a real value) for every character
  *
  * @author rafa
  */
-public class WeightModel {
+public final class WeightModel {
 
     Map<Character, Double> weights;
 
@@ -31,7 +32,27 @@ public class WeightModel {
         weights = new HashMap<>();
     }
 
-    public double get(Character c) {
+    /**
+     * Create the initial model for a sample
+     *
+     * @param sample a Sample of TextLines
+     * @param value the initial value for all weights
+     */
+    public WeightModel(Sample sample, double value) {
+        weights = new HashMap<>();
+        for (TextLine line : sample.getLines()) {
+            for (Character c : line.getChars()) {
+                setWeight(c, value);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param c a character
+     * @return its weight according to this model
+     */
+    public double weight(Character c) {
         if (weights.containsKey(c)) {
             return weights.get(c);
         } else {
@@ -39,34 +60,59 @@ public class WeightModel {
         }
     }
 
-    public double get(String s) {
-        double weight = 0;
+    /**
+     *
+     * @param s a string of characters
+     * @return its weight according to this model, obtained by adding the
+     * weights of every character in the string.
+     */
+    public double weight(String s) {
+        double value = 0;
 
         for (int n = 0; n < s.length(); ++n) {
-            weight += get(s.charAt(n));
+            value += weight(s.charAt(n));
         }
 
-        return weight;
+        return value;
     }
 
-    public void put(Character c, double delta) {
-        weights.put(c, delta);
+    /**
+     * Set weight
+     *
+     * @param c a character
+     * @param value set the weight of c to value
+     */
+    public void setWeight(Character c, double value) {
+        weights.put(c, value);
     }
 
-    public double add(Character c, double delta) {
-        double previous = get(c);
-
-        weights.put(c, previous + delta);
-        return previous;
+    /**
+     * Modify weight
+     *
+     * @param c a character
+     * @param delta the value to be added to the weight of c
+     */
+    public void addToWeight(Character c, double delta) {
+        weights.put(c, weight(c) + delta);
     }
 
-    public void add(WeightModel deltas) {
+    /**
+     * Modify weights
+     *
+     * @param deltas values to be added to
+     */
+    public void addToWeight(WeightModel deltas) {
         for (Map.Entry<Character, Double> entry : deltas.weights.entrySet()) {
-            add(entry.getKey(), entry.getValue());
+            addToWeight(entry.getKey(), entry.getValue());
         }
 
     }
 
+    /**
+     *
+     * @return a string representation of the model
+     */
+    @Override
     public String toString() {
         return weights.toString();
     }

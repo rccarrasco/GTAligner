@@ -18,13 +18,13 @@ package gtaligner;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A sample of TextLines (weighted text lines)
  *
  * @author rafa
  */
@@ -32,58 +32,77 @@ public class Sample {
 
     List<TextLine> lines;
 
-    private void initializeModel(WeightModel model, double value) {
-        for (TextLine line : lines) {
-            String text = line.getText();
-            for (int n = 0; n < line.length(); ++n) {
-                model.put(line.charAt(n), value);
-            }
-        }
+    public List<TextLine> getLines() {
+        return lines;
     }
 
-    private double square(double x) {
-        return x * x;
-    }
-
+    /**
+     * Average weight error (per character).
+     *
+     * @param model a WeightModel
+     * @return the average per-character error when real line weights are
+     * compared with weights provided by the model.
+     */
     public double errorPerChar(WeightModel model) {
         double err = 0;
         int numchar = 0;
 
         for (TextLine line : lines) {
-            double linePredictedWeight = model.get(line.getText());
-            //System.out.println(line.getWeight() + " pred=" + linePredictedWeight);
-            err += Math.abs(line.getWeight() - linePredictedWeight);
-            //err += square(line.getWeight() - linePredictedWeight);
+            String text = line.getText();
+
+            err += Math.abs(line.getWeight() - model.weight(text));
             numchar += line.length();
         }
 
         return (err / numchar);
     }
 
+    private double square(double x) {
+        return x * x;
+    }
+
+    /**
+     * Average quadratic weight error (per character).
+     *
+     * @param model a WeightModel
+     * @return the average per-character error when real line weights are
+     * compared with weights provided by the model.
+     */
+    public double qerrorPerChar(WeightModel model) {
+        double err = 0;
+        int numchar = 0;
+
+        for (TextLine line : lines) {
+            String text = line.getText();
+
+            err += square(line.getWeight() - model.weight(text));
+            numchar += line.length();
+        }
+
+        return Math.sqrt(err * lines.size()) / numchar;
+    }
+
     /**
      * Single iteration training with uniform distribution among all characters
-     * in line
+     * in TextLine.
      *
-     * @param model
+     * @param model the model to be optimized
      */
     public void stepU(WeightModel model) {
         WeightModel deltas = new WeightModel();
         double error = 0;
 
         for (TextLine line : lines) {
-            double linePredictedWeight = model.get(line.getText());
-            double lineDelta = line.getWeight() - linePredictedWeight;
-//            System.out.println("delta=" + lineDelta + " " + line.getText() + " " + line.length());
+            String text = line.getText();
+            double lineDelta = line.getWeight() - model.weight(text);
             double charDelta = lineDelta / (lines.size() * line.length());
 
             for (Character c : line.getChars()) {
-                deltas.add(c, charDelta);
+                deltas.addToWeight(c, charDelta);
             }
         }
-        //System.out.println("err=" + errorPerChar(model));
-        //System.out.println("deltas=" + deltas);
-        model.add(deltas);
-        //System.out.println("err=" + errorPerChar(model));
+     
+        model.addToWeight(deltas);
     }
 
     /**
@@ -96,19 +115,18 @@ public class Sample {
         double error = 0;
 
         for (TextLine line : lines) {
-            double linePredictedWeight = model.get(line.getText());
-            double lineDelta = line.getWeight() - linePredictedWeight;
+            String text = line.getText();
+            double lineDelta = line.getWeight() - model.weight(text);
 
-            for (Character c : line.getChars()) {
-                double charPredictedWeight = model.get(c);
+            for (Character c : line.getChars()) {          
                 double charDelta
-                        = (lineDelta * charPredictedWeight)
-                        / (lines.size() * linePredictedWeight);
+                        = (lineDelta * model.weight(c))
+                        / (lines.size() * model.weight(text));
 
-                deltas.add(c, charDelta);
+                deltas.addToWeight(c, charDelta);
             }
         }
-        model.add(deltas);
+        model.addToWeight(deltas);
     }
 
     /**
@@ -121,12 +139,7 @@ public class Sample {
     public double[] train(WeightModel model, TrainingMethod method, int numiter) {
         double[] errors = new double[numiter + 1];
 
-        if (method == TrainingMethod.LINEAR) {
-            initializeModel(model, 1);
-        }
-
         for (int n = 0; n < numiter; ++n) {
-            //System.out.println(model);
             errors[n] = errorPerChar(model);
             switch (method) {
                 case UNIFORM:

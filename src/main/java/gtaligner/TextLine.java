@@ -20,17 +20,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A line of text where spaces are not considered
+ * A line of text (where spaces are not considered) with an integer weight (for
+ * example, the number of dark pixels in this line).
  *
  * @author rafa
  */
 public class TextLine {
+
     String text;
     int weight;
     Set<Character> chars;
 
+    /**
+     * Get the set of characters used in this line (whitespace excluded)
+     *
+     * @param s a string
+     * @return the set of characters used in this line (whitespace excluded)
+     */
     private Set<Character> getChars(String s) {
         Set<Character> set = new HashSet<>();
+        
         for (int n = 0; n < s.length(); ++n) {
             set.add(s.charAt(n));
         }
@@ -54,7 +63,11 @@ public class TextLine {
     public Set<Character> getChars() {
         return chars;
     }
-    
+
+    /**
+     * 
+     * @return the number of non-blank characters
+     */
     public int length() {
         return text.length();
     }

@@ -6,6 +6,8 @@
 package gtaligner;
 
 /**
+ * The procedure used to train the WeightModel, in particular, how
+ * excess/defects are distributed among the charters.
  *
  * @author rafa
  */
