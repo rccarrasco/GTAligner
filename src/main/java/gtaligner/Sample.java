@@ -152,6 +152,10 @@ public class Sample {
         return errors;
     }
 
+    public void mcsearch() throws Exception {
+        throw new Exception("not implemented");
+    }
+    
     private List<TextLine> readFile(File file) throws IOException {
         List<TextLine> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(file));

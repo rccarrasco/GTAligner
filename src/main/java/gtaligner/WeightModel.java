@@ -33,8 +33,7 @@ public final class WeightModel {
     }
 
     /**
-     * Create the initial model for a sample
-     *
+     * Create the initial  model for a sample
      * @param sample a Sample of TextLines
      * @param value the initial value for all weights
      */
