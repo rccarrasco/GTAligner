@@ -52,6 +52,11 @@ public class TextLine {
         this.chars = getChars(this.text);
     }
 
+    @Override
+    public String toString() {
+        return text;
+    }
+    
     public String getText() {
         return text;
     }

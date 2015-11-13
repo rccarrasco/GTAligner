@@ -18,6 +18,8 @@ package gtaligner;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Provides a weight (a real value) for every character
@@ -33,6 +35,14 @@ public final class WeightModel {
     }
 
     /**
+     *
+     * @param weights create a model from a map
+     */
+    public WeightModel(Map<Character, Double> weights) {
+        this.weights = weights;
+    }
+    
+    /**
      * Create the initial  model for a sample
      * @param sample a Sample of TextLines
      * @param value the initial value for all weights
@@ -45,7 +55,34 @@ public final class WeightModel {
             }
         }
     }
+    
+    public static WeightModel random(Set<Character> keys, double low, double high) {
+        WeightModel model = new WeightModel();
+        Random random = new Random();
+        
+        for (Character c: keys) {
+            double rand = low + (high - low) * random.nextDouble();
+            model.weights.put(c, rand);
+        }
+        
+        return model;
+    }
+    
+    public void randomize(double radius) {
+        for (Character c: weights.keySet()) {
+            double delta = RandomGenerator.random(radius);
+            addToWeight(c, delta);
+        }
+    }
 
+    /**
+     * 
+     * @return the set of characters modeled by this model
+     */
+    public Set<Character> getChars() {
+        return this.weights.keySet();
+    }
+    
     /**
      *
      * @param c a character

@@ -13,5 +13,5 @@ package gtaligner;
  */
 public enum TrainingMethod {
 
-    UNIFORM, LINEAR
+    UNIFORM, LINEAR, RANDOM
 }

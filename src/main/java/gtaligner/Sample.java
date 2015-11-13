@@ -21,7 +21,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * A sample of TextLines (weighted text lines)
@@ -34,6 +38,27 @@ public class Sample {
 
     public List<TextLine> getLines() {
         return lines;
+    }
+
+    /**
+     *
+     * @return character statistics in text
+     */
+    public Map<Character, Integer> charStats() {
+        Map<Character, Integer> map = new HashMap<>();
+        for (TextLine line : lines) {
+            String text = line.getText();
+            for (int n = 0; n < text.length(); ++n) {
+                Character c = text.charAt(n);
+                if (map.containsKey(c)) {
+                    map.put(c, map.get(c) + 1);
+                } else {
+                    map.put(c, 1);
+                }
+
+            }
+        }
+        return map;
     }
 
     /**
@@ -101,7 +126,7 @@ public class Sample {
                 deltas.addToWeight(c, charDelta);
             }
         }
-     
+
         model.addToWeight(deltas);
     }
 
@@ -118,7 +143,7 @@ public class Sample {
             String text = line.getText();
             double lineDelta = line.getWeight() - model.weight(text);
 
-            for (Character c : line.getChars()) {          
+            for (Character c : line.getChars()) {
                 double charDelta
                         = (lineDelta * model.weight(c))
                         / (lines.size() * model.weight(text));
@@ -127,6 +152,24 @@ public class Sample {
             }
         }
         model.addToWeight(deltas);
+    }
+
+    /**
+     * Single iteration training with random variations
+     *
+     * @param model
+     */
+    public void stepR(WeightModel model) {
+        WeightModel altmodel = new WeightModel();
+
+        for (Character c : model.getChars()) {
+            double value = model.weight(c) + RandomGenerator.random(40) - 20;
+            altmodel.setWeight(c, value);
+        }
+        if (errorPerChar(altmodel) < errorPerChar(model)) {
+            model.weights = altmodel.weights; // Ugly
+        }
+
     }
 
     /**
@@ -146,16 +189,14 @@ public class Sample {
                     stepU(model);
                 case LINEAR:
                     stepL(model);
+                case RANDOM:
+                    stepR(model);
             }
         }
         errors[numiter] = errorPerChar(model);
         return errors;
     }
 
-    public void mcsearch() throws Exception {
-        throw new Exception("not implemented");
-    }
-    
     private List<TextLine> readFile(File file) throws IOException {
         List<TextLine> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(file));

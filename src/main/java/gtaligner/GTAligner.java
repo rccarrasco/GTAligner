@@ -2,8 +2,6 @@ package gtaligner;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -18,10 +16,10 @@ public class GTAligner {
             System.out.println(n + " " + errors[n]);
         }
     }
-    
+
     private static void initPunct(WeightModel model) {
-        for (Character c: model.weights.keySet()) {
-            if (Pattern.matches("\\p{Punct}",c.toString())) {
+        for (Character c : model.weights.keySet()) {
+            if (Pattern.matches("\\p{Punct}", c.toString())) {
                 model.setWeight(c, 1);
             }
         }
@@ -37,17 +35,25 @@ public class GTAligner {
             TrainingMethod method;
             WeightModel model;
 
+            System.err.println(sample.charStats());
+
             switch (args[2]) {
                 case "-u":
                     method = TrainingMethod.UNIFORM;
-                    model = new WeightModel(sample, 100);
+                    model = new WeightModel(sample, 400);
                     printErrors(sample, model, numiter, method);
                     System.err.println(model.toString());
                     break;
                 case "-l":
                     method = TrainingMethod.LINEAR;
-                    model = new WeightModel(sample, 100);
+                    model = new WeightModel(sample, 400);
                     initPunct(model);
+                    printErrors(sample, model, numiter, method);
+                    System.err.println(model.toString());
+                    break;
+                case "-r":
+                    method = TrainingMethod.RANDOM;
+                    model = new WeightModel(sample, 400);
                     printErrors(sample, model, numiter, method);
                     System.err.println(model.toString());
                     break;
