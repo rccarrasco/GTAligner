@@ -26,7 +26,7 @@ public class SampleTest {
     @Test
     public void testTrain() {
         System.out.println("train");
-        
+       /** 
         String[] texts = {"hola amigo", "adiós amigo", "la miga mola"};
         int[] weights = {45, 50, 60};
 
@@ -45,23 +45,13 @@ public class SampleTest {
         
         assertEquals(result.length, numiter + 1);
         assertArrayEquals(expResult, result, 0.1);
+        * /
     }
     
     /**
      * Test of errorPerChar method, of class Sample.
      */
-    @Test
-    public void testErrorPerChar() {
-        System.out.println("errorPerChar");
-        WeightModel model = null;
-        Sample instance = null;
-        double expResult = 0.0;
-        /**
-        double result = instance.errorPerChar(model);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-        * */
+   
     }
 
     
