@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * A sample of TextLines (weighted text lines)
@@ -36,6 +34,51 @@ public class Sample {
 
     List<TextLine> lines;
 
+    /**
+     * Copy constructor
+     *
+     * @param lines
+     */
+    public Sample(List<TextLine> lines) {
+        this.lines = lines;
+    }
+
+    /**
+     * Read text in one file
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    private String readText(File file) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        StringBuilder builder = new StringBuilder();
+
+        while (reader.ready()) {
+            builder.append(reader.readLine()).append("\n");
+        }
+
+        return builder.toString();
+    }
+
+    public Sample(String[] filenames) throws IOException {
+        lines = new ArrayList<>();
+
+        for (String name : filenames) {
+            File imageFile = new File(name);
+            BImage bimage = new BImage(imageFile);
+            String basename = name.substring(0, name.lastIndexOf('.'));
+            File textFile = new File(basename + ".txt");
+            String text = readText(textFile);
+
+            lines.add(new TextLine(text, bimage.weight()));
+        }
+    }
+
+    /**
+     *
+     * @return all text lines in this sample
+     */
     public List<TextLine> getLines() {
         return lines;
     }
@@ -211,12 +254,13 @@ public class Sample {
         return list;
     }
 
-    public Sample(List<TextLine> lines) {
-        this.lines = lines;
-    }
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (TextLine line : lines) {
+            builder.append(line.source).append(line.weight).append("\n");
+        }
 
-    public Sample(File file) throws IOException {
-        lines = readFile(file);
+        return builder.toString();
     }
-
 }

@@ -26,7 +26,8 @@ import java.util.Set;
  * @author rafa
  */
 public class TextLine {
-
+    
+    String source;
     String text;
     int weight;
     Set<Character> chars;
@@ -46,15 +47,16 @@ public class TextLine {
         return set;
     }
 
-    public TextLine(String text, int weight) {
-        this.text = text.replaceAll("\\p{Space}", "");
+    public TextLine(String source, int weight) {
+        this.source = source;
+        this.text = source.replaceAll("\\p{Space}", "");
         this.weight = weight;
         this.chars = getChars(this.text);
     }
 
     @Override
     public String toString() {
-        return text;
+        return source;
     }
     
     public String getText() {

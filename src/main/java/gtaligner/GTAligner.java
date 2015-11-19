@@ -1,7 +1,7 @@
 package gtaligner;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
@@ -26,18 +26,21 @@ public class GTAligner {
     }
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
-            System.err.println("Usage: GTAligner datafile numiter -u/-l");
+        if (args.length < 3) {
+            System.err.println("Usage: GTAligner -u/-l/-r numiter datafile1 datafile2 ...");
         } else {
-            File file = new File(args[0]);
-            int numiter = Integer.parseInt(args[1]);
-            Sample sample = new Sample(file);
             TrainingMethod method;
             WeightModel model;
+            int numiter;
+            Sample sample;
 
+            numiter = Integer.parseInt(args[1]);
+            sample = new Sample(Arrays.copyOfRange(args, 2, args.length));
+            
+            System.err.println(sample);
             System.err.println(sample.charStats());
 
-            switch (args[2]) {
+            switch (args[0]) {
                 case "-u":
                     method = TrainingMethod.UNIFORM;
                     model = new WeightModel(sample, 400);
