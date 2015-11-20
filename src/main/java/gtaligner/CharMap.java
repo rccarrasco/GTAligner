@@ -27,7 +27,7 @@ import java.util.Set;
  *
  * @author rafa
  */
-public final class CharMap extends HashMap<Character, Double> {
+public final class CharMap extends HashMap<Character, MutableDouble> {
 
     static Random random = new Random();
 
@@ -46,7 +46,7 @@ public final class CharMap extends HashMap<Character, Double> {
      */
     public CharMap(Set<Character> keys, double value) {
         for (Character c : keys) {
-            put(c, value);
+            put(c, new MutableDouble(value));
         }
     }
 
@@ -62,9 +62,9 @@ public final class CharMap extends HashMap<Character, Double> {
             UnicodeBlock block, double value) {
         for (Character c : keys) {
             if (Character.UnicodeBlock.of(c) == block) {
-                put(c, value);
+                put(c, new MutableDouble(value));
             } else {
-                put(c, defaultValue);
+                put(c, new MutableDouble(defaultValue));
             }
         }
     }
@@ -79,7 +79,7 @@ public final class CharMap extends HashMap<Character, Double> {
     public CharMap(Set<Character> keys, double low, double high) {
 
         for (Character c : keys) {
-            put(c, low + (high - low) * random.nextDouble());
+            put(c, new MutableDouble(low + (high - low) * random.nextDouble()));
         }
     }
 
@@ -101,7 +101,7 @@ public final class CharMap extends HashMap<Character, Double> {
      */
     public double getValue(Character c) {
         if (containsKey(c)) {
-            return get(c);
+            return get(c).getValue();
         } else {
             return 0;
         }
@@ -130,7 +130,7 @@ public final class CharMap extends HashMap<Character, Double> {
      * @param value value to be associated with the specified character
      */
     public void setValue(Character c, double value) {
-        put(c, value);
+        put(c, new MutableDouble(value));
     }
 
     /**
@@ -141,7 +141,11 @@ public final class CharMap extends HashMap<Character, Double> {
      * specified character
      */
     public void addToValue(Character c, double delta) {
-        put(c, getValue(c) + delta);
+        if (containsKey(c)) {
+        get(c).add(delta);
+        } else {
+            put(c, new MutableDouble(delta));
+        }
     }
 
     /**
@@ -151,8 +155,8 @@ public final class CharMap extends HashMap<Character, Double> {
      * @param other another CharMap whose values must be added to this one.
      */
     public void addToValues(CharMap other) {
-        for (Map.Entry<Character, Double> entry : other.entrySet()) {
-            addToValue(entry.getKey(), entry.getValue());
+        for (Map.Entry<Character, MutableDouble> entry : other.entrySet()) {
+            addToValue(entry.getKey(), entry.getValue().getValue());
         }
     }
 
@@ -164,11 +168,11 @@ public final class CharMap extends HashMap<Character, Double> {
      */
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Character, Double> entry : entrySet()) {
+        for (Map.Entry<Character, MutableDouble> entry : entrySet()) {
             builder.append("'")
                     .append(entry.getKey())
                     .append("'\t")
-                    .append(entry.getValue())
+                    .append(entry.getValue().getValue())
                     .append('\n');
         }
 

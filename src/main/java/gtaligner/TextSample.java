@@ -18,8 +18,6 @@ package gtaligner;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +30,7 @@ import java.util.Set;
 public class TextSample {
 
     List<TextLine> lines;
-    Set<Character> chars;
+    CharCounter charstats;
 
     /**
      * Create a TExtSampel from an array of input files
@@ -42,16 +40,20 @@ public class TextSample {
      */
     public TextSample(String[] filenames) throws IOException {
         lines = new ArrayList<>();
-        chars = new HashSet<>();
+        charstats = new CharCounter();
 
         for (String name : filenames) {
             BImage bimage = new BImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
             String text = TextReader.readFile(basename + ".txt");
             TextLine line = new TextLine(text, bimage.weight(0.5));
+            String content = line.getContent();
 
             lines.add(line);
-            chars.addAll(line.getChars());
+            for (int n = 0; n < content.length(); ++n) {
+                Character c = content.charAt(n);
+                charstats.increment(c);
+            }
         }
     }
 
@@ -68,30 +70,15 @@ public class TextSample {
      * @return all characters in this TextSample
      */
     public Set<Character> getChars() {
-        return chars;
+        return charstats.keySet();
     }
 
     /**
      *
      * @return character statistics in text
      */
-    public Map<Character, Integer> charStats() {
-        Map<Character, Integer> map = new HashMap<>();
-
-        for (TextLine line : lines) {
-            String text = line.getContent();
-
-            for (int n = 0; n < text.length(); ++n) {
-                Character c = text.charAt(n);
-                if (map.containsKey(c)) {
-                    map.put(c, map.get(c) + 1);
-                } else {
-                    map.put(c, 1);
-                }
-
-            }
-        }
-        return map;
+    public CharCounter charStats() {
+        return charstats;
     }
 
     /**
@@ -152,10 +139,10 @@ public class TextSample {
         for (TextLine line : lines) {
             String text = line.getContent();
             double lineDelta = line.getWeight() - model.getValue(text);
-            double charDelta = lineDelta / (lines.size() * line.length());
+            double charDelta = lineDelta / line.length();
 
             for (Character c : line.getChars()) {
-                deltas.addToValue(c, charDelta);
+                deltas.addToValue(c, charDelta / charstats.getNumber(c));
             }
         }
 
@@ -173,10 +160,10 @@ public class TextSample {
         for (TextLine line : lines) {
             String text = line.getContent();
             double lineDelta = line.getWeight() - model.getValue(text);
-            double rate = lineDelta / (lines.size() * model.getValue(text));
-
+            double factor = lineDelta / model.getValue(text);
+            
             for (Character c : line.getChars()) {
-                double charDelta = rate * model.getValue(c);
+                double charDelta = factor * model.getValue(c);
                 deltas.addToValue(c, charDelta);
             }
         }
