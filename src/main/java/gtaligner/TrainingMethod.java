@@ -6,8 +6,10 @@
 package gtaligner;
 
 /**
- * The procedure used to train the WeightModel, in particular, how
- * excess/defects are distributed among the charters.
+ * The procedure used to train the weight model, in particular, how
+ * excess/defects are distributed among the characters: uniform distribution,
+ * linear distribution (proportional to the character's weight) or random
+ * distribution.
  *
  * @author rafa
  */

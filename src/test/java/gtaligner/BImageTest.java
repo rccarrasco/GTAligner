@@ -31,7 +31,7 @@ public class BImageTest {
 
         BImage instance = new BImage(file);
         int expResult = 17052;
-        int result = instance.weight();
+        int result = instance.weight(0.5);
         assertEquals(expResult, result);
 
     }

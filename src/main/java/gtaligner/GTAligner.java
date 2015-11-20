@@ -9,62 +9,53 @@ import java.util.regex.Pattern;
  * @author rafa
  */
 public class GTAligner {
-
-    private static void printErrors(Sample sample, WeightModel model, int numiter, TrainingMethod method) {
-        double[] errors = sample.train(model, method, numiter);
-        for (int n = 0; n < errors.length; ++n) {
-            System.out.println(n + " " + errors[n]);
-        }
-    }
-
-    private static void initPunct(WeightModel model) {
-        for (Character c : model.weights.keySet()) {
-            if (Pattern.matches("\\p{Punct}", c.toString())) {
-                model.setWeight(c, 1);
-            }
-        }
-    }
+    /*
+     private static void printErrors(Sample sample, CharMap model, int numiter, TrainingMethod method) {
+     double[] errors = sample.train(model, method, numiter);
+     for (int n = 0; n < errors.length; ++n) {
+     System.out.println(n + " " + errors[n]);
+     }
+     }
+     */
 
     public static void main(String[] args) throws IOException {
+        Messages.info("LOG FILE");
         if (args.length < 3) {
-            System.err.println("Usage: GTAligner -u/-l/-r numiter datafile1 datafile2 ...");
+            System.err.println("Usage: GTAligner -u/-l/-r numiter img1 img2 ...");
         } else {
             TrainingMethod method;
-            WeightModel model;
+            CharMap model;
             int numiter;
-            Sample sample;
+            TextSample sample;
 
             numiter = Integer.parseInt(args[1]);
-            sample = new Sample(Arrays.copyOfRange(args, 2, args.length));
-            
-            System.err.println(sample);
-            System.err.println(sample.charStats());
+            sample = new TextSample(Arrays.copyOfRange(args, 2, args.length));
 
+            Messages.info(sample.toString());
+            Messages.info(sample.charStats().toString());
+
+            model = new CharMap(sample.getChars(), 400);
             switch (args[0]) {
                 case "-u":
                     method = TrainingMethod.UNIFORM;
-                    model = new WeightModel(sample, 400);
-                    printErrors(sample, model, numiter, method);
-                    System.err.println(model.toString());
                     break;
                 case "-l":
                     method = TrainingMethod.LINEAR;
-                    model = new WeightModel(sample, 400);
-                    initPunct(model);
-                    printErrors(sample, model, numiter, method);
-                    System.err.println(model.toString());
                     break;
                 case "-r":
                     method = TrainingMethod.RANDOM;
-                    model = new WeightModel(sample, 400);
-                    printErrors(sample, model, numiter, method);
-                    System.err.println(model.toString());
                     break;
                 default:
-                    System.err.println("Usage: GTAligner datafile numiter -u/-l");
+                   method = TrainingMethod.UNIFORM;
                     break;
             }
-
+            
+            double[] errors = sample.train(model, method, numiter);
+            
+            System.out.println(model.toCSV('\t'));
+            System.out.println("error = " + sample.errorPerChar(model));
         }
+
     }
+
 }

@@ -8,9 +8,13 @@ package gtaligner;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
+ * An extended BufferedImage
  *
  * @author rafa
  */
@@ -18,13 +22,28 @@ public class BImage {
 
     BufferedImage img = null;
 
+    /**
+     * Read image from file
+     *
+     * @param file an image file
+     */
     public BImage(File file) {
 
         try {
             img = ImageIO.read(file);
-        } catch (java.io.IOException e) {
-            System.err.println(e);
+        } catch (IOException ex) {
+            Logger.getLogger(BImage.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    /**
+     * Read image from file
+     *
+     * @param filename the name of the image file 
+     */
+    public BImage(String filename) {
+        this(new File(filename));
     }
 
     /**
@@ -36,13 +55,19 @@ public class BImage {
         return 765 - c.getRed() - c.getGreen() - c.getBlue();
     }
 
-    public int weight() {
+    /**
+     *
+     * @param threshold a gray level between 0 and 1
+     * @return the number of pixels in this image with a gray level above the
+     * specified threshold
+     */
+    public int weight(double threshold) {
         int w = 0;
         for (int x = 0; x < img.getWidth(); ++x) {
             for (int y = 0; y < img.getHeight(); ++y) {
                 int rgb = img.getRGB(x, y);
-                int dark = darkness(rgb);
-                if (dark > 300) {
+                double dark = darkness(rgb) / 765.0;
+                if (dark > threshold) {
                     ++w;
                 }
             }
@@ -54,7 +79,7 @@ public class BImage {
         for (String arg : args) {
             File file = new File(arg);
             BImage image = new BImage(file);
-            System.out.println(arg + "=" + image.weight());
+            System.out.println(arg + "=" + image.weight(0.5));
         }
     }
 }

@@ -16,62 +16,42 @@
  */
 package gtaligner;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A sample of TextLines (weighted text lines)
  *
  * @author rafa
  */
-public class Sample {
+public class TextSample {
 
     List<TextLine> lines;
+    Set<Character> chars;
 
     /**
-     * Copy constructor
+     * Create a TExtSampel from an array of input files
      *
-     * @param lines
-     */
-    public Sample(List<TextLine> lines) {
-        this.lines = lines;
-    }
-
-    /**
-     * Read text in one file
-     *
-     * @param file
-     * @return
+     * @param filenames an array of filenames
      * @throws IOException
      */
-    private String readText(File file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        StringBuilder builder = new StringBuilder();
-
-        while (reader.ready()) {
-            builder.append(reader.readLine()).append("\n");
-        }
-
-        return builder.toString();
-    }
-
-    public Sample(String[] filenames) throws IOException {
+    public TextSample(String[] filenames) throws IOException {
         lines = new ArrayList<>();
+        chars = new HashSet<>();
 
         for (String name : filenames) {
-            File imageFile = new File(name);
-            BImage bimage = new BImage(imageFile);
+            BImage bimage = new BImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
-            File textFile = new File(basename + ".txt");
-            String text = readText(textFile);
+            String text = TextReader.readFile(basename + ".txt");
+            TextLine line = new TextLine(text, bimage.weight(0.5));
 
-            lines.add(new TextLine(text, bimage.weight()));
+            lines.add(line);
+            chars.addAll(line.getChars());
         }
     }
 
@@ -85,12 +65,22 @@ public class Sample {
 
     /**
      *
+     * @return all characters in this TextSample
+     */
+    public Set<Character> getChars() {
+        return chars;
+    }
+
+    /**
+     *
      * @return character statistics in text
      */
     public Map<Character, Integer> charStats() {
         Map<Character, Integer> map = new HashMap<>();
+
         for (TextLine line : lines) {
-            String text = line.getText();
+            String text = line.getContent();
+
             for (int n = 0; n < text.length(); ++n) {
                 Character c = text.charAt(n);
                 if (map.containsKey(c)) {
@@ -107,18 +97,18 @@ public class Sample {
     /**
      * Average weight error (per character).
      *
-     * @param model a WeightModel
-     * @return the average per-character error when real line weights are
+     * @param model a CharMap modeling character weights
+     * @return the average error per character when real line weights are
      * compared with weights provided by the model.
      */
-    public double errorPerChar(WeightModel model) {
+    public double errorPerChar(CharMap model) {
         double err = 0;
         int numchar = 0;
 
         for (TextLine line : lines) {
-            String text = line.getText();
+            String text = line.getContent();
 
-            err += Math.abs(line.getWeight() - model.weight(text));
+            err += Math.abs(line.getWeight() - model.getValue(text));
             numchar += line.length();
         }
 
@@ -130,20 +120,20 @@ public class Sample {
     }
 
     /**
-     * Average quadratic weight error (per character).
+     * Average quadratic error (per character).
      *
-     * @param model a WeightModel
-     * @return the average per-character error when real line weights are
+     * @param model a CharMap modeling character weights
+     * @return the average error per character when real line weights are
      * compared with weights provided by the model.
      */
-    public double qerrorPerChar(WeightModel model) {
+    public double qerrorPerChar(CharMap model) {
         double err = 0;
         int numchar = 0;
 
         for (TextLine line : lines) {
-            String text = line.getText();
+            String text = line.getContent();
 
-            err += square(line.getWeight() - model.weight(text));
+            err += square(line.getWeight() - model.getValue(text));
             numchar += line.length();
         }
 
@@ -151,66 +141,62 @@ public class Sample {
     }
 
     /**
-     * Single iteration training with uniform distribution among all characters
-     * in TextLine.
+     * Single iteration when training with uniform distribution among all
+     * characters in TextLine.
      *
      * @param model the model to be optimized
      */
-    public void stepU(WeightModel model) {
-        WeightModel deltas = new WeightModel();
-        double error = 0;
+    public void stepU(CharMap model) {
+        CharMap deltas = new CharMap();
 
         for (TextLine line : lines) {
-            String text = line.getText();
-            double lineDelta = line.getWeight() - model.weight(text);
+            String text = line.getContent();
+            double lineDelta = line.getWeight() - model.getValue(text);
             double charDelta = lineDelta / (lines.size() * line.length());
 
             for (Character c : line.getChars()) {
-                deltas.addToWeight(c, charDelta);
+                deltas.addToValue(c, charDelta);
             }
         }
 
-        model.addToWeight(deltas);
+        model.addToValues(deltas);
     }
 
     /**
-     * Single iteration training with proportional (linear) distribution
+     * Single iteration when training with proportional (linear) distribution
      *
      * @param model
      */
-    public void stepL(WeightModel model) {
-        WeightModel deltas = new WeightModel();
-        double error = 0;
+    public void stepL(CharMap model) {
+        CharMap deltas = new CharMap();
 
         for (TextLine line : lines) {
-            String text = line.getText();
-            double lineDelta = line.getWeight() - model.weight(text);
+            String text = line.getContent();
+            double lineDelta = line.getWeight() - model.getValue(text);
+            double rate = lineDelta / (lines.size() * model.getValue(text));
 
             for (Character c : line.getChars()) {
-                double charDelta
-                        = (lineDelta * model.weight(c))
-                        / (lines.size() * model.weight(text));
-
-                deltas.addToWeight(c, charDelta);
+                double charDelta = rate * model.getValue(c);
+                deltas.addToValue(c, charDelta);
             }
         }
-        model.addToWeight(deltas);
+        model.addToValues(deltas);
     }
 
     /**
-     * Single iteration training with random variations
+     * Single iteration when training with random variations
      *
-     * @param model
+     * @param model the current model
+     * @param radius the maximal (uniform distribution) variation for every
+     * parameter.
      */
-    public void stepR(WeightModel model) {
-        WeightModel altmodel = new WeightModel();
+    public void stepR(CharMap model, double radius) {
+        CharMap altmodel = new CharMap(model.keySet(), 0, radius);
 
-        for (Character c : model.getChars()) {
-            double value = model.weight(c) + RandomGenerator.random(40) - 20;
-            altmodel.setWeight(c, value);
-        }
+        altmodel.addToValues(model);
+
         if (errorPerChar(altmodel) < errorPerChar(model)) {
-            model.weights = altmodel.weights; // Ugly
+            model.putAll(altmodel);
         }
 
     }
@@ -222,7 +208,7 @@ public class Sample {
      * @param numiter
      * @return average error per character at every iteration
      */
-    public double[] train(WeightModel model, TrainingMethod method, int numiter) {
+    public double[] train(CharMap model, TrainingMethod method, int numiter) {
         double[] errors = new double[numiter + 1];
 
         for (int n = 0; n < numiter; ++n) {
@@ -233,32 +219,19 @@ public class Sample {
                 case LINEAR:
                     stepL(model);
                 case RANDOM:
-                    stepR(model);
+                    stepR(model, 50);
             }
         }
         errors[numiter] = errorPerChar(model);
         return errors;
     }
 
-    private List<TextLine> readFile(File file) throws IOException {
-        List<TextLine> list = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-
-        while (reader.ready()) {
-            String text = reader.readLine();
-            int weight = Integer.parseInt(reader.readLine().trim());
-            TextLine line = new TextLine(text, weight);
-            list.add(line);
-        }
-
-        return list;
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+       
         for (TextLine line : lines) {
-            builder.append(line.source).append(line.weight).append("\n");
+            builder.append(line.toString()).append("\n");
         }
 
         return builder.toString();
