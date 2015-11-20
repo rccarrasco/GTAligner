@@ -158,17 +158,20 @@ public final class CharMap extends HashMap<Character, Double> {
 
     /**
      * Create a CSV representation
+     *
      * @param separator the column separator
      * @return the content in CSV format
      */
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, Double> entry : entrySet()) {
-            builder.append(entry.getKey()).append('\t')
+            builder.append("'")
+                    .append(entry.getKey())
+                    .append("'\t")
                     .append(entry.getValue())
                     .append('\n');
         }
-        
+
         return builder.toString();
     }
 

@@ -56,7 +56,7 @@ public class TextLine {
     public TextLine(String content, int weight) {
         this.content = content.trim().replaceAll("\\p{Space}+", " ");
         this.weight = weight;
-        this.chars = getChars(content);
+        this.chars = getChars(this.content);
     }
 
     /**

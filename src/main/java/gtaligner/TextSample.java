@@ -191,10 +191,9 @@ public class TextSample {
      * parameter.
      */
     public void stepR(CharMap model, double radius) {
-        CharMap altmodel = new CharMap(model.keySet(), 0, radius);
+        CharMap altmodel = new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
 
         altmodel.addToValues(model);
-
         if (errorPerChar(altmodel) < errorPerChar(model)) {
             model.putAll(altmodel);
         }
@@ -219,7 +218,7 @@ public class TextSample {
                 case LINEAR:
                     stepL(model);
                 case RANDOM:
-                    stepR(model, 50);
+                    stepR(model, 100);
             }
         }
         errors[numiter] = errorPerChar(model);
@@ -229,7 +228,7 @@ public class TextSample {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-       
+
         for (TextLine line : lines) {
             builder.append(line.toString()).append("\n");
         }
