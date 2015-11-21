@@ -132,7 +132,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
      */
     public void addToValue(Character c, double delta) {
         if (containsKey(c)) {
-        get(c).add(delta);
+            get(c).add(delta);
         } else {
             put(c, new MutableDouble(delta));
         }

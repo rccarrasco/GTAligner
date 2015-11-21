@@ -71,4 +71,9 @@ public class MutableInt {
         int anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
+    
+    @Override
+    public String toString() {
+        return Integer.toString(value);
+    }
 }

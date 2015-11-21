@@ -21,7 +21,6 @@ import gtaligner.math.CharCounter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -166,9 +165,12 @@ public class TextSample {
 
             for (Character c : line.getChars()) {
                 double charDelta = factor * model.getValue(c);
+                double contri = lineDelta * model.getValue(c) / model.getValue(text);
+
                 deltas.addToValue(c, charDelta / charstats.getNumber(c));
             }
         }
+        
         model.addToValues(deltas);
     }
 
@@ -204,10 +206,13 @@ public class TextSample {
             switch (method) {
                 case UNIFORM:
                     stepU(model);
+                    break;
                 case LINEAR:
                     stepL(model);
+                    break;
                 case RANDOM:
                     stepR(model, 100);
+                    break;
             }
         }
         errors[numiter] = errorPerChar(model);

@@ -45,7 +45,7 @@ public class MutableDouble {
     }
 
     public Double toDouble() {
-        return new Double(value);
+        return value;
     }
 
     public void add(double term) {
@@ -54,6 +54,11 @@ public class MutableDouble {
 
     public void multiply(double factor) {
         this.value *= factor;
+    }
+    
+    @Override
+    public String toString() {
+        return Double.toString(value);
     }
 
 }

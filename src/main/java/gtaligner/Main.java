@@ -32,10 +32,11 @@ public class Main {
             numiter = Integer.parseInt(args[1]);
             sample = new TextSample(Arrays.copyOfRange(args, 2, args.length));
 
-            Messages.info(sample.toString());
+            Messages.info("SAMPLE");
             Messages.info(sample.charStats().toString());
 
             model = new CharMap(sample.getChars(), 400);
+
             switch (args[0]) {
                 case "-u":
                     method = TrainingMethod.UNIFORM;
@@ -47,12 +48,12 @@ public class Main {
                     method = TrainingMethod.RANDOM;
                     break;
                 default:
-                   method = TrainingMethod.UNIFORM;
+                    method = TrainingMethod.UNIFORM;
                     break;
             }
-            
+
             double[] errors = sample.train(model, method, numiter);
-            
+
             System.out.println(model.toCSV('\t'));
             System.out.println("error = " + sample.errorPerChar(model));
         }
