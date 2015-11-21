@@ -18,6 +18,7 @@ package gtaligner.math;
 
 import gtaligner.math.MutableInt;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -47,6 +48,25 @@ public class CharCounter extends HashMap<Character, MutableInt> {
     
     public void increment(Character c) {
         add(c, 1);
+    }
+    
+     /**
+     * Create a CSV representation
+     *
+     * @param separator the column separator
+     * @return the content in CSV format
+     */
+    public String toCSV(char separator) {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Character, MutableInt> entry : entrySet()) {
+            builder.append("'")
+                    .append(entry.getKey())
+                    .append("'\t")
+                    .append(entry.getValue().getValue())
+                    .append('\n');
+        }
+
+        return builder.toString();
     }
     
 }

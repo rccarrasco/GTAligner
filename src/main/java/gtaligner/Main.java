@@ -33,7 +33,7 @@ public class Main {
             sample = new TextSample(Arrays.copyOfRange(args, 2, args.length));
 
             Messages.info("SAMPLE");
-            Messages.info(sample.charStats().toString());
+            Messages.info(sample.charStats().toCSV('\t'));
 
             model = new CharMap(sample.getChars(), 400);
 
