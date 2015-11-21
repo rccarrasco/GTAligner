@@ -1,14 +1,15 @@
 package gtaligner;
 
+import gtaligner.io.Messages;
+import gtaligner.math.CharMap;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author rafa
  */
-public class GTAligner {
+public class Main {
     /*
      private static void printErrors(Sample sample, CharMap model, int numiter, TrainingMethod method) {
      double[] errors = sample.train(model, method, numiter);

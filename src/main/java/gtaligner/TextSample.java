@@ -16,6 +16,8 @@
  */
 package gtaligner;
 
+import gtaligner.math.CharMap;
+import gtaligner.math.CharCounter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -161,10 +163,10 @@ public class TextSample {
             String text = line.getContent();
             double lineDelta = line.getWeight() - model.getValue(text);
             double factor = lineDelta / model.getValue(text);
-            
+
             for (Character c : line.getChars()) {
                 double charDelta = factor * model.getValue(c);
-                deltas.addToValue(c, charDelta);
+                deltas.addToValue(c, charDelta / charstats.getNumber(c));
             }
         }
         model.addToValues(deltas);

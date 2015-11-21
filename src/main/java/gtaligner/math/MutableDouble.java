@@ -14,38 +14,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package gtaligner;
-
-import java.util.HashMap;
+package gtaligner.math;
 
 /**
  *
  * @author rafa
  */
-public class CharCounter extends HashMap<Character, MutableInt> {
+public class MutableDouble {
 
-    public void setNumber(Character c, int value) {
-        get(c).setValue(value);
-    }
+    private double value;
 
-    public int getNumber(Character c) {
-        if (containsKey(c)) {
-            return get(c).getValue();
-        } else {
-            return 0;
-        }
+    public MutableDouble(double value) {
+        this.value = value;
     }
 
-    public void add(Character c, int value) {
-        if (containsKey(c)) {
-            get(c).add(value);
-        } else {
-            put(c, new MutableInt(value));
-        }
+    public void setValue(double value) {
+        this.value = value;
     }
-    
-    public void increment(Character c) {
-        add(c, 1);
+
+    public double getValue() {
+        return value;
     }
-    
+
+    public boolean isNaN() {
+        return Double.isNaN(value);
+    }
+
+    public boolean isInfinite() {
+        return Double.isInfinite(value);
+    }
+
+    public Double toDouble() {
+        return new Double(value);
+    }
+
+    public void add(double term) {
+        this.value += term;
+    }
+
+    public void multiply(double factor) {
+        this.value *= factor;
+    }
+
 }

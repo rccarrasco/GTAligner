@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package gtaligner;
+package gtaligner.math;
 
+import gtaligner.math.MutableDouble;
 import java.lang.Character.UnicodeBlock;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,17 +81,6 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
 
         for (Character c : keys) {
             put(c, new MutableDouble(low + (high - low) * random.nextDouble()));
-        }
-    }
-
-    /**
-     * Add random uniform noise to the map
-     *
-     * @param radius the maximum value for the noise
-     */
-    public void randomize(double radius) {
-        for (Character c : keySet()) {
-            addToValue(c, radius * random.nextDouble());
         }
     }
 
