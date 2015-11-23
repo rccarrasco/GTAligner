@@ -16,7 +16,6 @@
  */
 package gtaligner.math;
 
-import gtaligner.math.MutableDouble;
 import java.lang.Character.UnicodeBlock;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,13 +55,14 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
      *
      * @param keys a set of characters
      * @param defaultValue the default value for generic characters
-     * @param block a Unicode block, for example, punctuation
+     * @param type a character's general category (for example,
+     * Character.LETTER_NUMBER)
      * @param value value for the characters in the specified block
      */
     public CharMap(Set<Character> keys, double defaultValue,
-            UnicodeBlock block, double value) {
+            int type, double value) {
         for (Character c : keys) {
-            if (Character.UnicodeBlock.of(c) == block) {
+            if (Character.getType(c) == type) {
                 put(c, new MutableDouble(value));
             } else {
                 put(c, new MutableDouble(defaultValue));
@@ -120,7 +120,11 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
      * @param value value to be associated with the specified character
      */
     public void setValue(Character c, double value) {
-        put(c, new MutableDouble(value));
+        if (containsKey(c)) {
+            get(c).setValue(value);
+        } else {
+            put(c, new MutableDouble(value));
+        }
     }
 
     /**
@@ -151,6 +155,21 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     }
 
     /**
+     * Add two maps: the value of characters in both maps is obtained as the
+     * addition of their values.
+     *
+     * @param other another CharMap whose values must be added to this one.
+     * @param lower a lower bound for the final value
+     */
+    public void addToValues(CharMap other, double lower) {
+        for (Map.Entry<Character, MutableDouble> entry : other.entrySet()) {
+            Character c = entry.getKey();
+            double value = Math.max(lower, getValue(c) + other.getValue(c));
+            setValue(c, value);
+        }
+    }
+
+    /**
      * Create a CSV representation
      *
      * @param separator the column separator
@@ -159,9 +178,13 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, MutableDouble> entry : entrySet()) {
-            builder.append("'")
+            builder
+                    //.append(Character.getType(entry.getKey()))
+                    //.append(separator)
+                    .append("'")
                     .append(entry.getKey())
-                    .append("'\t")
+                    .append("'")
+                    .append(separator)
                     .append(entry.getValue().getValue())
                     .append('\n');
         }

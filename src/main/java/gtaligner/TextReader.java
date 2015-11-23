@@ -5,13 +5,12 @@
  */
 package gtaligner;
 
+import gtaligner.io.Messages;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +31,7 @@ public class TextReader {
 
             return builder.toString();
         } catch (IOException ex) {
-            Logger.getLogger(TextReader.class.getName()).log(Level.SEVERE, null, ex);
+            Messages.severe("Could not read " + file.getAbsolutePath());
         }
 
         return builder.toString();

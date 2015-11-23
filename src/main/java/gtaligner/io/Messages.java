@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +30,7 @@ import java.util.logging.Logger;
 public class Messages {
 
     static final Logger logger;
+    static File logdir;
 
     static {
         logger = Logger.getLogger("gtaligner");
@@ -39,14 +39,14 @@ public class Messages {
             URI uri = Messages.class.getProtectionDomain()
                     .getCodeSource().getLocation().toURI();
             String dir = new File(uri.getPath()).getParent();
-            File file = new File(dir, "gtaligner.log");
-            FileHandler fh = new FileHandler(file.getAbsolutePath());
-            
+            File logfile = new File(dir, "gtaligner.log");
+            FileHandler fh = new FileHandler(logfile.getAbsolutePath());
+
+            System.err.println("Log file is " + logfile.getAbsolutePath());
             fh.setFormatter(new LogFormatter());
-            // remove console logging
-            logger.setUseParentHandlers(false);
+            logger.setUseParentHandlers(false); // remove console logging
             logger.addHandler(fh);
-            System.err.println("Log file is " + file.getAbsolutePath());
+            logdir = logfile.getParentFile();
         } catch (URISyntaxException | IOException | SecurityException ex) {
             System.err.println("Could not create log file");
         }

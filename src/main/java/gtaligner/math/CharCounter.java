@@ -16,7 +16,6 @@
  */
 package gtaligner.math;
 
-import gtaligner.math.MutableInt;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +60,8 @@ public class CharCounter extends HashMap<Character, MutableInt> {
         for (Map.Entry<Character, MutableInt> entry : entrySet()) {
             builder.append("'")
                     .append(entry.getKey())
-                    .append("'\t")
+                    .append("'")
+                    .append(separator)
                     .append(entry.getValue().getValue())
                     .append('\n');
         }

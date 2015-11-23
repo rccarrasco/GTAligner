@@ -18,7 +18,6 @@ package gtaligner;
 
 import gtaligner.math.CharMap;
 import gtaligner.math.CharCounter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,9 +36,8 @@ public class TextSample {
      * Create a TExtSampel from an array of input files
      *
      * @param filenames an array of filenames
-     * @throws IOException
      */
-    public TextSample(String[] filenames) throws IOException {
+    public TextSample(String[] filenames) {
         lines = new ArrayList<>();
         charstats = new CharCounter();
 
@@ -184,7 +182,7 @@ public class TextSample {
     public void stepR(CharMap model, double radius) {
         CharMap altmodel = new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
 
-        altmodel.addToValues(model);
+        altmodel.addToValues(model, 1.0);
         if (errorPerChar(altmodel) < errorPerChar(model)) {
             model.putAll(altmodel);
         }
