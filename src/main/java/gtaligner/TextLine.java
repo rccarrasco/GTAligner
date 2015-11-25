@@ -16,6 +16,7 @@
  */
 package gtaligner;
 
+import gtaligner.io.TextReader;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;

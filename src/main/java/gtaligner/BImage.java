@@ -5,10 +5,13 @@
  */
 package gtaligner;
 
+import gtaligner.io.TextReader;
+import gtaligner.math.BooleanMatrix;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -40,7 +43,7 @@ public class BImage {
     /**
      * Read image from file
      *
-     * @param filename the name of the image file 
+     * @param filename the name of the image file
      */
     public BImage(String filename) {
         this(new File(filename));
@@ -66,8 +69,7 @@ public class BImage {
         for (int x = 0; x < img.getWidth(); ++x) {
             for (int y = 0; y < img.getHeight(); ++y) {
                 int rgb = img.getRGB(x, y);
-                double dark = darkness(rgb) / 765.0;
-                if (dark > threshold) {
+                if (darkness(rgb) > 765 * threshold) {
                     ++w;
                 }
             }
@@ -75,11 +77,102 @@ public class BImage {
         return w;
     }
 
+    private void flood(BooleanMatrix matrix, double threshold, int x, int y) {
+        matrix.set(x, y, true);
+
+        for (int i = Math.max(x - 1, 0); i < Math.min(x + 2, img.getWidth()); ++i) {
+            for (int j = Math.max(y - 1, 0); j < Math.min(y + 2, img.getHeight()); ++j) {
+                int rgb = img.getRGB(i, j);
+                if (darkness(rgb) > 765 * threshold
+                        && !matrix.get(i, j)) {
+                    flood(matrix, threshold, i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Compute the number of clusters in this image
+     *
+     * @param threshold
+     * @return
+     */
+    public int clusters(double threshold) {
+        int num = 0;
+        BooleanMatrix matrix = new BooleanMatrix(img.getHeight(), img.getWidth());
+
+        for (int x = 0; x < img.getWidth(); ++x) {
+            for (int y = 0; y < img.getHeight(); ++y) {
+                int rgb = img.getRGB(x, y);
+                if (darkness(rgb) > 765 * threshold
+                        && !matrix.get(x, y)) {
+                    ++num;
+                    flood(matrix, threshold, x, y);
+                }
+            }
+        }
+        return num;
+    }
+
+    private int[] vprojections(double threshold) {
+        int[] values = new int[img.getWidth()];
+        for (int x = 0; x < img.getWidth(); ++x) {
+            for (int y = 0; y < img.getHeight(); ++y) {
+                int rgb = img.getRGB(x, y);
+                if (darkness(rgb) > 765 * threshold) {
+                    ++values[x];
+                }
+            }
+            System.err.println(x + " " + values[x]);
+        }
+        return values;
+    }
+
+    private double average(int[] values) {
+        int sum = 0;
+        for (int n = 0; n < values.length; ++n) {
+            sum += values[n];
+        }
+        return sum / (double) values.length;
+    }
+
+    public void split(int num) {
+        int[] plot = vprojections(0.5);
+        double av = average(plot);
+        ArrayList<Integer> gaps = new ArrayList<>();
+
+        int r = 0;
+        for (int n = 0; n < plot.length; ++n) {
+            if (plot[n] < 0.5 * av) {
+                r += (av - plot[n]);
+            } else if (r > 0) {
+                System.out.println(n + ", " + r);
+                gaps.add(r);
+                r = 0;
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         for (String arg : args) {
-            File file = new File(arg);
-            BImage image = new BImage(file);
-            System.out.println(arg + "=" + image.weight(0.5));
+            File ifile = new File(arg);
+            BImage image = new BImage(ifile);
+            double threshold = 0.5;
+            int num = image.clusters(threshold);
+            double weight = image.weight(threshold);
+
+            System.out.print(arg + "= [" + num + "," + weight + "]");
+
+            String basename = arg.substring(0, arg.lastIndexOf('.'));
+            File tfile = new File(basename + ".txt");
+            if (tfile.exists()) {
+                String text = TextReader.read(tfile)
+                        .replaceAll("\\p{Space}", "");
+                System.out.print(" " + num / (double) text.length());
+            }
+            System.out.println();
+            image.split(10);
         }
     }
 }

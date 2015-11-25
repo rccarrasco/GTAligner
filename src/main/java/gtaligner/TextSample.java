@@ -16,6 +16,7 @@
  */
 package gtaligner;
 
+import gtaligner.io.TextReader;
 import gtaligner.math.CharMap;
 import gtaligner.math.CharCounter;
 import java.util.ArrayList;

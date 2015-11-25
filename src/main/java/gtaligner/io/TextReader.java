@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gtaligner;
+package gtaligner.io;
 
-import gtaligner.io.Messages;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
