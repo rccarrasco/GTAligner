@@ -114,26 +114,53 @@ public class BImage {
         return num;
     }
 
-    private int[] vprojections(double threshold) {
-        int[] values = new int[img.getWidth()];
-        for (int x = 0; x < img.getWidth(); ++x) {
-            for (int y = 0; y < img.getHeight(); ++y) {
-                int rgb = img.getRGB(x, y);
-                if (darkness(rgb) > 765 * threshold) {
-                    ++values[x];
-                }
-            }
-            System.err.println(x + " " + values[x]);
-        }
-        return values;
-    }
-
     private double average(int[] values) {
         int sum = 0;
         for (int n = 0; n < values.length; ++n) {
             sum += values[n];
         }
         return sum / (double) values.length;
+    }
+
+    public int vprojection(int x, double threshold) {
+        int value = 0;
+
+        for (int y = 0; y < img.getHeight(); ++y) {
+            int rgb = img.getRGB(x, y);
+            if (darkness(rgb) > 765 * threshold) {
+                ++value;
+            }
+        }
+        return value;
+    }
+
+    private int[] vprojections(double threshold) {
+        int[] values = new int[img.getWidth()];
+
+        for (int x = 0; x < img.getWidth(); ++x) {
+            values[x] = vprojection(x, threshold);
+            System.err.println(x + " " + values[x]);
+        }
+        return values;
+    }
+
+    public int width(double threshold) {
+        int[] values = new int[img.getWidth()];
+        int total = 0;
+        int w = 0;
+
+        for (int x = 0; x < img.getWidth(); ++x) {
+            values[x] = vprojection(x, threshold);
+            total += values[x];
+        }
+
+        for (int x = 0; x < img.getWidth(); ++x) {
+            // lower bound must be paremererized!!!
+            if (values[x] * img.getWidth() > 0.2 * total) {
+                ++w;
+            }
+        }
+        return w;
     }
 
     public void split(int num) {
@@ -146,7 +173,7 @@ public class BImage {
             if (plot[n] < 0.5 * av) {
                 r += (av - plot[n]);
             } else if (r > 0) {
-                System.out.println(n + ", " + r);
+                //System.out.println(n + ", " + r);
                 gaps.add(r);
                 r = 0;
             }
@@ -160,9 +187,13 @@ public class BImage {
             BImage image = new BImage(ifile);
             double threshold = 0.5;
             int num = image.clusters(threshold);
-            double weight = image.weight(threshold);
+            int weight = image.weight(threshold);
+            int width = image.width(threshold);
 
-            System.out.print(arg + "= [" + num + "," + weight + "]");
+            System.out.print(arg + "= [" + num + ","
+                    + weight + "," 
+                    + width + "," +
+                    image.img.getWidth() + "]");
 
             String basename = arg.substring(0, arg.lastIndexOf('.'));
             File tfile = new File(basename + ".txt");
