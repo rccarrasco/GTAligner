@@ -144,7 +144,12 @@ public class BImage {
         return values;
     }
 
-    public int width(double threshold) {
+    /**
+     * 
+     * @param threshold
+     * @return Number of columns in this image containing some pixels with darkness above threshold 
+     */
+    public int spur(double threshold) {
         int[] values = new int[img.getWidth()];
         int total = 0;
         int w = 0;
@@ -156,7 +161,8 @@ public class BImage {
 
         for (int x = 0; x < img.getWidth(); ++x) {
             // lower bound must be paremererized!!!
-            if (values[x] * img.getWidth() > 0.2 * total) {
+           // if (values[x] * img.getWidth() > 0.2 * total) {
+            if (values[x] > 4) {
                 ++w;
             }
         }
@@ -188,12 +194,12 @@ public class BImage {
             double threshold = 0.5;
             int num = image.clusters(threshold);
             int weight = image.weight(threshold);
-            int width = image.width(threshold);
+            int width = image.spur(threshold);
 
             System.out.print(arg + "= [" + num + ","
                     + weight + "," 
                     + width + "," +
-                    image.img.getWidth() + "]");
+                    + image.img.getWidth() + "]");
 
             String basename = arg.substring(0, arg.lastIndexOf('.'));
             File tfile = new File(basename + ".txt");

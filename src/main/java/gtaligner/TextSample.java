@@ -46,7 +46,7 @@ public class TextSample {
             BImage bimage = new BImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
             String text = TextReader.readFile(basename + ".txt");
-            TextLine line = new TextLine(text, bimage.weight(0.5));
+            TextLine line = new TextLine(text, bimage.spur(0.5));
             String content = line.getContent();
 
             lines.add(line);
