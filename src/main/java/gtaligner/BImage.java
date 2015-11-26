@@ -149,7 +149,7 @@ public class BImage {
      * @param threshold
      * @return Number of columns in this image containing some pixels with darkness above threshold 
      */
-    public int spur(double threshold) {
+    public int footprint(double threshold) {
         int[] values = new int[img.getWidth()];
         int total = 0;
         int w = 0;
@@ -194,7 +194,7 @@ public class BImage {
             double threshold = 0.5;
             int num = image.clusters(threshold);
             int weight = image.weight(threshold);
-            int width = image.spur(threshold);
+            int width = image.footprint(threshold);
 
             System.out.print(arg + "= [" + num + ","
                     + weight + "," 
