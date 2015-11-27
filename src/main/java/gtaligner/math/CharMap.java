@@ -38,6 +38,15 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     }
 
     /**
+     * Copy constructor
+     *
+     * @param other the other CharMap to be copied
+     */
+    public CharMap(CharMap other) {
+        super(other);
+    }
+
+    /**
      * Create a trivial map
      *
      * @param keys a set of characters
@@ -153,18 +162,10 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
         }
     }
 
-    /**
-     * Add two maps: the value of characters in both maps is obtained as the
-     * addition of their values.
-     *
-     * @param other another CharMap whose values must be added to this one.
-     * @param lower a lower bound for the final value
-     */
-    public void addToValues(CharMap other, double lower) {
-        for (Map.Entry<Character, MutableDouble> entry : other.entrySet()) {
-            Character c = entry.getKey();
-            double value = Math.max(lower, getValue(c) + other.getValue(c));
-            setValue(c, value);
+    public void randomize(double radius) {
+        for (MutableDouble value : values()) {
+            double factor = radius * (random.nextDouble() - 0.5);
+            value.add(factor * value.getValue());
         }
     }
 

@@ -3,7 +3,6 @@ package gtaligner;
 import gtaligner.io.Messages;
 import gtaligner.math.CharMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +35,7 @@ public class Main {
 
             //System.err.println("Working dir: " + System.getProperty("user.dir"));
             // Input data
-            for (int n = 1; n < args.length; ++n) {
+            for (int n = 0; n < args.length; ++n) {
                 String arg = args[n];
                 switch (arg) {
                     case "-n":
@@ -75,8 +74,8 @@ public class Main {
             sample = new TextSample(filenames);
             model = new CharMap(sample.getChars(), 400,
                     Character.OTHER_PUNCTUATION, 100);
-            System.err.println("Sample with " + sample.size + " lines has been processed");
-
+            
+            System.err.println("Sample with " + sample.size + " files has been processed");
             double[] errors = sample.train(model, feature, method, numiter);
 
             // Output
@@ -84,7 +83,6 @@ public class Main {
             Messages.info(sample.charStats().toCSV('\t'));
             System.out.println(model.toCSV('\t'));
             System.err.println("error = " + errors[errors.length - 1]);
-
         }
 
     }

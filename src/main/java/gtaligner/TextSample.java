@@ -209,9 +209,10 @@ public class TextSample {
      * parameter.
      */
     public void stepR(CharMap model, Feature feature, double radius) {
-        CharMap altmodel = new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
+        CharMap altmodel = new CharMap(model); 
+                //new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
 
-        altmodel.addToValues(model, 1.0);
+        altmodel.randomize(0.05);
         if (errorPerChar(altmodel, feature) < errorPerChar(model, feature)) {
             model.putAll(altmodel);
         }
