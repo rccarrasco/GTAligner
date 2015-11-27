@@ -54,6 +54,14 @@ public class BWImage {
         this(new File(filename));
     }
 
+    public int getWidth() {
+        return img.getWidth();
+    }
+
+    public int getHeight() {
+        return img.getHeight();
+    }
+
     public int getAlpha(int x, int y) {
         return (img.getRGB(x, y) >> 24) & 0xFF;
     }
@@ -77,7 +85,7 @@ public class BWImage {
     private boolean isBlack(int x, int y) {
         return luminosity(x, y) == 0;
     }
-
+    
     /**
      *
      * @return the number of dark pixels in this image
@@ -92,6 +100,23 @@ public class BWImage {
             }
         }
         return w;
+    }
+
+    /**
+     *
+     * @return Number of columns in this image containing some dark pixels
+     */
+    public int shadow() {
+        int value = 0;
+        for (int x = 0; x < img.getWidth(); ++x) {
+            for (int y = 0; y < img.getHeight(); ++y) {
+                if (isBlack(x, y))  {
+                    value += 1;
+                    break;
+                }
+            }
+        }
+        return value;
     }
 
     private void flood(BooleanMatrix matrix, int x, int y) {
@@ -109,7 +134,7 @@ public class BWImage {
     /**
      * Compute the number of clusters in this image
      *
-     * @return
+     * @return the number of clusters in this image
      */
     public int clusters() {
         int num = 0;
@@ -155,30 +180,6 @@ public class BWImage {
             //System.err.println(x + " " + values[x]);
         }
         return values;
-    }
-
-    /**
-     *
-     * @return Number of columns in this image containing some dark pixels
-     */
-    public int shadow() {
-        int[] values = new int[img.getWidth()];
-        int total = 0;
-        int w = 0;
-
-        for (int x = 0; x < img.getWidth(); ++x) {
-            values[x] = vprojection(x);
-            total += values[x];
-        }
-
-        for (int x = 0; x < img.getWidth(); ++x) {
-            // lower bound must be paremererized!!!
-            // if (values[x] * img.getWidth() > 0.2 * total) {
-            if (values[x] > 2) {
-                ++w;
-            }
-        }
-        return w;
     }
 
     public void split(int num) {

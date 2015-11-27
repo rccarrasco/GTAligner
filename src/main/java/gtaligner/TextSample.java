@@ -16,10 +16,12 @@
  */
 package gtaligner;
 
+import gtaligner.io.Messages;
 import gtaligner.io.TextReader;
 import gtaligner.math.CharMap;
 import gtaligner.math.CharCounter;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,12 +37,12 @@ public class TextSample {
     CharCounter charstats;
 
     /**
-     * Create a TextSample from an array of input files
+     * Create a TextSample from a list of input files
      *
-     * @param filenames an array of filenames containing lies of text
+     * @param filenames list of filenames containing lines of text
      */
-    public TextSample(String[] filenames) {
-        size = filenames.length;
+    public TextSample(List<String> filenames) {
+        size = filenames.size();
         lines = new TextLine[size];
         features = new EnumMap<>(Feature.class);
         features.put(Feature.SHADOW, new int[size]);
@@ -48,7 +50,7 @@ public class TextSample {
         charstats = new CharCounter();
 
         for (int n = 0; n < size; ++n) {
-            String name = filenames[n];
+            String name = filenames.get(n);
             BWImage image = new BWImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
             String text = TextReader.readFile(basename + ".txt");
@@ -61,6 +63,15 @@ public class TextSample {
         }
     }
 
+     /**
+     * Create a TextSample from an array of input files
+     *
+     * @param filenames array of filenames containing lines of text
+     */
+    public TextSample(String[] filenames) {
+        this(java.util.Arrays.asList(filenames));
+    }
+    
     /**
      *
      * @return all text lines in this sample
@@ -232,7 +243,7 @@ public class TextSample {
                     stepR(model, feature, 100);
                     break;
             }
-            System.err.println(n + " " + errors[n]);
+            Messages.info(n + " " + errors[n]);
         }
         errors[numiter] = errorPerChar(model, feature);
         

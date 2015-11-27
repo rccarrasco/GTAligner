@@ -16,7 +16,6 @@
  */
 package gtaligner;
 
-import gtaligner.math.CharMap;
 import java.util.HashSet;
 import java.util.Set;
 
