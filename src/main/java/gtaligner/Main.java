@@ -19,9 +19,9 @@ public class Main {
      }
      }
      */
-    
+
     public static void main(String[] args) {
-        
+
         if (args.length < 2) {
             System.err.println("Usage: GTAligner [-n numiter] [-m method] [-f feature] img1 img2 ...");
             System.err.println("\tMethod can be u (uniform), l (linear) or r (random)");
@@ -47,23 +47,27 @@ public class Main {
                             case "u":
                                 method = TrainingMethod.UNIFORM;
                                 break;
-                            case "-l":
+                            case "l":
                                 method = TrainingMethod.LINEAR;
                                 break;
-                            case "-r":
+                            case "r":
                                 method = TrainingMethod.RANDOM;
                                 break;
                         }
+                        break;
                     case "-f":
                         switch (args[++n]) {
                             case "s":
                                 feature = Feature.SHADOW;
+                                break;
                             case "w":
                                 feature = Feature.WEIGHT;
+                                break;
                         }
+                        break;
                     default:
                         filenames.add(arg);
-                    
+
                 }
             }
 
@@ -72,7 +76,7 @@ public class Main {
             model = new CharMap(sample.getChars(), 400,
                     Character.OTHER_PUNCTUATION, 100);
             System.err.println("Sample with " + sample.size + " lines has been processed");
-            
+
             double[] errors = sample.train(model, feature, method, numiter);
 
             // Output
@@ -80,9 +84,9 @@ public class Main {
             Messages.info(sample.charStats().toCSV('\t'));
             System.out.println(model.toCSV('\t'));
             System.err.println("error = " + errors[errors.length - 1]);
-            
+
         }
-        
+
     }
-    
+
 }
