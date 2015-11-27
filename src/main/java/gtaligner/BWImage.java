@@ -5,15 +5,14 @@
  */
 package gtaligner;
 
+import gtaligner.io.Messages;
 import gtaligner.io.TextReader;
 import gtaligner.math.BooleanMatrix;
-import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -21,7 +20,7 @@ import javax.imageio.ImageIO;
  *
  * @author rafa
  */
-public class BImage {
+public class BWImage {
 
     BufferedImage img = null;
 
@@ -30,12 +29,18 @@ public class BImage {
      *
      * @param file an image file
      */
-    public BImage(File file) {
+    public BWImage(File file) {
 
         try {
-            img = ImageIO.read(file);
+            Graphics2D graphics;
+            BufferedImage source = ImageIO.read(file);
+
+            img = new BufferedImage(source.getWidth(), source.getHeight(),
+                    BufferedImage.TYPE_BYTE_BINARY);
+            graphics = img.createGraphics();
+            graphics.drawImage(source, 0, 0, null);
         } catch (IOException ex) {
-            Logger.getLogger(BImage.class.getName()).log(Level.SEVERE, null, ex);
+            Messages.severe("Could nor open " + file);
         }
 
     }
@@ -45,31 +50,43 @@ public class BImage {
      *
      * @param filename the name of the image file
      */
-    public BImage(String filename) {
+    public BWImage(String filename) {
         this(new File(filename));
     }
 
-    /**
-     * @return gray level obtained by adding R, G and B components: 0 is minimum
-     * and 765 = 3 * 255 maximum.
-     */
-    private int darkness(int rgb) {
-        Color c = new Color(rgb);
-        return 765 - c.getRed() - c.getGreen() - c.getBlue();
+    public int getAlpha(int x, int y) {
+        return (img.getRGB(x, y) >> 24) & 0xFF;
+    }
+
+    public int getRed(int x, int y) {
+        return (img.getRGB(x, y) >> 16) & 0xFF;
+    }
+
+    public int getGreen(int x, int y) {
+        return (img.getRGB(x, y) >> 8) & 0xFF;
+    }
+
+    public int getBlue(int x, int y) {
+        return img.getRGB(x, y) & 0xFF;
+    }
+
+    public int luminosity(int x, int y) {
+        return getRed(x, y) + getGreen(x, y) + getBlue(x, y);
+    }
+
+    private boolean isBlack(int x, int y) {
+        return luminosity(x, y) == 0;
     }
 
     /**
      *
-     * @param threshold a gray level between 0 and 1
-     * @return the number of pixels in this image with a gray level above the
-     * specified threshold
+     * @return the number of dark pixels in this image
      */
-    public int weight(double threshold) {
+    public int weight() {
         int w = 0;
         for (int x = 0; x < img.getWidth(); ++x) {
             for (int y = 0; y < img.getHeight(); ++y) {
-                int rgb = img.getRGB(x, y);
-                if (darkness(rgb) > 765 * threshold) {
+                if (isBlack(x, y)) {
                     ++w;
                 }
             }
@@ -77,15 +94,13 @@ public class BImage {
         return w;
     }
 
-    private void flood(BooleanMatrix matrix, double threshold, int x, int y) {
+    private void flood(BooleanMatrix matrix, int x, int y) {
         matrix.set(x, y, true);
 
         for (int i = Math.max(x - 1, 0); i < Math.min(x + 2, img.getWidth()); ++i) {
             for (int j = Math.max(y - 1, 0); j < Math.min(y + 2, img.getHeight()); ++j) {
-                int rgb = img.getRGB(i, j);
-                if (darkness(rgb) > 765 * threshold
-                        && !matrix.get(i, j)) {
-                    flood(matrix, threshold, i, j);
+                if (isBlack(i, j) && !matrix.get(i, j)) {
+                    flood(matrix, i, j);
                 }
             }
         }
@@ -94,20 +109,18 @@ public class BImage {
     /**
      * Compute the number of clusters in this image
      *
-     * @param threshold
      * @return
      */
-    public int clusters(double threshold) {
+    public int clusters() {
         int num = 0;
         BooleanMatrix matrix = new BooleanMatrix(img.getHeight(), img.getWidth());
 
         for (int x = 0; x < img.getWidth(); ++x) {
             for (int y = 0; y < img.getHeight(); ++y) {
-                int rgb = img.getRGB(x, y);
-                if (darkness(rgb) > 765 * threshold
+                if (isBlack(x, y)
                         && !matrix.get(x, y)) {
                     ++num;
-                    flood(matrix, threshold, x, y);
+                    flood(matrix, x, y);
                 }
             }
         }
@@ -122,47 +135,46 @@ public class BImage {
         return sum / (double) values.length;
     }
 
-    public int vprojection(int x, double threshold) {
+    public int vprojection(int x) {
         int value = 0;
 
         for (int y = 0; y < img.getHeight(); ++y) {
             int rgb = img.getRGB(x, y);
-            if (darkness(rgb) > 765 * threshold) {
+            if (isBlack(x, y)) {
                 ++value;
             }
         }
         return value;
     }
 
-    private int[] vprojections(double threshold) {
+    private int[] vprojections() {
         int[] values = new int[img.getWidth()];
 
         for (int x = 0; x < img.getWidth(); ++x) {
-            values[x] = vprojection(x, threshold);
-            System.err.println(x + " " + values[x]);
+            values[x] = vprojection(x);
+            //System.err.println(x + " " + values[x]);
         }
         return values;
     }
 
     /**
-     * 
-     * @param threshold
-     * @return Number of columns in this image containing some pixels with darkness above threshold 
+     *
+     * @return Number of columns in this image containing some dark pixels
      */
-    public int footprint(double threshold) {
+    public int shadow() {
         int[] values = new int[img.getWidth()];
         int total = 0;
         int w = 0;
 
         for (int x = 0; x < img.getWidth(); ++x) {
-            values[x] = vprojection(x, threshold);
+            values[x] = vprojection(x);
             total += values[x];
         }
 
         for (int x = 0; x < img.getWidth(); ++x) {
             // lower bound must be paremererized!!!
-           // if (values[x] * img.getWidth() > 0.2 * total) {
-            if (values[x] > 4) {
+            // if (values[x] * img.getWidth() > 0.2 * total) {
+            if (values[x] > 2) {
                 ++w;
             }
         }
@@ -170,7 +182,7 @@ public class BImage {
     }
 
     public void split(int num) {
-        int[] plot = vprojections(0.5);
+        int[] plot = vprojections();
         double av = average(plot);
         ArrayList<Integer> gaps = new ArrayList<>();
 
@@ -190,16 +202,15 @@ public class BImage {
     public static void main(String[] args) {
         for (String arg : args) {
             File ifile = new File(arg);
-            BImage image = new BImage(ifile);
-            double threshold = 0.5;
-            int num = image.clusters(threshold);
-            int weight = image.weight(threshold);
-            int width = image.footprint(threshold);
+            BWImage image = new BWImage(ifile);
+            int num = image.clusters();
+            int weight = image.weight();
+            int width = image.shadow();
 
             System.out.print(arg + "= [" + num + ","
-                    + weight + "," 
-                    + width + "," +
-                    + image.img.getWidth() + "]");
+                    + weight + ","
+                    + width + ","
+                    + +image.img.getWidth() + "]");
 
             String basename = arg.substring(0, arg.lastIndexOf('.'));
             File tfile = new File(basename + ".txt");

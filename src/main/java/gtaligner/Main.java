@@ -51,7 +51,7 @@ public class Main {
             // Computation
             model = new CharMap(sample.getChars(), 400,
                     Character.OTHER_PUNCTUATION, 100);
-            double[] errors = sample.train(model, method, numiter);
+            double[] errors = sample.train(model, Feature.WEIGHT, method, numiter);
 
             // Output
             Messages.info("SAMPLE");

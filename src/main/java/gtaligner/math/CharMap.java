@@ -16,7 +16,6 @@
  */
 package gtaligner.math;
 
-import java.lang.Character.UnicodeBlock;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

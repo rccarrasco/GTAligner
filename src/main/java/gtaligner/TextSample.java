@@ -19,41 +19,45 @@ package gtaligner;
 import gtaligner.io.TextReader;
 import gtaligner.math.CharMap;
 import gtaligner.math.CharCounter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
 import java.util.Set;
 
 /**
- * A sample of TextLines (weighted text lines)
+ * A sample of TextLines and the integer features associated to every TextLine
  *
  * @author rafa
  */
 public class TextSample {
 
-    List<TextLine> lines;
+    int size;
+    TextLine[] lines;
+    EnumMap<Feature, int[]> features;
     CharCounter charstats;
 
     /**
-     * Create a TExtSampel from an array of input files
+     * Create a TextSample from an array of input files
      *
-     * @param filenames an array of filenames
+     * @param filenames an array of filenames containing lies of text
      */
     public TextSample(String[] filenames) {
-        lines = new ArrayList<>();
+        size = filenames.length;
+        lines = new TextLine[size];
+        features = new EnumMap<>(Feature.class);
+        features.put(Feature.SHADOW, new int[size]);
+        features.put(Feature.WEIGHT, new int[size]);
         charstats = new CharCounter();
 
-        for (String name : filenames) {
-            BImage bimage = new BImage(name);
+        for (int n = 0; n < size; ++n) {
+            String name = filenames[n];
+            BWImage image = new BWImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
             String text = TextReader.readFile(basename + ".txt");
-            TextLine line = new TextLine(text, bimage.footprint(0.5));
-            String content = line.getContent();
+            TextLine line = new TextLine(text);
 
-            lines.add(line);
-            for (int n = 0; n < content.length(); ++n) {
-                Character c = content.charAt(n);
-                charstats.increment(c);
-            }
+            lines[n] = line;
+            features.get(Feature.SHADOW)[n] = image.shadow();
+            features.get(Feature.WEIGHT)[n] = image.weight();
+            charstats.increment(line.toCharArray());
         }
     }
 
@@ -61,7 +65,7 @@ public class TextSample {
      *
      * @return all text lines in this sample
      */
-    public List<TextLine> getLines() {
+    public TextLine[] getLines() {
         return lines;
     }
 
@@ -84,18 +88,22 @@ public class TextSample {
     /**
      * Average weight error (per character).
      *
-     * @param model a CharMap modeling character weights
-     * @return the average error per character when real line weights are
-     * compared with weights provided by the model.
+     * @param model a CharMap modeling a character feature
+     * @param feature the feature with respect to which the error rate is
+     * computed
+     * @return the average error per character when the feature for very line is
+     * compared with the values provided by the model.
      */
-    public double errorPerChar(CharMap model) {
+    public double errorPerChar(CharMap model, Feature feature) {
         double err = 0;
         int numchar = 0;
 
-        for (TextLine line : lines) {
-            String text = line.getContent();
+        for (int n = 0; n < size; ++n) {
+            TextLine line = lines[n];
+            double expectedValue = features.get(feature)[n];
+            double value = model.getValue(line.getContent());
 
-            err += Math.abs(line.getWeight() - model.getValue(text));
+            err += Math.abs(expectedValue - value);
             numchar += line.length();
         }
 
@@ -109,37 +117,43 @@ public class TextSample {
     /**
      * Average quadratic error (per character).
      *
-     * @param model a CharMap modeling character weights
+     * @param model a CharMap modeling a character feature
+     * @param feature the feature with respect to which the error rate is
+     * computed
      * @return the average error per character when real line weights are
      * compared with weights provided by the model.
      */
-    public double qerrorPerChar(CharMap model) {
+    public double qerrorPerChar(CharMap model, Feature feature) {
         double err = 0;
         int numchar = 0;
 
-        for (TextLine line : lines) {
-            String text = line.getContent();
+        for (int n = 0; n < size; ++n) {
+            TextLine line = lines[n];
+            double expectedValue = features.get(feature)[n];
+            double value = model.getValue(line.getContent());
 
-            err += square(line.getWeight() - model.getValue(text));
+            err += square(expectedValue - value);
             numchar += line.length();
         }
 
-        return Math.sqrt(err * lines.size()) / numchar;
+        return Math.sqrt(err * size) / numchar;
     }
 
     /**
      * Single iteration when training with uniform distribution among all
      * characters in TextLine.
      *
-     * @param model the model to be optimized
+     * @param model the model to be trained
+     * @param feature the text feature to be modeled
      */
-    public void stepU(CharMap model) {
+    public void stepU(CharMap model, Feature feature) {
         CharMap deltas = new CharMap();
 
-        for (TextLine line : lines) {
-            String text = line.getContent();
-            double lineDelta = line.getWeight() - model.getValue(text);
-            double charDelta = lineDelta / line.length();
+        for (int n = 0; n < size; ++n) {
+            TextLine line = lines[n];
+            double expectedValue = features.get(feature)[n];
+            double value = model.getValue(line.getContent());
+            double charDelta = (expectedValue - value) / line.length();
 
             for (Character c : line.getChars()) {
                 deltas.addToValue(c, charDelta / charstats.getNumber(c));
@@ -152,39 +166,42 @@ public class TextSample {
     /**
      * Single iteration when training with proportional (linear) distribution
      *
-     * @param model
+     * @param model the model to be trained
+     * @param feature the text feature to be modeled
      */
-    public void stepL(CharMap model) {
+    public void stepL(CharMap model, Feature feature) {
         CharMap deltas = new CharMap();
 
-        for (TextLine line : lines) {
-            String text = line.getContent();
-            double lineDelta = line.getWeight() - model.getValue(text);
-            double factor = lineDelta / model.getValue(text);
+        for (int n = 0; n < size; ++n) {
+            TextLine line = lines[n];
+            double expectedValue = features.get(feature)[n];
+            double value = model.getValue(line.getContent());
+
+            double lineDelta = expectedValue - value;
+            double factor = lineDelta / value;
 
             for (Character c : line.getChars()) {
                 double charDelta = factor * model.getValue(c);
-                double contri = lineDelta * model.getValue(c) / model.getValue(text);
-
                 deltas.addToValue(c, charDelta / charstats.getNumber(c));
             }
         }
-        
+
         model.addToValues(deltas);
     }
 
     /**
      * Single iteration when training with random variations
      *
-     * @param model the current model
+     * @param model the current model to be trained
+     * @param feature the text feature to be modeled
      * @param radius the maximal (uniform distribution) variation for every
      * parameter.
      */
-    public void stepR(CharMap model, double radius) {
+    public void stepR(CharMap model, Feature feature, double radius) {
         CharMap altmodel = new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
 
         altmodel.addToValues(model, 1.0);
-        if (errorPerChar(altmodel) < errorPerChar(model)) {
+        if (errorPerChar(altmodel, feature) < errorPerChar(model, feature)) {
             model.putAll(altmodel);
         }
 
@@ -193,28 +210,32 @@ public class TextSample {
     /**
      *
      * @param model
+     * @param feature
      * @param method
      * @param numiter
      * @return average error per character at every iteration
      */
-    public double[] train(CharMap model, TrainingMethod method, int numiter) {
+    public double[] train(CharMap model, Feature feature,
+            TrainingMethod method, int numiter) {
         double[] errors = new double[numiter + 1];
 
         for (int n = 0; n < numiter; ++n) {
-            errors[n] = errorPerChar(model);
+            errors[n] = errorPerChar(model, feature);
             switch (method) {
                 case UNIFORM:
-                    stepU(model);
+                    stepU(model, feature);
                     break;
                 case LINEAR:
-                    stepL(model);
+                    stepL(model, feature);
                     break;
                 case RANDOM:
-                    stepR(model, 100);
+                    stepR(model, feature, 100);
                     break;
             }
+            System.err.println(n + " " + errors[n]);
         }
-        errors[numiter] = errorPerChar(model);
+        errors[numiter] = errorPerChar(model, feature);
+        
         return errors;
     }
 
