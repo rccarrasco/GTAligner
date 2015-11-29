@@ -29,8 +29,8 @@ import java.util.logging.Logger;
  */
 public class Messages {
 
-    static final Logger logger;
-    static File logdir;
+    private static final Logger logger;
+    private static File logdir;
 
     static {
         logger = Logger.getLogger("gtaligner");

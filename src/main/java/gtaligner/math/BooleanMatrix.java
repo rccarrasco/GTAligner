@@ -22,9 +22,9 @@ package gtaligner.math;
  */
 public class BooleanMatrix {
 
-    int width;
-    int height;
-    byte[] data;
+    private final int width;
+    private final int height;
+    private final byte[] data;
 
     public BooleanMatrix(int width, int height) {
         this.width = width;
@@ -56,6 +56,15 @@ public class BooleanMatrix {
         }
 
         return num;
+    }
+    
+    /**
+     * Only for testing purposes
+     * @param n
+     * @return 
+     */
+    protected byte getByte(int n) {
+        return data[n];
     }
 
     @Override

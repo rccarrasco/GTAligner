@@ -22,7 +22,7 @@ import javax.imageio.ImageIO;
  */
 public class BWImage {
 
-    BufferedImage img = null;
+    private BufferedImage img;
 
     /**
      * Read image from file
@@ -85,7 +85,7 @@ public class BWImage {
     private boolean isBlack(int x, int y) {
         return luminosity(x, y) == 0;
     }
-    
+
     /**
      *
      * @return the number of dark pixels in this image
@@ -110,13 +110,85 @@ public class BWImage {
         int value = 0;
         for (int x = 0; x < img.getWidth(); ++x) {
             for (int y = 0; y < img.getHeight(); ++y) {
-                if (isBlack(x, y))  {
+                if (isBlack(x, y)) {
                     value += 1;
                     break;
                 }
             }
         }
         return value;
+    }
+
+    /**
+     *
+     * @return Number of rows expanded by the image (added for every column)
+     */
+    public int gauge() {
+        int value = 0;
+        for (int x = 0; x < img.getWidth(); ++x) {
+            int low = -1;
+            int high = -1;
+            for (int y = 0; y < img.getHeight(); ++y) {
+                if (isBlack(x, y)) {
+                    if (low < 0) {
+                        low = y;
+                    }
+                    high = y;
+                }
+            }
+            value += (high - low);
+        }
+        return value;
+    }
+
+    /**
+     * 
+     * @return number of black pixels with a white east-neighbor
+     */
+    public int profileE() {
+        int value = 0;
+        for (int x = 0; x < img.getWidth(); ++x) {
+            for (int y = 0; y < img.getHeight(); ++y) {
+                if (isBlack(x, y)) {
+                    if (x + 1 == img.getWidth() || !isBlack(x + 1, y)) {
+                        value += 1;
+                    }
+                }
+            }
+        }
+        return value;   
+    }
+
+    /**
+     *
+     * @param feature
+     * @return the value of this image feature
+     */
+    public int getFeature(Feature feature) {
+        switch (feature) {
+            case WEIGHT:
+                return weight();
+            case SHADOW:
+                return shadow();
+            case GAUGE:
+                return gauge();
+            case PROFILE_E:
+                return profileE();
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
+     *
+     * @return the FeatureVector containing the values for all image features
+     */
+    public FeatureVector getFeatures() {
+        FeatureVector vector = new FeatureVector();
+        for (Feature feature : Feature.values()) {
+            vector.put(feature, getFeature(feature));
+        }
+        return vector;
     }
 
     private void flood(BooleanMatrix matrix, int x, int y) {

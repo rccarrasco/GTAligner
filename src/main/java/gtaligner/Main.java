@@ -75,7 +75,8 @@ public class Main {
             model = new CharMap(sample.getChars(), 400,
                     Character.OTHER_PUNCTUATION, 100);
             
-            System.err.println("Sample with " + sample.size + " files has been processed");
+            System.err.println("Sample with " + sample.size() 
+                    + " files has been processed");
             double[] errors = sample.train(model, feature, method, numiter);
 
             // Output

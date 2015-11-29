@@ -17,7 +17,7 @@ import java.nio.file.Files;
  */
 public class TextReader {
 
-    static Charset defaultEncoding = Charset.defaultCharset();
+    private static final Charset defaultEncoding = Charset.defaultCharset();
 
     public static String read(File file, Charset encoding) {
         StringBuilder builder = new StringBuilder();

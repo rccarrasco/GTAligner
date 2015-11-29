@@ -16,17 +16,33 @@
  */
 package gtaligner;
 
+import java.util.EnumMap;
+
 /**
  *
  * @author rafa
  */
-public enum Feature {
+public class FeatureVector extends EnumMap<Feature, Integer> {
 
-    WEIGHT, SHADOW, GAUGE, PROFILE_E;
+    public FeatureVector() {
+        super(Feature.class);
+    }
+
+    public FeatureVector(FeatureVector other) {
+        super(other);
+    }
 
     /**
-     * The mixture coefficients
+     * @return the result of adding the features with the weights given by the
+     * lambda coefficients.
      */
-    public double lambda = 1.0;
-   
+    public double mixture() {
+        double result = 0;
+
+        for (Feature feature : Feature.values()) {
+            result += feature.lambda * get(feature);
+        }
+
+        return result;
+    }
 }

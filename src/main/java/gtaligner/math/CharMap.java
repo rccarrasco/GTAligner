@@ -28,7 +28,7 @@ import java.util.Set;
  */
 public final class CharMap extends HashMap<Character, MutableDouble> {
 
-    static Random random = new Random();
+    private static Random random = new Random();
 
     /**
      * Default constructor

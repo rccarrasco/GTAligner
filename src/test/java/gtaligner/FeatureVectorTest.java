@@ -16,17 +16,21 @@
  */
 package gtaligner;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
  *
  * @author rafa
  */
-public enum Feature {
-
-    WEIGHT, SHADOW, GAUGE, PROFILE_E;
-
-    /**
-     * The mixture coefficients
-     */
-    public double lambda = 1.0;
-   
+public class FeatureVectorTest {
+    
+    @Test
+    public void FeatureVectorTest() {
+        FeatureVector instance = new FeatureVector();
+        FeatureVector copy = new FeatureVector(instance);
+        copy.put(Feature.GAUGE, 1);
+        assertEquals(1, copy.size());    
+        assertEquals(0, instance.size());    
+    }
 }
