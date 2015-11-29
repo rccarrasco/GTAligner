@@ -19,10 +19,13 @@ for x in range(img.size[0]):
             D.append(y)
             if x + 1 == img.size[0]:
                 p += 1
+                img.s
             else:
                 right = pix[x + 1, y]
-                if right[0] + right[1] + right[2] < 300:
+                if right[0] + right[1] + right[2] > 300:
                     p += 1
+                    pix[x,y] = 16581375
+
             
     if dark:
         s += 1
@@ -32,3 +35,4 @@ for x in range(img.size[0]):
         
 
 print w, s, g, p
+img.save("colored.tiff", "TIFF")
