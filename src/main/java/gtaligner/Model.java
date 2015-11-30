@@ -310,14 +310,11 @@ public class Model {
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
-            builder
-                    //.append(Character.getType(entry.getKey()))
-                    //.append(separator)
-                    .append("'")
+            builder.append("'")
                     .append(entry.getKey())
                     .append("'")
                     .append(separator)
-                    .append(entry)
+                    .append(entry.getValue())
                     .append('\n');
         }
 

@@ -76,6 +76,7 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
 
     /**
      * Add a random noise to the values stored in this FeatureVector
+     *
      * @param radius a maximal rate for the variation of every single feature.
      */
     public void randomize(double radius) {
@@ -87,31 +88,21 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
 
     /**
      * Add two FeatureVectors
+     *
      * @param other another FEatureVector
      */
     public void add(FeatureVector other) {
-         for (Feature feature : Feature.values()) {
-           this.get(feature).add(other.getValue(feature));
+        for (Feature feature : Feature.values()) {
+            if (this.containsKey(feature)) {
+                this.get(feature).add(other.getValue(feature));
+            } else {
+                put(feature, other.getValue(feature));
+            }
         }
     }
-    
+
     @Override
     public String toString() {
-        /*
-         StringBuilder builder = new StringBuilder();
-        
-         builder.append('(');
-         for (Feature feature : Feature.values()) {
-         if (builder.length() > 1) {
-         builder.append(", ");
-         }
-         builder.append(get(feature));
-         }
-         builder.append(')');
-        
-         return builder.toString();
-         }
-         */
         return this.values().toString();
     }
 }

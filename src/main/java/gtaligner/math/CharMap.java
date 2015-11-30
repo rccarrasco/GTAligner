@@ -176,10 +176,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, MutableDouble> entry : entrySet()) {
-            builder
-                    //.append(Character.getType(entry.getKey()))
-                    //.append(separator)
-                    .append("'")
+            builder.append("'")
                     .append(entry.getKey())
                     .append("'")
                     .append(separator)
