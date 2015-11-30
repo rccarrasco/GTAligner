@@ -18,7 +18,7 @@ package gtaligner.math;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import static java.lang.Math.random;
 import java.util.Set;
 
 /**
@@ -27,8 +27,6 @@ import java.util.Set;
  * @author rafa
  */
 public final class CharMap extends HashMap<Character, MutableDouble> {
-
-    private static Random random = new Random();
 
     /**
      * Default constructor
@@ -88,7 +86,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     public CharMap(Set<Character> keys, double low, double high) {
 
         for (Character c : keys) {
-            put(c, new MutableDouble(low + (high - low) * random.nextDouble()));
+            put(c, new MutableDouble(low + (high - low) * random()));
         }
     }
 
@@ -164,7 +162,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
 
     public void randomize(double radius) {
         for (MutableDouble value : values()) {
-            double factor = radius * (random.nextDouble() - 0.5);
+            double factor = radius * (random() - 0.5);
             value.add(factor * value.getValue());
         }
     }

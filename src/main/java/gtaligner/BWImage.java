@@ -164,7 +164,7 @@ public class BWImage {
      * @param feature
      * @return the value of this image feature
      */
-    public int getFeature(Feature feature) {
+    public double getFeature(Feature feature) {
         switch (feature) {
             case WEIGHT:
                 return weight();

@@ -16,9 +16,7 @@
  */
 package gtaligner;
 
-import gtaligner.io.Messages;
 import gtaligner.io.TextReader;
-import gtaligner.math.CharMap;
 import gtaligner.math.CharCounter;
 import java.util.List;
 import java.util.Set;
@@ -103,15 +101,14 @@ public class TextSample {
     }
 
     /**
-     *
-     * @param n a line number
-     * @return the mixture of the features in the FeatureVector of the n-th
-     * TextLine
+     * 
+     * @param c a character
+     * @return the number of characters identical to c in this TextSample
      */
-    public double getMixture(int n) {
-        return features[n].mixture();
+    public int getNumber(char c){
+        return charstats.getNumber(c);
     }
-
+    
     /**
      *
      * @return all characters in this TextSample

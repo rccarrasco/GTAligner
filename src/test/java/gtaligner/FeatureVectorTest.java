@@ -29,7 +29,7 @@ public class FeatureVectorTest {
     public void FeatureVectorTest() {
         FeatureVector instance = new FeatureVector();
         FeatureVector copy = new FeatureVector(instance);
-        copy.put(Feature.GAUGE, 1);
+        copy.put(Feature.GAUGE, 1.0);
         assertEquals(1, copy.size());    
         assertEquals(0, instance.size());    
     }

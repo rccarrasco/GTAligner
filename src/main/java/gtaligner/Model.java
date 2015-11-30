@@ -18,6 +18,7 @@ package gtaligner;
 
 import gtaligner.io.Messages;
 import gtaligner.math.CharMap;
+import gtaligner.math.MutableDouble;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,14 +31,24 @@ import java.util.Set;
  */
 public class Model {
 
-    private final Map<Character, FeatureVector> features;
+    private Map<Character, FeatureVector> features;
 
     public Model() {
         features = new HashMap<>();
+        Feature.select(Feature.WEIGHT);
+        /*
+         double lambda = 1.0 / Feature.values().length;
+         for (Feature feature : Feature.values()) {
+         feature.lambda = lambda;
+         }
+         */
+    }
 
-        double lambda = 1.0 / Feature.values().length;
-        for (Feature feature : Feature.values()) {
-            feature.lambda = lambda;
+    public Model(Set<Character> chars, int value) {
+        this();
+        for (char c : chars) {
+            FeatureVector vector = new FeatureVector(value);
+            features.put(c, vector);
         }
     }
 
@@ -49,11 +60,24 @@ public class Model {
         }
     }
 
-    public Model(Set<Character> chars, FeatureVector defaultVector,
+    public Model(Set<Character> chars,
             EnumMap<Feature, Double> lambdas) {
-        this(chars, defaultVector);
+        this();
+        for (char c : chars) {
+            FeatureVector vector = new FeatureVector(100);
+            features.put(c, vector);
+        }
         for (Feature feature : Feature.values()) {
             feature.lambda = lambdas.get(feature);
+        }
+    }
+
+    public Model(Model other) {
+        this();
+        for (Map.Entry<Character, FeatureVector> entry : other.features.entrySet()) {
+            Character c = entry.getKey();
+            FeatureVector vector = new FeatureVector(entry.getValue());
+            this.features.put(c, vector);
         }
     }
 
@@ -64,25 +88,8 @@ public class Model {
      * @param feature a particular feature
      * @return the feature value for c in this Model
      */
-    public double evaluate(char c, Feature feature) {
-        return features.get(c).get(feature);
-    }
-
-    /**
-     * Apply this model to a specific character
-     *
-     * @param c a character
-     * @return the value assigned to c by this Model
-     */
-    public double evaluate(char c) {
-        double val;
-        if (this.features.containsKey(c)) {
-            val = features.get(c).mixture();
-        } else {
-            val = 0;
-        }
-
-        return val;
+    public double getValue(char c, Feature feature) {
+        return features.get(c).getValue(feature);
     }
 
     /**
@@ -90,32 +97,43 @@ public class Model {
      *
      * @param s a string
      * @param feature a particular feature
-     * @return the value assigned to c by this Model
+     * @return the sum of values of the feature for every character in the
+     * string, according to this Model
      */
-    public double evaluate(String s, Feature feature) {
+    public double getValue(String s, Feature feature) {
         double result = 0;
 
         for (char c : s.toCharArray()) {
-            result += evaluate(c, feature);
+            result += features.get(c).getValue(feature);
         }
 
         return result;
     }
 
     /**
+     *
+     * @param c a character
+     * @return the FeatureVector for c according to this Model
+     */
+    public FeatureVector getFeatures(char c) {
+        return features.get(c);
+    }
+
+    /**
      * Apply this model to a particular string
      *
      * @param s a string
-     * @return the value assigned to c by this Model
+     * @return the sum of features assigned to every character in the string,
+     * according to this Model.
      */
-    public double evaluate(String s) {
-        double result = 0;
+    public FeatureVector getFeatures(String s) {
+        FeatureVector vector = new FeatureVector();
 
         for (char c : s.toCharArray()) {
-            result += evaluate(c);
+            vector.add(getFeatures(c));
         }
 
-        return result;
+        return vector;
     }
 
     /**
@@ -132,8 +150,8 @@ public class Model {
         for (int n = 0; n < sample.size(); ++n) {
             TextLine line = sample.getLine(n);
             String content = line.getContent();
-            double expectedValue = sample.getMixture(n);
-            double value = evaluate(content);
+            double expectedValue = sample.getFeatures(n).mixture();
+            double value = getFeatures(content).mixture();
 
             err += Math.abs(expectedValue - value);
             numchar += line.length();
@@ -160,8 +178,8 @@ public class Model {
         for (int n = 0; n < sample.size(); ++n) {
             TextLine line = sample.getLine(n);
             String content = line.getContent();
-            double expectedValue = sample.getMixture(n);
-            double value = evaluate(content);
+            double expectedValue = sample.getFeatures(n).mixture();
+            double value = getFeatures(content).mixture();
 
             err += square(expectedValue - value);
             numchar += line.length();
@@ -170,104 +188,140 @@ public class Model {
         return Math.sqrt(err * sample.size()) / numchar;
     }
 
+    private void add(CharMap map, Feature feature) {
+        for (Map.Entry<Character, MutableDouble> entry : map.entrySet()) {
+            features.get(entry.getKey()).get(feature).add(entry.getValue().toDouble());
+        }
+    }
+
     /**
      * Single iteration when training with uniform distribution among all
      * characters in TextLine.
      *
-     * @param model the model to be trained
+     * @param sample the TextSample sued for training
      * @param feature the text feature to be modeled
      */
-    public void stepU(CharMap model, Feature feature) {
+    public void stepU(TextSample sample, Feature feature) {
         CharMap deltas = new CharMap();
 
-        for (int n = 0; n < size; ++n) {
-            TextLine line = lines[n];
-            double expectedValue = features.get(feature)[n];
-            double value = model.getValue(line.getContent());
+        for (int n = 0; n < sample.size(); ++n) {
+            TextLine line = sample.getLine(n);
+            String content = line.getContent();
+            double expectedValue = sample.getFeatures(n).mixture();
+            double value = getFeatures(content).mixture();
             double charDelta = (expectedValue - value) / line.length();
 
             for (Character c : line.getChars()) {
-                deltas.addToValue(c, charDelta / charstats.getNumber(c));
+                deltas.addToValue(c, charDelta / sample.getNumber(c));
             }
         }
 
-        model.addToValues(deltas);
+        add(deltas, feature);
     }
 
     /**
      * Single iteration when training with proportional (linear) distribution
      *
-     * @param model the model to be trained
+     * @param sample the TextSample sued for training
      * @param feature the text feature to be modeled
      */
-    public void stepL(CharMap model, Feature feature) {
+    public void stepL(TextSample sample, Feature feature) {
         CharMap deltas = new CharMap();
 
-        for (int n = 0; n < size; ++n) {
-            TextLine line = lines[n];
-            double expectedValue = features.get(feature)[n];
-            double value = model.getValue(line.getContent());
-
+        for (int n = 0; n < sample.size(); ++n) {
+            TextLine line = sample.getLine(n);
+            String content = line.getContent();
+            double expectedValue = sample.getFeatures(n).mixture();
+            double value = getFeatures(content).mixture();
             double lineDelta = expectedValue - value;
             double factor = lineDelta / value;
 
             for (Character c : line.getChars()) {
-                double charDelta = factor * model.getValue(c);
-                deltas.addToValue(c, charDelta / charstats.getNumber(c));
+                double charDelta = factor * getFeatures(c).mixture();
+                deltas.addToValue(c, charDelta / sample.getNumber(c));
             }
         }
 
-        model.addToValues(deltas);
+        add(deltas, feature);
     }
 
     /**
      * Single iteration when training with random variations
      *
-     * @param model the current model to be trained
+     * @param sample the TextSample sued for training
      * @param feature the text feature to be modeled
      * @param radius the maximal (uniform distribution) variation for every
      * parameter.
      */
-    public void stepR(CharMap model, Feature feature, double radius) {
-        CharMap altmodel = new CharMap(model);
+    public void stepR(TextSample sample, Feature feature, double radius) {
+        Model altmodel = new Model();
         //new CharMap(model.keySet(), -0.5 * radius, 0.5 * radius);
 
-        altmodel.randomize(0.05);
-        if (errorPerChar(altmodel, feature) < errorPerChar(model, feature)) {
-            model.putAll(altmodel);
+        for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
+            Character c = entry.getKey();
+            FeatureVector vector = new FeatureVector(entry.getValue());
+            vector.randomize(radius);
+            altmodel.features.put(c, vector);
+        }
+
+        if (altmodel.errorPerChar(sample) < this.errorPerChar(sample)) {
+            features = altmodel.features;
         }
     }
 
     /**
      *
-     * @param model
+     * @param sample the TextSample used for training
      * @param feature
      * @param method
      * @param numiter
      * @return average error per character at every iteration
      */
-    public double[] train(CharMap model, Feature feature,
+    public double[] train(TextSample sample, Feature feature,
             TrainingMethod method, int numiter) {
         double[] errors = new double[numiter + 1];
 
         for (int n = 0; n < numiter; ++n) {
-            errors[n] = errorPerChar(model, feature);
+            errors[n] = errorPerChar(sample);
             switch (method) {
                 case UNIFORM:
-                    stepU(model, feature);
+                    stepU(sample, feature);
                     break;
                 case LINEAR:
-                    stepL(model, feature);
+                    stepL(sample, feature);
                     break;
                 case RANDOM:
-                    stepR(model, feature, 100);
+                    stepR(sample, feature, 100);
                     break;
             }
             Messages.info(n + " " + errors[n]);
         }
-        errors[numiter] = errorPerChar(model, feature);
+        errors[numiter] = errorPerChar(sample);
 
         return errors;
+    }
+
+    /**
+     * Create a CSV representation
+     *
+     * @param separator the column separator
+     * @return the content in CSV format
+     */
+    public String toCSV(char separator) {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
+            builder
+                    //.append(Character.getType(entry.getKey()))
+                    //.append(separator)
+                    .append("'")
+                    .append(entry.getKey())
+                    .append("'")
+                    .append(separator)
+                    .append(entry)
+                    .append('\n');
+        }
+
+        return builder.toString();
     }
 
 }

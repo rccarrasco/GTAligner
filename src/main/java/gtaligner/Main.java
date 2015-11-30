@@ -26,7 +26,7 @@ public class Main {
             System.err.println("\tMethod can be u (uniform), l (linear) or r (random)");
             System.err.println("\tFeature can be s (shadow) or w (weight)");
         } else {
-            CharMap model;
+            Model model;
             Feature feature = Feature.WEIGHT;
             TrainingMethod method = TrainingMethod.LINEAR;
             int numiter = 100;
@@ -72,12 +72,11 @@ public class Main {
 
             // Computation
             sample = new TextSample(filenames);
-            model = new CharMap(sample.getChars(), 400,
-                    Character.OTHER_PUNCTUATION, 100);
+            model = new Model(sample.getChars(), 100); // all values intitalised equal
             
             System.err.println("Sample with " + sample.size() 
                     + " files has been processed");
-            double[] errors = sample.train(model, feature, method, numiter);
+            double[] errors = model.train(sample, feature, method, numiter);
 
             // Output
             Messages.info("SAMPLE");

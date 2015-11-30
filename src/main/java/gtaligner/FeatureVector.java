@@ -16,13 +16,15 @@
  */
 package gtaligner;
 
+import gtaligner.math.MutableDouble;
+import static java.lang.Math.random;
 import java.util.EnumMap;
 
 /**
  *
  * @author rafa
  */
-public class FeatureVector extends EnumMap<Feature, Integer> {
+public class FeatureVector extends EnumMap<Feature, MutableDouble> {
 
     public FeatureVector() {
         super(Feature.class);
@@ -30,6 +32,32 @@ public class FeatureVector extends EnumMap<Feature, Integer> {
 
     public FeatureVector(FeatureVector other) {
         super(other);
+    }
+
+    public FeatureVector(double value) {
+        this();
+        for (Feature feature : Feature.values()) {
+            put(feature, new MutableDouble(value));
+        }
+    }
+
+    /**
+     *
+     * @param feature a feature
+     * @return the value of this feature
+     */
+    public double getValue(Feature feature) {
+        return get(feature).getValue();
+    }
+
+    /**
+     *
+     * @param feature a feature
+     * @param value the value for the feature
+     * @return the previous value associated to this feature
+     */
+    public MutableDouble put(Feature feature, Double value) {
+        return put(feature, new MutableDouble(value));
     }
 
     /**
@@ -40,9 +68,50 @@ public class FeatureVector extends EnumMap<Feature, Integer> {
         double result = 0;
 
         for (Feature feature : Feature.values()) {
-            result += feature.lambda * get(feature);
+            result += feature.lambda * get(feature).getValue();
         }
 
         return result;
+    }
+
+    /**
+     * Add a random noise to the values stored in this FeatureVector
+     * @param radius a maximal rate for the variation of every single feature.
+     */
+    public void randomize(double radius) {
+        for (MutableDouble value : values()) {
+            double factor = radius * (random() - 0.5);
+            value.add(factor * value.getValue());
+        }
+    }
+
+    /**
+     * Add two FeatureVectors
+     * @param other another FEatureVector
+     */
+    public void add(FeatureVector other) {
+         for (Feature feature : Feature.values()) {
+           this.get(feature).add(other.getValue(feature));
+        }
+    }
+    
+    @Override
+    public String toString() {
+        /*
+         StringBuilder builder = new StringBuilder();
+        
+         builder.append('(');
+         for (Feature feature : Feature.values()) {
+         if (builder.length() > 1) {
+         builder.append(", ");
+         }
+         builder.append(get(feature));
+         }
+         builder.append(')');
+        
+         return builder.toString();
+         }
+         */
+        return this.values().toString();
     }
 }

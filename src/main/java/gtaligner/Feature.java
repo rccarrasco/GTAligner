@@ -28,5 +28,14 @@ public enum Feature {
      * The mixture coefficients
      */
     public double lambda = 1.0;
-   
+
+    /**
+     *
+     * @param mainFeature the only feature to be considered
+     */
+    public static void select(Feature mainFeature) {
+        for (Feature feature : Feature.values()) {
+            feature.lambda = (feature == mainFeature) ? 1 : 0;
+        }
+    }
 }
