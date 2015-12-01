@@ -308,7 +308,7 @@ public class Model {
     /**
      * Single iteration when training with proportional (linear) distribution
      *
-     * @param sample the TextSample sued for training
+     * @param sample the TextSample used for training
      */
     public void stepL(TextSample sample) {
         Model altmodel = new Model(features.keySet(), 0);
@@ -356,14 +356,14 @@ public class Model {
      * @param separator the column separator
      * @return the content in CSV format
      */
-    public String toCSV(char separator) {
+    public String toCSV(char separator, String format) {
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
+        for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {         
             builder.append("'")
                     .append(entry.getKey())
                     .append("'")
                     .append(separator)
-                    .append(entry.getValue())
+                    .append(entry.getValue().toString(format))
                     .append('\n');
         }
 

@@ -60,5 +60,4 @@ public class MutableDouble {
     public String toString() {
         return Double.toString(value);
     }
-
 }

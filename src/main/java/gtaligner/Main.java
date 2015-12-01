@@ -82,12 +82,11 @@ public class Main {
              System.out.println(model.toCSV('\t'));
              System.err.println("error = " + errors[errors.length - 1]);
              */
-            
             // Computation
             sample = new TextSample(filenames);
             model = new Model(sample.getChars(), 100); // all values intitalised equal
             double[] errors = model.train(sample, numiter);
-            System.out.println(model.toCSV('\t'));
+            System.out.println(model.toCSV('\t', "%.1f"));
             System.err.println("error = " + errors[errors.length - 1]);
         }
 
