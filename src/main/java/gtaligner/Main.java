@@ -1,6 +1,5 @@
 package gtaligner;
 
-import gtaligner.io.Messages;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class Main {
         } else {
             Model model;
             Feature feature = Feature.WEIGHT;
-            Feature.select(Feature.WEIGHT);
+            //Feature.select(Feature.WEIGHT);
             TrainingMethod method = TrainingMethod.LINEAR;
             int numiter = 100;
             List<String> filenames = new ArrayList<>();
@@ -70,22 +69,22 @@ public class Main {
                 }
             }
 
-            // Computation
-            
-            sample = new TextSample(filenames);
             /*
-            model = new Model(sample.getChars(), 100); // all values intitalised equal
+             model = new Model(sample.getChars(), 100); // all values intitalised equal
 
-            System.err.println("Sample with " + sample.size()
-                    + " files has been processed");
-            double[] errors = model.train(sample, feature, method, numiter);
+             System.err.println("Sample with " + sample.size()
+             + " files has been processed");
+             double[] errors = model.train(sample, feature, method, numiter);
 
-            // Output
-            Messages.info("SAMPLE");
-            Messages.info(sample.charStats().toCSV('\t'));
-            System.out.println(model.toCSV('\t'));
-            System.err.println("error = " + errors[errors.length - 1]);
-*/
+             // Output
+             Messages.info("SAMPLE");
+             Messages.info(sample.charStats().toCSV('\t'));
+             System.out.println(model.toCSV('\t'));
+             System.err.println("error = " + errors[errors.length - 1]);
+             */
+            
+            // Computation
+            sample = new TextSample(filenames);
             model = new Model(sample.getChars(), 100); // all values intitalised equal
             double[] errors = model.train(sample, numiter);
             System.out.println(model.toCSV('\t'));
