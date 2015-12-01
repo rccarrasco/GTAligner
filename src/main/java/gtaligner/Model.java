@@ -298,7 +298,7 @@ public class Model {
                     stepR(sample, feature, 100);
                     break;
             }
-            Messages.info(n + " " + errors[n]);
+            //Messages.info(n + " " + errors[n]);
         }
         errors[numiter] = errorPerChar(sample);
 
@@ -343,7 +343,7 @@ public class Model {
         for (int n = 0; n < numiter; ++n) {
             errors[n] = errorPerChar(sample);
             stepL(sample);
-            Messages.info(n + " " + errors[n]);
+            //Messages.info(n + " " + errors[n]);
         }
         errors[numiter] = errorPerChar(sample);
 
@@ -354,6 +354,7 @@ public class Model {
      * Create a CSV representation
      *
      * @param separator the column separator
+     * @param format formatting information 
      * @return the content in CSV format
      */
     public String toCSV(char separator, String format) {

@@ -1,5 +1,6 @@
 package gtaligner;
 
+import gtaligner.io.Messages;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,8 @@ public class Main {
             double[] errors = model.train(sample, numiter);
             System.out.println(model.toCSV('\t', "%.1f"));
             System.err.println("error = " + errors[errors.length - 1]);
+            Messages.info("SAMPLE\n");
+            Messages.info(sample.charStats().toCSV('\t'));
         }
 
     }
