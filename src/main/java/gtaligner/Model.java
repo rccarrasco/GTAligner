@@ -35,7 +35,7 @@ public class Model {
 
     public Model() {
         features = new HashMap<>();
-        Feature.select(Feature.WEIGHT);
+        //Feature.select(Feature.WEIGHT);
         /*
          double lambda = 1.0 / Feature.values().length;
          for (Feature feature : Feature.values()) {
@@ -44,7 +44,7 @@ public class Model {
          */
     }
 
-    public Model(Set<Character> chars, int value) {
+    public Model(Set<Character> chars, double value) {
         this();
         for (char c : chars) {
             FeatureVector vector = new FeatureVector(value);
@@ -136,6 +136,10 @@ public class Model {
         return vector;
     }
 
+    public void addToValue(char c, Feature feature, double value) {
+        features.get(c);
+    }
+
     /**
      * Average error per character.
      *
@@ -188,7 +192,7 @@ public class Model {
         return Math.sqrt(err * sample.size()) / numchar;
     }
 
-    private void add(CharMap map, Feature feature) {
+    private void addDeltas(CharMap map, Feature feature) {
         for (Map.Entry<Character, MutableDouble> entry : map.entrySet()) {
             features.get(entry.getKey()).get(feature).add(entry.getValue().toDouble());
         }
@@ -216,7 +220,7 @@ public class Model {
             }
         }
 
-        add(deltas, feature);
+        addDeltas(deltas, feature);
     }
 
     /**
@@ -242,7 +246,7 @@ public class Model {
             }
         }
 
-        add(deltas, feature);
+        addDeltas(deltas, feature);
     }
 
     /**
@@ -294,6 +298,54 @@ public class Model {
                     stepR(sample, feature, 100);
                     break;
             }
+            Messages.info(n + " " + errors[n]);
+        }
+        errors[numiter] = errorPerChar(sample);
+
+        return errors;
+    }
+
+    /**
+     * Single iteration when training with proportional (linear) distribution
+     *
+     * @param sample the TextSample sued for training
+     */
+    public void stepL(TextSample sample) {
+        Model altmodel = new Model(features.keySet(), 0);
+
+        for (int n = 0; n < sample.size(); ++n) {
+            TextLine line = sample.getLine(n);
+            String content = line.getContent();
+            FeatureVector expected = sample.getFeatures(n);
+            FeatureVector computed = getFeatures(content);
+            System.out.println(expected);
+            System.out.println(computed);
+            for (Character c : line.getChars()) {
+                int total = sample.getNumber(c);
+                FeatureVector vector = this.features.get(c);
+                FeatureVector altvector = altmodel.features.get(c);
+                FeatureVector delta = new FeatureVector();
+                for (Feature feature : Feature.values()) {
+                    double value = vector.getValue(feature)
+                            * expected.getValue(feature)
+                            / computed.getValue(feature)
+                            / total;
+                    delta.put(feature, value);
+                }
+                altvector.add(delta);
+            }
+            System.out.println(altmodel.features);
+        }
+        // Finally, update all FeatureVectors
+        this.features = altmodel.features;
+    }
+
+    public double[] train(TextSample sample, int numiter) {
+        double[] errors = new double[numiter + 1];
+
+        for (int n = 0; n < numiter; ++n) {
+            errors[n] = errorPerChar(sample);
+            stepL(sample);
             Messages.info(n + " " + errors[n]);
         }
         errors[numiter] = errorPerChar(sample);

@@ -89,7 +89,7 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
     /**
      * Add two FeatureVectors
      *
-     * @param other another FEatureVector
+     * @param other another FeatureVector
      */
     public void add(FeatureVector other) {
         for (Feature feature : Feature.values()) {
@@ -99,6 +99,22 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
                 put(feature, other.getValue(feature));
             }
         }
+    }
+
+    /**
+     * Multiply the components in two FeatureVectors
+     *
+     * @param first a first FeatureVector
+     * @param second a second FeatureVector
+     * @return the FeatureVector whose components are identical to the products
+     * between the first and the second vector components.
+     */
+    public static FeatureVector product(FeatureVector first, FeatureVector second) {
+        FeatureVector result = new FeatureVector();
+        for (Feature feature : Feature.values()) {
+            result.put(feature, first.getValue(feature) * second.getValue(feature));
+        }
+        return result;
     }
 
     @Override

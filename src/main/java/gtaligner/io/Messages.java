@@ -62,6 +62,8 @@ public class Messages {
 
     public static void severe(String s) {
         logger.severe(s);
+        System.err.println(s);
+        System.exit(-1);
     }
 
 }

@@ -1,6 +1,11 @@
 from PIL import Image
+import matplotlib.pyplot as pyplot
 import sys
 
+if len(sys.argv) < 2:
+    print "Usage Image filename"
+    sys.exit()
+    
 img = Image.open(sys.argv[1])
 pix = img.load()
 #print img.size
@@ -8,6 +13,8 @@ w = 0
 s = 0
 g = 0
 p = 0
+X = []
+Y = []
 for x in range(img.size[0]):
     dark = False
     D = []
@@ -22,7 +29,6 @@ for x in range(img.size[0]):
             D.append(y)
             if x + 1 == img.size[0]:
                 p += 1
-                img.s
             else:
                 right = pix[x + 1, y]
                 if right[0] + right[1] + right[2] > 300:
@@ -39,8 +45,11 @@ for x in range(img.size[0]):
         #    pix[x,y] = 0xFF0000
             
 #        print x, D, max(D) - min(D), g
-        
+    X.append(s)
+    Y.append(w)
         
 
 print w, s, g, p
 img.save("colored.tiff", "TIFF")
+pyplot.plot(X, Y)
+pyplot.show()
