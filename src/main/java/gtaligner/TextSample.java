@@ -66,6 +66,17 @@ public class TextSample {
         this(java.util.Arrays.asList(filenames));
     }
 
+    public TextSample(TextLine[] lines, FeatureVector[] features) {
+        this.size = lines.length; 
+        this.lines = lines;
+        this.features = features;
+        this.charstats = new CharCounter();
+
+        for (TextLine line : lines) {
+            charstats.increment(line.toCharArray());
+        }
+    }
+
     /**
      *
      * @return the number of lines in this sample
@@ -101,14 +112,14 @@ public class TextSample {
     }
 
     /**
-     * 
+     *
      * @param c a character
      * @return the number of characters identical to c in this TextSample
      */
-    public int getNumber(char c){
+    public int getNumber(char c) {
         return charstats.getNumber(c);
     }
-    
+
     /**
      *
      * @return all characters in this TextSample

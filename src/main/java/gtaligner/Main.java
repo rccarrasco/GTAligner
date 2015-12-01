@@ -71,10 +71,12 @@ public class Main {
             }
 
             // Computation
-            sample = new TextSample(filenames);
-            model = new Model(sample.getChars(), 100); // all values intitalised equal
             
-            System.err.println("Sample with " + sample.size() 
+            sample = new TextSample(filenames);
+            /*
+            model = new Model(sample.getChars(), 100); // all values intitalised equal
+
+            System.err.println("Sample with " + sample.size()
                     + " files has been processed");
             double[] errors = model.train(sample, feature, method, numiter);
 
@@ -83,10 +85,11 @@ public class Main {
             Messages.info(sample.charStats().toCSV('\t'));
             System.out.println(model.toCSV('\t'));
             System.err.println("error = " + errors[errors.length - 1]);
-            
+*/
             model = new Model(sample.getChars(), 100); // all values intitalised equal
-            model.train(sample, numiter);
+            double[] errors = model.train(sample, numiter);
             System.out.println(model.toCSV('\t'));
+            System.err.println("error = " + errors[errors.length - 1]);
         }
 
     }

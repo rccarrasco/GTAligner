@@ -318,9 +318,7 @@ public class Model {
             String content = line.getContent();
             FeatureVector expected = sample.getFeatures(n);
             FeatureVector computed = getFeatures(content);
-            System.out.println(expected);
-            System.out.println(computed);
-            for (Character c : line.getChars()) {
+            for (Character c : content.toCharArray()) {
                 int total = sample.getNumber(c);
                 FeatureVector vector = this.features.get(c);
                 FeatureVector altvector = altmodel.features.get(c);
@@ -334,7 +332,6 @@ public class Model {
                 }
                 altvector.add(delta);
             }
-            System.out.println(altmodel.features);
         }
         // Finally, update all FeatureVectors
         this.features = altmodel.features;
