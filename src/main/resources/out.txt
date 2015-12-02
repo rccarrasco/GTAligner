@@ -1,0 +1,5 @@
+../../test/resources/chars/n.jpeg 442 29 557 60
+../../test/resources/chars/o.jpeg 441 29 657 51
+../../test/resources/chars/o2.jpeg 355 27 578 50
+../../test/resources/chars/d.jpeg 515 29 823 77
+../../test/resources/chars/i.jpeg 215 11 331 35

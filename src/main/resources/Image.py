@@ -34,7 +34,7 @@ for arg in sys.argv[1:]:
                     right = pix[x + 1, y]
                     if right[0] + right[1] + right[2] > 300:
                         p += 1
-                        pix[x,y] = 0x0000FF
+                        #pix[x,y] = 0x0000FF
             else:
                 pix[x, y] = 0xFFFFFF
             
@@ -42,8 +42,8 @@ for arg in sys.argv[1:]:
         if dark:
             s += 1
             g += max(D) - min(D)
-            #for y in range(min(D), max(D) +1):
-            #    pix[x,y] = 0xFF0000
+            for y in range(min(D), max(D) +1):
+                pix[x,y] = 0x0000ff
                 
     #        print x, D, max(D) - min(D), g
         X.append(s)
