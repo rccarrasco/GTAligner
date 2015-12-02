@@ -62,8 +62,9 @@ public class Main {
                         }
                         break;
                     case "-d":
-                        //String[] names = new File(args[++n]).list(filter);
-                        files.addAll(imageFiles(args[++n]));
+                        String dir = args[++n];
+                        files.addAll(imageFiles(dir));
+                        break;
                     default:
                         files.add(new File(arg));
                 }
