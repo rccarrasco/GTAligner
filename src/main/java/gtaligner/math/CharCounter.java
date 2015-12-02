@@ -37,7 +37,7 @@ public class CharCounter extends HashMap<Character, MutableInt> {
         }
     }
 
-    public void add(Character c, int value) {
+    public void put(Character c, int value) {
         if (containsKey(c)) {
             get(c).add(value);
         } else {
@@ -46,7 +46,13 @@ public class CharCounter extends HashMap<Character, MutableInt> {
     }
     
     public void increment(Character c) {
-        add(c, 1);
+        put(c, 1);
+    }
+    
+    public void increment(char[] array) {
+        for (char c: array) {
+            increment(c);
+        }
     }
     
      /**

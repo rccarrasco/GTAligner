@@ -1,8 +1,8 @@
 package gtaligner;
 
 import gtaligner.io.Messages;
-import gtaligner.math.CharMap;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,45 +20,51 @@ public class Main {
 
     public static void main(String[] args) {
 
-        if (args.length < 3) {
-            System.err.println("Usage: GTAligner -u/-l/-r numiter img1 img2 ...");
+        if (args.length < 2) {
+            System.err.println("Usage: GTAligner [-n numiter] [-m method] img1 img2 ...");
+            System.err.println("\tMethod can be l (linear) or r (random)");
         } else {
-            TrainingMethod method;
-            CharMap model;
-            int numiter;
+            Model model;
+            Feature feature = Feature.WEIGHT;
+            //Feature.select(Feature.WEIGHT);
+            TrainingMethod method = TrainingMethod.LINEAR;
+            int numiter = 100;
+            List<String> filenames = new ArrayList<>();
             TextSample sample;
 
-            System.err.println("Working dir: " + System.getProperty("user.dir"));
-
+            //System.err.println("Working dir: " + System.getProperty("user.dir"));
             // Input data
-            switch (args[0]) {
-                case "-u":
-                    method = TrainingMethod.UNIFORM;
-                    break;
-                case "-l":
-                    method = TrainingMethod.LINEAR;
-                    break;
-                case "-r":
-                    method = TrainingMethod.RANDOM;
-                    break;
-                default:
-                    method = TrainingMethod.UNIFORM;
-                    break;
+            for (int n = 0; n < args.length; ++n) {
+                String arg = args[n];
+                switch (arg) {
+                    case "-n":
+                        numiter = Integer.parseInt(args[++n]);
+                        break;
+                    case "-m":
+                        switch (args[++n]) {
+                            case "u":
+                                method = TrainingMethod.UNIFORM;
+                                break;
+                            case "l":
+                                method = TrainingMethod.LINEAR;
+                                break;
+                            case "r":
+                                method = TrainingMethod.RANDOM;
+                                break;
+                        }
+                        break;
+                    default:
+                        filenames.add(arg);
+                }
             }
-            numiter = Integer.parseInt(args[1]);
-            sample = new TextSample(Arrays.copyOfRange(args, 2, args.length));
 
             // Computation
-            model = new CharMap(sample.getChars(), 400,
-                    Character.OTHER_PUNCTUATION, 100);
-            double[] errors = sample.train(model, method, numiter);
-
-            // Output
-            Messages.info("SAMPLE");
-            Messages.info(sample.charStats().toCSV('\t'));
-            System.out.println(model.toCSV('\t'));
-            System.err.println("error = " + errors[errors.length - 1]);
-
+            sample = new TextSample(filenames);
+            model = new Model(sample.getChars(), 1, 1000); 
+            double[] errors = model.train(sample, numiter);
+            System.out.println(sample.charStats().toCSV('\t'));
+            System.out.println(model.toCSV('\t', "%.1f"));
+            System.out.println("error = " + errors[errors.length - 1]);
         }
 
     }

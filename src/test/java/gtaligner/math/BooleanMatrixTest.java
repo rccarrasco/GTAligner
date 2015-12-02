@@ -46,8 +46,7 @@ public class BooleanMatrixTest {
     public void testSet() {
         System.out.println("set");
 
-        assertTrue(instance.data.length == 1);
-        assertEquals(instance.data[0], 25);
+        assertEquals(instance.getByte(0), 25);
         assertEquals(instance.bitcount(),3);
 
     }

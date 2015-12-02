@@ -16,48 +16,35 @@
  */
 package gtaligner.math;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 /**
  *
  * @author rafa
  */
-public class MutableDouble {
-
-    private double value;
-
-    public MutableDouble(double value) {
-        this.value = value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public boolean isNaN() {
-        return Double.isNaN(value);
-    }
-
-    public boolean isInfinite() {
-        return Double.isInfinite(value);
-    }
-
-    public Double toDouble() {
-        return value;
-    }
-
-    public void add(double term) {
-        this.value += term;
-    }
-
-    public void multiply(double factor) {
-        this.value *= factor;
-    }
+public class CharCounterTest {
     
-    @Override
-    public String toString() {
-        return Double.toString(value);
+    public CharCounterTest() {
     }
+
+    /**
+     * Test of increment method, of class CharCounter.
+     */
+    @Test
+    public void testIncrement_Character() {
+        System.out.println("increment");
+        CharCounter instance = new CharCounter();
+        String s = "guadalajara";
+        for (int n = 0; n < s.length(); ++n) {
+            instance.increment(s.charAt(n));
+        }
+        
+        assertEquals(5, instance.getNumber('a'));
+        instance.increment(s.toCharArray());
+        assertEquals(10, instance.getNumber('a'));
+    }
+
+ 
+    
 }

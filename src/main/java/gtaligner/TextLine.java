@@ -16,63 +16,31 @@
  */
 package gtaligner;
 
-import gtaligner.io.TextReader;
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A line of text with normalized whitespace and an integer weight (for example,
- * the number of dark pixels in this line).
+ * A line of text with normalized whitespace.
  *
  * @author rafa
  */
 public class TextLine {
 
     String content;
-    int weight;
     Set<Character> chars;
-
-    /**
-     * Get the set of characters used in this line
-     *
-     * @param s a string
-     * @return the set of characters used in this line
-     */
-    private Set<Character> getChars(String s) {
-        Set<Character> set = new HashSet<>();
-
-        for (int n = 0; n < s.length(); ++n) {
-            set.add(s.charAt(n));
-        }
-        return set;
-    }
 
     /**
      * Create a TextLine with this content and weight
      *
      * @param content the textual content
-     * @param weight the associated weight
      */
-    public TextLine(String content, int weight) {
+    public TextLine(String content) {
         this.content = content.trim().replaceAll("\\p{Space}+", " ");
-        this.weight = weight;
-        this.chars = getChars(this.content);
-    }
+        this.chars = new HashSet<>();
 
-    /**
-     * Create a TextLine with the text in file and the number of dark pixels as
-     * weight
-     *
-     * @param file a file containing the transcription of the image
-     * @param img the textual image
-     * @param threshold which the lower limit for a dark pixel (a gray level
-     * between 0 and 1)
-     */
-    public TextLine(File file, BImage img, double threshold) {
-        content = TextReader.read(file);
-        weight = img.weight(threshold);
-        chars = getChars(content);
+        for (char c : this.content.toCharArray()) {
+            chars.add(c);
+        }
     }
 
     /**
@@ -84,11 +52,14 @@ public class TextLine {
     }
 
     /**
+     * Converts this string to a new character array.
      *
-     * @return the weight associated to this TextLine
+     * @return a new character array whose contents are initialized to content
+     * of this TextLine
+     *
      */
-    public int getWeight() {
-        return weight;
+    public char[] toCharArray() {
+        return content.toCharArray();
     }
 
     /**
@@ -115,13 +86,13 @@ public class TextLine {
     public char charAt(int pos) {
         return content.charAt(pos);
     }
-
+    
     /**
      * @return a textual representation
      */
     @Override
     public String toString() {
-        return content + " " + weight;
+        return content;
     }
 
 }

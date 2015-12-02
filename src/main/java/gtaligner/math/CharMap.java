@@ -16,10 +16,9 @@
  */
 package gtaligner.math;
 
-import java.lang.Character.UnicodeBlock;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+import static java.lang.Math.random;
 import java.util.Set;
 
 /**
@@ -29,13 +28,20 @@ import java.util.Set;
  */
 public final class CharMap extends HashMap<Character, MutableDouble> {
 
-    static Random random = new Random();
-
     /**
      * Default constructor
      */
     public CharMap() {
         super();
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param other the other CharMap to be copied
+     */
+    public CharMap(CharMap other) {
+        super(other);
     }
 
     /**
@@ -80,7 +86,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     public CharMap(Set<Character> keys, double low, double high) {
 
         for (Character c : keys) {
-            put(c, new MutableDouble(low + (high - low) * random.nextDouble()));
+            put(c, new MutableDouble(low + (high - low) * random()));
         }
     }
 
@@ -154,18 +160,10 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
         }
     }
 
-    /**
-     * Add two maps: the value of characters in both maps is obtained as the
-     * addition of their values.
-     *
-     * @param other another CharMap whose values must be added to this one.
-     * @param lower a lower bound for the final value
-     */
-    public void addToValues(CharMap other, double lower) {
-        for (Map.Entry<Character, MutableDouble> entry : other.entrySet()) {
-            Character c = entry.getKey();
-            double value = Math.max(lower, getValue(c) + other.getValue(c));
-            setValue(c, value);
+    public void randomize(double radius) {
+        for (MutableDouble value : values()) {
+            double factor = radius * (random() - 0.5);
+            value.add(factor * value.getValue());
         }
     }
 
@@ -178,10 +176,7 @@ public final class CharMap extends HashMap<Character, MutableDouble> {
     public String toCSV(char separator) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, MutableDouble> entry : entrySet()) {
-            builder
-                    //.append(Character.getType(entry.getKey()))
-                    //.append(separator)
-                    .append("'")
+            builder.append("'")
                     .append(entry.getKey())
                     .append("'")
                     .append(separator)
