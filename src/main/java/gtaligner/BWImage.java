@@ -40,7 +40,7 @@ public class BWImage {
             graphics = img.createGraphics();
             graphics.drawImage(source, 0, 0, null);
         } catch (IOException ex) {
-            Messages.severe("Could not open " + file);
+            Messages.severe("Could not open " + file.getAbsolutePath());
         }
 
     }

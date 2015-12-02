@@ -1,7 +1,9 @@
 package gtaligner;
 
-import gtaligner.io.Messages;
+import gtaligner.io.FileExtensionFilter;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,30 +11,36 @@ import java.util.List;
  * @author rafa
  */
 public class Main {
-    /*
-     private static void printErrors(Sample sample, CharMap model, int numiter, TrainingMethod method) {
-     double[] errors = sample.train(model, method, numiter);
-     for (int n = 0; n < errors.length; ++n) {
-     System.out.println(n + " " + errors[n]);
-     }
-     }
+
+    private final static String[] extensions = {".png", ".jpeg"};
+
+    private static List<File> imageFiles(String path) {
+        File dir = new File(path);
+        File[] array = dir.isDirectory()
+                ? dir.listFiles(new FileExtensionFilter(extensions))
+                : new File[0];
+
+        return Arrays.asList(array);
+    }
+
+    /**
+     * The main function
+     * @param args array of parameters
      */
-
     public static void main(String[] args) {
-
         if (args.length < 2) {
             System.err.println("Usage: GTAligner [-n numiter] [-m method] img1 img2 ...");
             System.err.println("\tMethod can be l (linear) or r (random)");
         } else {
             Model model;
-            Feature feature = Feature.WEIGHT;
             //Feature.select(Feature.WEIGHT);
             TrainingMethod method = TrainingMethod.LINEAR;
             int numiter = 100;
-            List<String> filenames = new ArrayList<>();
+            List<File> files = new ArrayList<>();
             TextSample sample;
 
-            //System.err.println("Working dir: " + System.getProperty("user.dir"));
+            System.err.println("Working dir: " + System.getProperty("user.dir"));
+
             // Input data
             for (int n = 0; n < args.length; ++n) {
                 String arg = args[n];
@@ -53,14 +61,17 @@ public class Main {
                                 break;
                         }
                         break;
+                    case "-d":
+                        //String[] names = new File(args[++n]).list(filter);
+                        files.addAll(imageFiles(args[++n]));
                     default:
-                        filenames.add(arg);
+                        files.add(new File(arg));
                 }
             }
 
             // Computation
-            sample = new TextSample(filenames);
-            model = new Model(sample.getChars(), 1, 1000); 
+            sample = new TextSample(files);
+            model = new Model(sample.getChars(), 1, 1000);
             double[] errors = model.train(sample, numiter);
             System.out.println(sample.charStats().toCSV('\t'));
             System.out.println(model.toCSV('\t', "%.1f"));

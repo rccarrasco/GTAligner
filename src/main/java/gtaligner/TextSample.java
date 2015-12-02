@@ -18,6 +18,7 @@ package gtaligner;
 
 import gtaligner.io.TextReader;
 import gtaligner.math.CharCounter;
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -36,19 +37,20 @@ public class TextSample {
     /**
      * Create a TextSample from a list of input files
      *
-     * @param filenames list of filenames containing lines of text
+     * @param files list of files containing lines of text
      */
-    public TextSample(List<String> filenames) {
-        size = filenames.size();
+    public TextSample(List<File> files) {
+        size = files.size();
         lines = new TextLine[size];
         features = new FeatureVector[size];
         charstats = new CharCounter();
 
         for (int n = 0; n < size; ++n) {
-            String name = filenames.get(n);
-            BWImage image = new BWImage(name);
-            String basename = name.substring(0, name.lastIndexOf('.'));
-            String text = TextReader.readFile(basename + ".txt");
+            File file = files.get(n);
+            BWImage image = new BWImage(file);
+            String path = file.getAbsolutePath();
+            String dir = path.substring(0, path.lastIndexOf('.'));
+            String text = TextReader.read(new File(dir + ".txt"));
             TextLine line = new TextLine(text);
 
             lines[n] = line;
@@ -60,10 +62,10 @@ public class TextSample {
     /**
      * Create a TextSample from an array of input files
      *
-     * @param filenames array of filenames containing lines of text
+     * @param files array of files containing lines of text
      */
-    public TextSample(String[] filenames) {
-        this(java.util.Arrays.asList(filenames));
+    public TextSample(File[] files) {
+        this(java.util.Arrays.asList(files));
     }
 
     public TextSample(TextLine[] lines, FeatureVector[] features) {
