@@ -6,9 +6,8 @@
 package gtaligner;
 
 /**
- * The procedure used to train the weight model, in particular, how
- * excess/defects are distributed among the characters: uniform distribution,
- * linear distribution (proportional to the character's weight) or random
+ * The procedure used to train the model: uniform distribution,
+ * linear distribution (proportional to the value of each feature) or random
  * distribution.
  *
  * @author rafa

@@ -21,9 +21,8 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length < 2) {
-            System.err.println("Usage: GTAligner [-n numiter] [-m method] [-f feature] img1 img2 ...");
-            System.err.println("\tMethod can be u (uniform), l (linear) or r (random)");
-            System.err.println("\tFeature can be s (shadow) or w (weight)");
+            System.err.println("Usage: GTAligner [-n numiter] [-m method] img1 img2 ...");
+            System.err.println("\tMethod can be l (linear) or r (random)");
         } else {
             Model model;
             Feature feature = Feature.WEIGHT;
@@ -54,43 +53,18 @@ public class Main {
                                 break;
                         }
                         break;
-                    case "-f":
-                        switch (args[++n]) {
-                            case "s":
-                                feature = Feature.SHADOW;
-                                break;
-                            case "w":
-                                feature = Feature.WEIGHT;
-                                break;
-                        }
-                        break;
                     default:
                         filenames.add(arg);
-
                 }
             }
 
-            /*
-             model = new Model(sample.getChars(), 100); // all values intitalised equal
-
-             System.err.println("Sample with " + sample.size()
-             + " files has been processed");
-             double[] errors = model.train(sample, feature, method, numiter);
-
-             // Output
-             Messages.info("SAMPLE");
-             Messages.info(sample.charStats().toCSV('\t'));
-             System.out.println(model.toCSV('\t'));
-             System.err.println("error = " + errors[errors.length - 1]);
-             */
             // Computation
             sample = new TextSample(filenames);
-            model = new Model(sample.getChars(), 100); // all values intitalised equal
+            model = new Model(sample.getChars(), 1, 1000); 
             double[] errors = model.train(sample, numiter);
+            System.out.println(sample.charStats().toCSV('\t'));
             System.out.println(model.toCSV('\t', "%.1f"));
-            System.err.println("error = " + errors[errors.length - 1]);
-            Messages.info("SAMPLE\n");
-            Messages.info(sample.charStats().toCSV('\t'));
+            System.out.println("error = " + errors[errors.length - 1]);
         }
 
     }

@@ -17,7 +17,6 @@
 package gtaligner;
 
 import gtaligner.math.MutableDouble;
-import static java.lang.Math.random;
 import java.util.EnumMap;
 
 /**
@@ -81,7 +80,7 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
      */
     public void randomize(double radius) {
         for (MutableDouble value : values()) {
-            double factor = radius * (random() - 0.5);
+            double factor = radius * (Math.random() - 0.5);
             value.add(factor * value.getValue());
         }
     }
