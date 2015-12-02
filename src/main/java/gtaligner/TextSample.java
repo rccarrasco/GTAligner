@@ -49,22 +49,11 @@ public class TextSample {
             BWImage image = new BWImage(name);
             String basename = name.substring(0, name.lastIndexOf('.'));
             String text = TextReader.readFile(basename + ".txt");
-<<<<<<< HEAD
-            TextLine line = new TextLine(text, bimage.weight(0.5));
-            String content = line.getContent();
-
-            lines.add(line);
-            for (int n = 0; n < content.length(); ++n) {
-                Character c = content.charAt(n);
-                charstats.increment(c);
-            }
-=======
             TextLine line = new TextLine(text);
 
             lines[n] = line;
             features[n] = image.getFeatures();
             charstats.increment(line.toCharArray());
->>>>>>> working
         }
     }
 
