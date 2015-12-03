@@ -14,8 +14,11 @@ for arg in sys.argv[1:]:
     s = 0
     g = 0
     p = 0
+    bw = 0
     X = []
     Y = []
+    prev = False
+    
     for x in range(img.size[0]):
         dark = False
         D = []
@@ -37,20 +40,28 @@ for arg in sys.argv[1:]:
                         #pix[x,y] = 0x0000FF
             else:
                 pix[x, y] = 0xFFFFFF
-            
-                
+                 
         if dark:
             s += 1
             g += max(D) - min(D)
-            for y in range(min(D), max(D) +1):
-                pix[x,y] = 0x0000ff
-                
+            #for y in range(min(D), max(D) +1):
+            #    pix[x,y] = 0x0000ff
+            prev = True
+        else:
+            if prev:
+                bw += 1
+                for y in range(0, img.size[1]):
+                    pix[x,y] = 0x0000ff
+            prev = False
+            
+    if dark:
+        bw += 1
     #        print x, D, max(D) - min(D), g
         X.append(s)
         Y.append(w)
             
 
-    print arg, w, s, g, p
-    img.save("colored.tiff", "TIFF")
+    print arg, w, s, g, p, bw
+    img.save("colored.png", "PNG")
     pyplot.plot(X, Y)
     #pyplot.show()

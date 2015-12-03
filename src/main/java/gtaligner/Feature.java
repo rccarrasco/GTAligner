@@ -22,7 +22,7 @@ package gtaligner;
  */
 public enum Feature {
 
-    WEIGHT, SHADOW, GAUGE, PROFILE_E;
+    WEIGHT, SHADOW, GAUGE, PROFILE_E, BWCOLS;
 
     /**
      * The mixture coefficients

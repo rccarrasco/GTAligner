@@ -87,6 +87,20 @@ public class BWImage {
     }
 
     /**
+     * @return the number of dark pixels in the x-th column
+     */
+    private int weight(int x) {
+        int w = 0;
+
+        for (int y = 0; y < img.getHeight(); ++y) {
+            if (isBlack(x, y)) {
+                ++w;
+            }
+        }
+        return w;
+    }
+
+    /**
      *
      * @return the number of dark pixels in this image
      */
@@ -102,6 +116,15 @@ public class BWImage {
         return w;
     }
 
+    private boolean hasBlack(int x) {
+        for (int y = 0; y < img.getHeight(); ++y) {
+            if (isBlack(x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      *
      * @return Number of columns in this image containing some dark pixels
@@ -109,14 +132,33 @@ public class BWImage {
     public int shadow() {
         int value = 0;
         for (int x = 0; x < img.getWidth(); ++x) {
-            for (int y = 0; y < img.getHeight(); ++y) {
-                if (isBlack(x, y)) {
-                    value += 1;
-                    break;
-                }
+            if (hasBlack(x)) {
+                value += 1;
             }
         }
         return value;
+    }
+
+    /**
+     * Distance between the highest and the lowest dark pixels in the x-th
+     * column
+     *
+     * @param x a column number
+     * @return the difference between the row numbers where the highest and the
+     * lowest dark pixels are found in the x-th column
+     */
+    private int gauge(int x) {
+        int low = -1;
+        int high = -1;
+        for (int y = 0; y < img.getHeight(); ++y) {
+            if (isBlack(x, y)) {
+                if (low < 0) {
+                    low = y;
+                }
+                high = y;
+            }
+        }
+        return (high - low);
     }
 
     /**
@@ -126,39 +168,55 @@ public class BWImage {
     public int gauge() {
         int value = 0;
         for (int x = 0; x < img.getWidth(); ++x) {
-            int low = -1;
-            int high = -1;
-            for (int y = 0; y < img.getHeight(); ++y) {
-                if (isBlack(x, y)) {
-                    if (low < 0) {
-                        low = y;
-                    }
-                    high = y;
-                }
-            }
-            value += (high - low);
+            value += gauge(x);
         }
         return value;
     }
 
     /**
-     * 
+     *
+     * @return number of black pixels in the x-th column with a white
+     * east-neighbor in column x+1
+     */
+    private int profileE(int x) {
+        int value = 0;
+        for (int y = 0; y < img.getHeight(); ++y) {
+            if (isBlack(x, y)) {
+                if (x + 1 == img.getWidth() || !isBlack(x + 1, y)) {
+                    value += 1;
+                }
+            }
+        }
+
+        return value;
+    }
+
+    /**
+     *
      * @return number of black pixels with a white east-neighbor
      */
     public int profileE() {
         int value = 0;
+        
         for (int x = 0; x < img.getWidth(); ++x) {
-            for (int y = 0; y < img.getHeight(); ++y) {
-                if (isBlack(x, y)) {
-                    if (x + 1 == img.getWidth() || !isBlack(x + 1, y)) {
-                        value += 1;
-                    }
-                }
-            }
+            value += profileE(x);
         }
-        return value;   
+
+        return value;
     }
 
+    public int bwcols() {
+        int value = hasBlack(img.getWidth() - 1)? 1: 0;
+        
+        for (int x = 1; x < img.getWidth(); ++x) {
+            if (hasBlack(x - 1) && !hasBlack(x)) {
+                value += 1;
+            }
+        }
+
+        return value;
+    }
+    
     /**
      *
      * @param feature
@@ -174,6 +232,8 @@ public class BWImage {
                 return gauge();
             case PROFILE_E:
                 return profileE();
+            case BWCOLS:
+                return bwcols();
             default:
                 throw new UnsupportedOperationException();
         }
@@ -188,6 +248,7 @@ public class BWImage {
         for (Feature feature : Feature.values()) {
             vector.put(feature, getFeature(feature));
         }
+        
         return vector;
     }
 

@@ -90,8 +90,8 @@ public class BWImageTest {
         result = instance.gauge();
         assertEquals(expResult, result);
     }
-    
-     /**
+
+    /**
      * Test of profile method, of class BImage.
      *
      * @throws java.net.URISyntaxException
@@ -112,6 +112,25 @@ public class BWImageTest {
         instance = new BWImage(file);
         expResult = 2255;
         result = instance.profileE();
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testBwcols() throws URISyntaxException {
+        System.out.println("bwcols");
+        URL resourceUrl = getClass().getResource("/chars/n.jpeg");
+        File file = new File(resourceUrl.toURI());
+
+        BWImage instance = new BWImage(file);
+        int expResult = 1;
+        int result = instance.bwcols();
+        assertEquals(expResult, result);
+        
+        resourceUrl = getClass().getResource("/lines/sample1.jpeg");
+        file = new File(resourceUrl.toURI());
+        instance = new BWImage(file);
+        expResult = 43;
+        result = instance.bwcols();
         assertEquals(expResult, result);
     }
 
