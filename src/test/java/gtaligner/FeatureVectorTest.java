@@ -24,13 +24,23 @@ import static org.junit.Assert.*;
  * @author rafa
  */
 public class FeatureVectorTest {
-    
+
     @Test
     public void FeatureVectorTest() {
         FeatureVector instance = new FeatureVector();
         FeatureVector copy = new FeatureVector(instance);
         copy.put(Feature.GAUGE, 1.0);
-        assertEquals(1, copy.size());    
-        assertEquals(0, instance.size());    
+        assertEquals(1, copy.size());
+        assertEquals(0, instance.size());
+    }
+
+    @Test
+    public void toStringTest() {
+        FeatureVector instance = new FeatureVector(1);
+        String result = instance.toString(' ', "%.1f");
+        int length = Feature.values().length;
+        String expected = String.format("%0" + length + "d", 0)
+                .replaceAll("0", "1.0 ").trim();
+        assertEquals(expected, result);
     }
 }

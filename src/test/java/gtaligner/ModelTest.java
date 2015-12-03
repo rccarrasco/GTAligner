@@ -54,5 +54,21 @@ public class ModelTest {
         assertEquals(315.92, wi, 1e-2);
         assertEquals(374.69, wo, 1e-2);
     }
+    
+    @Test
+    public void toStringTest() {
+        java.util.Set<Character> set = new java.util.HashSet<>();
+        set.add('a');
+        set.add('b');
+        Model model = new Model(set, 1.0);
+        FeatureVector vector = new FeatureVector(1.0);
+        String result = model.toString(' ', "%.0f");
+        String expected = "a " + vector.toString(' ', "%.0f") 
+                + "\nb " + vector.toString(' ', "%.0f") +"\n";
+        System.out.println(result);
+        System.out.println(expected);
+        assertEquals(expected, result);
+    }
+    
 
 }

@@ -16,9 +16,17 @@
  */
 package gtaligner;
 
+import gtaligner.io.Messages;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Provides a value for every character and feature
@@ -160,10 +168,6 @@ public class Model {
         return vector;
     }
 
-    public void addToValue(char c, Feature feature, double value) {
-        features.get(c);
-    }
-
     /**
      * Average error per character.
      *
@@ -186,6 +190,26 @@ public class Model {
         }
 
         return (err / numchar);
+    }
+
+    /**
+     * Relative differences between the expected values and those provided by
+     * this Model
+     *
+     * @param sample a TextSample containing TextLines and line features
+     * @param feature a particular feature
+     */
+    public void printInfo(TextSample sample, Feature feature) {
+
+        for (int n = 0; n < sample.size(); ++n) {
+            TextLine line = sample.getLine(n);
+            String content = line.getContent();
+            double expectedValue = sample.getFeatures(n).getValue(feature);
+            double value = getValue(content, feature);
+            double delta = 100 * (expectedValue - value) / expectedValue;
+
+            System.out.println(String.format("%.2f", delta) + " " + content);
+        }
     }
 
     /**
@@ -262,20 +286,43 @@ public class Model {
      *
      * @param separator the column separator
      * @param format formatting information
-     * @return the content in CSV format
+     * @return the Model in CSV format
      */
-    public String toCSV(char separator, String format) {
+    public String toString(char separator, String format) {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
-            builder.append("'")
-                    .append(entry.getKey())
-                    .append("'")
+            builder.append(entry.getKey())
                     .append(separator)
-                    .append(entry.getValue().toString(format))
+                    .append(entry.getValue().toString(separator, format))
                     .append('\n');
         }
 
         return builder.toString();
     }
 
+    public void save(File file) {
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.append(toString('\t', "d"));
+        } catch (FileNotFoundException ex) {
+            Messages.severe("Could not save Model to " + file);
+        }
+    }
+
+    public void read(File file) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            while (reader.ready()) {
+                String line = reader.readLine().trim();
+                StringTokenizer tokenizer = new StringTokenizer(line);
+                char c = tokenizer.nextToken().charAt(0);
+                FeatureVector vector = new FeatureVector();
+                for (Feature feature : Feature.values()) {
+                    double value = Double.parseDouble(tokenizer.nextToken());
+                    vector.put(feature, Double.NaN);
+                }
+            }
+        } catch (IOException ex) {
+            Messages.severe("Could not read " + file);
+        }
+    }
 }

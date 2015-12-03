@@ -121,18 +121,15 @@ public class FeatureVector extends EnumMap<Feature, MutableDouble> {
         return values().toString();
     }
 
-    public String toString(String format) {
+    public String toString(char separator, String format) {
         StringBuilder builder = new StringBuilder();
 
         for (MutableDouble value : values()) {
             if (builder.length() > 0) {
-                builder.append(", ");
-            } else {
-                builder.append('[');
+                builder.append(separator);
             }
             builder.append(String.format(format, value.getValue()));
         }
-        builder.append(']');
 
         return builder.toString();
     }

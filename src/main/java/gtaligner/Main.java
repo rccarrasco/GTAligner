@@ -1,6 +1,7 @@
 package gtaligner;
 
 import gtaligner.io.FileExtensionFilter;
+import gtaligner.io.Messages;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class Main {
 
-    private final static String[] extensions = {".png", ".jpeg"};
+    private final static String[] extensions = {".png", ".jpeg", ".jpg"};
 
     private static List<File> imageFiles(String path) {
         File dir = new File(path);
@@ -25,6 +26,7 @@ public class Main {
 
     /**
      * The main function
+     *
      * @param args array of parameters
      */
     public static void main(String[] args) {
@@ -75,10 +77,12 @@ public class Main {
             model = new Model(sample.getChars(), 1, 1000);
             double[] errors = model.train(sample, numiter);
             System.out.println(sample.charStats().toCSV('\t'));
-            System.out.println(model.toCSV('\t', "%.1f"));
+            System.out.println(model.toString('\t', "%.1f"));
             System.out.println("error = " + errors[errors.length - 1]);
-        }
 
+            model.printInfo(sample, Feature.WEIGHT);
+
+        }
     }
 
 }
