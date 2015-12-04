@@ -12,7 +12,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -20,84 +19,95 @@ import javax.imageio.ImageIO;
  *
  * @author rafa
  */
-public class BWImage {
+public class BWImage extends BufferedImage {
 
-    private BufferedImage img;
+    private int weight;
+    private int[] projection;
+    private int[] skyline;
+    private int[] baseline;
+    private int[] profile;
+
+    /**
+     * Basic constructor
+     *
+     * @param image an image
+     */
+    BWImage(BufferedImage image) {
+        super(image.getWidth(), image.getHeight(),
+                BufferedImage.TYPE_BYTE_BINARY);
+        Graphics2D g = createGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+
+        int width = getWidth();
+        int height = getHeight();
+
+        projection = new int[width];
+        skyline = new int[width];
+        baseline = new int[width];
+        profile = new int[width];
+
+        for (int x = 0; x < width; ++x) {
+            skyline[x] = -1;
+            baseline[x] = -1;
+            for (int y = 0; y < height; ++y) {
+                if (isBlack(x, y)) {
+                    ++weight;
+                    ++projection[x];
+                    skyline[x] = y;
+                    if (baseline[x] < 0) {
+                        baseline[x] = y;
+                    }
+                    if (x + 1 == width || luminosity(x + 1, y) > 0) {
+                        ++profile[x];
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Read image from file
      *
      * @param file an image file
+     * @throws java.io.IOException
      */
-    public BWImage(File file) {
-
-        try {
-            Graphics2D graphics;
-            BufferedImage source = ImageIO.read(file);
-
-            img = new BufferedImage(source.getWidth(), source.getHeight(),
-                    BufferedImage.TYPE_BYTE_BINARY);
-            graphics = img.createGraphics();
-            graphics.drawImage(source, 0, 0, null);
-        } catch (IOException ex) {
-            Messages.severe("Could not open " + file.getAbsolutePath());
-        }
-
+    public BWImage(File file) throws IOException {
+        this(ImageIO.read(file));
     }
 
     /**
      * Read image from file
      *
      * @param filename the name of the image file
+     * @throws java.io.IOException
      */
-    public BWImage(String filename) {
+    public BWImage(String filename) throws IOException {
         this(new File(filename));
     }
 
-    public int getWidth() {
-        return img.getWidth();
+    public final int getAlpha(int x, int y) {
+        return (getRGB(x, y) >> 24) & 0xFF;
     }
 
-    public int getHeight() {
-        return img.getHeight();
+    public final int getRed(int x, int y) {
+        return (getRGB(x, y) >> 16) & 0xFF;
     }
 
-    public int getAlpha(int x, int y) {
-        return (img.getRGB(x, y) >> 24) & 0xFF;
+    public final int getGreen(int x, int y) {
+        return (getRGB(x, y) >> 8) & 0xFF;
     }
 
-    public int getRed(int x, int y) {
-        return (img.getRGB(x, y) >> 16) & 0xFF;
+    public final int getBlue(int x, int y) {
+        return getRGB(x, y) & 0xFF;
     }
 
-    public int getGreen(int x, int y) {
-        return (img.getRGB(x, y) >> 8) & 0xFF;
-    }
-
-    public int getBlue(int x, int y) {
-        return img.getRGB(x, y) & 0xFF;
-    }
-
-    public int luminosity(int x, int y) {
+    public final int luminosity(int x, int y) {
         return getRed(x, y) + getGreen(x, y) + getBlue(x, y);
     }
 
-    private boolean isBlack(int x, int y) {
+    public final boolean isBlack(int x, int y) {
         return luminosity(x, y) == 0;
-    }
-
-    /**
-     * @return the number of dark pixels in the x-th column
-     */
-    private int weight(int x) {
-        int w = 0;
-
-        for (int y = 0; y < img.getHeight(); ++y) {
-            if (isBlack(x, y)) {
-                ++w;
-            }
-        }
-        return w;
     }
 
     /**
@@ -105,24 +115,7 @@ public class BWImage {
      * @return the number of dark pixels in this image
      */
     public int weight() {
-        int w = 0;
-        for (int x = 0; x < img.getWidth(); ++x) {
-            for (int y = 0; y < img.getHeight(); ++y) {
-                if (isBlack(x, y)) {
-                    ++w;
-                }
-            }
-        }
-        return w;
-    }
-
-    private boolean hasBlack(int x) {
-        for (int y = 0; y < img.getHeight(); ++y) {
-            if (isBlack(x, y)) {
-                return true;
-            }
-        }
-        return false;
+        return weight;
     }
 
     /**
@@ -131,34 +124,12 @@ public class BWImage {
      */
     public int shadow() {
         int value = 0;
-        for (int x = 0; x < img.getWidth(); ++x) {
-            if (hasBlack(x)) {
-                value += 1;
+        for (int x = 0; x < getWidth(); ++x) {
+            if (projection[x] > 0) {
+                ++value;
             }
         }
         return value;
-    }
-
-    /**
-     * Distance between the highest and the lowest dark pixels in the x-th
-     * column
-     *
-     * @param x a column number
-     * @return the difference between the row numbers where the highest and the
-     * lowest dark pixels are found in the x-th column
-     */
-    private int gauge(int x) {
-        int low = -1;
-        int high = -1;
-        for (int y = 0; y < img.getHeight(); ++y) {
-            if (isBlack(x, y)) {
-                if (low < 0) {
-                    low = y;
-                }
-                high = y;
-            }
-        }
-        return (high - low);
     }
 
     /**
@@ -167,27 +138,9 @@ public class BWImage {
      */
     public int gauge() {
         int value = 0;
-        for (int x = 0; x < img.getWidth(); ++x) {
-            value += gauge(x);
+        for (int x = 0; x < getWidth(); ++x) {
+            value += (skyline[x] - baseline[x]);
         }
-        return value;
-    }
-
-    /**
-     *
-     * @return number of black pixels in the x-th column with a white
-     * east-neighbor in column x+1
-     */
-    private int profileE(int x) {
-        int value = 0;
-        for (int y = 0; y < img.getHeight(); ++y) {
-            if (isBlack(x, y)) {
-                if (x + 1 == img.getWidth() || !isBlack(x + 1, y)) {
-                    value += 1;
-                }
-            }
-        }
-
         return value;
     }
 
@@ -197,26 +150,26 @@ public class BWImage {
      */
     public int profileE() {
         int value = 0;
-        
-        for (int x = 0; x < img.getWidth(); ++x) {
-            value += profileE(x);
+
+        for (int x = 0; x < getWidth(); ++x) {
+            value += profile[x];
         }
 
         return value;
     }
 
     public int bwcols() {
-        int value = hasBlack(img.getWidth() - 1)? 1: 0;
-        
-        for (int x = 1; x < img.getWidth(); ++x) {
-            if (hasBlack(x - 1) && !hasBlack(x)) {
+        int value = projection[getWidth() - 1] > 0 ? 1 : 0;
+
+        for (int x = 1; x < getWidth(); ++x) {
+            if (projection[x - 1] > 0 && projection[x] == 0) {
                 value += 1;
             }
         }
 
         return value;
     }
-    
+
     /**
      *
      * @param feature
@@ -248,15 +201,15 @@ public class BWImage {
         for (Feature feature : Feature.values()) {
             vector.put(feature, getFeature(feature));
         }
-        
+
         return vector;
     }
 
     private void flood(BooleanMatrix matrix, int x, int y) {
         matrix.set(x, y, true);
 
-        for (int i = Math.max(x - 1, 0); i < Math.min(x + 2, img.getWidth()); ++i) {
-            for (int j = Math.max(y - 1, 0); j < Math.min(y + 2, img.getHeight()); ++j) {
+        for (int i = Math.max(x - 1, 0); i < Math.min(x + 2, getWidth()); ++i) {
+            for (int j = Math.max(y - 1, 0); j < Math.min(y + 2, getHeight()); ++j) {
                 if (isBlack(i, j) && !matrix.get(i, j)) {
                     flood(matrix, i, j);
                 }
@@ -271,10 +224,10 @@ public class BWImage {
      */
     public int clusters() {
         int num = 0;
-        BooleanMatrix matrix = new BooleanMatrix(img.getHeight(), img.getWidth());
+        BooleanMatrix matrix = new BooleanMatrix(getHeight(), getWidth());
 
-        for (int x = 0; x < img.getWidth(); ++x) {
-            for (int y = 0; y < img.getHeight(); ++y) {
+        for (int x = 0; x < getWidth(); ++x) {
+            for (int y = 0; y < getHeight(); ++y) {
                 if (isBlack(x, y)
                         && !matrix.get(x, y)) {
                     ++num;
@@ -293,29 +246,35 @@ public class BWImage {
         return sum / (double) values.length;
     }
 
-
     public static void main(String[] args) {
+
+        int total = 0;
+        int matching = 0;
+
         for (String arg : args) {
-            File ifile = new File(arg);
-            BWImage image = new BWImage(ifile);
-            int num = image.clusters();
-            int weight = image.weight();
-            int width = image.shadow();
+            try {
+                File file = new File(arg);
+                BWImage image = new BWImage(file);
+                String path = file.getAbsolutePath();
+                String dir = path.substring(0, path.lastIndexOf('.'));
+                String text = TextReader.read(new File(dir + ".txt"));
+                TextLine line = new TextLine(text);
 
-            System.out.print(arg + "= [" + num + ","
-                    + weight + ","
-                    + width + ","
-                    + +image.img.getWidth() + "]");
+                int ngaps = image.bwcols();
+                int nchars = line.textsize();
 
-            String basename = arg.substring(0, arg.lastIndexOf('.'));
-            File tfile = new File(basename + ".txt");
-            if (tfile.exists()) {
-                String text = TextReader.read(tfile)
-                        .replaceAll("\\p{Space}", "");
-                System.out.print(" " + num / (double) text.length());
+                System.out.println(arg
+                        + "= ["
+                        + ngaps + ","
+                        + nchars + "]");
+                ++total;
+                if (ngaps == nchars) {
+                    ++matching;
+                }
+            } catch (IOException ex) {
+                Messages.warning("Could not open " + arg);
             }
-            System.out.println();
-            //image.split(10);
         }
+        System.out.println(matching + " out of " + total);
     }
 }

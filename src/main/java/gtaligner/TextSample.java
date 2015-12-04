@@ -16,11 +16,15 @@
  */
 package gtaligner;
 
+import gtaligner.io.Messages;
 import gtaligner.io.TextReader;
 import gtaligner.math.CharCounter;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A sample of TextLines and the integer features associated to every TextLine
@@ -46,16 +50,20 @@ public class TextSample {
         charstats = new CharCounter();
 
         for (int n = 0; n < size; ++n) {
-            File file = files.get(n);
-            BWImage image = new BWImage(file);
-            String path = file.getAbsolutePath();
-            String dir = path.substring(0, path.lastIndexOf('.'));
-            String text = TextReader.read(new File(dir + ".txt"));
-            TextLine line = new TextLine(text);
-
-            lines[n] = line;
-            features[n] = image.getFeatures();
-            charstats.increment(line.toCharArray());
+            try {
+                File file = files.get(n);
+                BWImage image = new BWImage(file);
+                String path = file.getAbsolutePath();
+                String dir = path.substring(0, path.lastIndexOf('.'));
+                String text = TextReader.read(new File(dir + ".txt"));
+                TextLine line = new TextLine(text);
+                
+                lines[n] = line;
+                features[n] = image.getFeatures();
+                charstats.increment(line.toCharArray());
+            } catch (IOException ex) {
+                Messages.severe("Could not read " + files.get(n).getAbsolutePath());
+            }
         }
     }
 

@@ -6,6 +6,7 @@
 package gtaligner;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class BWImageTest {
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testWeight() throws URISyntaxException {
+    public void testWeight() throws URISyntaxException, IOException {
         System.out.println("weight");
         URL resourceUrl = getClass().getResource("/chars/n.jpeg");
         File file = new File(resourceUrl.toURI());
@@ -49,7 +50,7 @@ public class BWImageTest {
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testShadow() throws URISyntaxException {
+    public void testShadow() throws URISyntaxException, IOException {
         System.out.println("shadow");
         URL resourceUrl = getClass().getResource("/chars/n.jpeg");
         File file = new File(resourceUrl.toURI());
@@ -73,7 +74,7 @@ public class BWImageTest {
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testGauge() throws URISyntaxException {
+    public void testGauge() throws URISyntaxException, IOException {
         System.out.println("gauge");
         URL resourceUrl = getClass().getResource("/chars/n.jpeg");
         File file = new File(resourceUrl.toURI());
@@ -97,7 +98,7 @@ public class BWImageTest {
      * @throws java.net.URISyntaxException
      */
     @Test
-    public void testProfileE() throws URISyntaxException {
+    public void testProfileE() throws URISyntaxException, IOException {
         System.out.println("gauge");
         URL resourceUrl = getClass().getResource("/chars/n.jpeg");
         File file = new File(resourceUrl.toURI());
@@ -116,7 +117,7 @@ public class BWImageTest {
     }
 
     @Test
-    public void testBwcols() throws URISyntaxException {
+    public void testBwcols() throws URISyntaxException, IOException {
         System.out.println("bwcols");
         URL resourceUrl = getClass().getResource("/chars/n.jpeg");
         File file = new File(resourceUrl.toURI());
@@ -129,7 +130,7 @@ public class BWImageTest {
         resourceUrl = getClass().getResource("/lines/sample1.jpeg");
         file = new File(resourceUrl.toURI());
         instance = new BWImage(file);
-        expResult = 43;
+        expResult = 46;
         result = instance.bwcols();
         assertEquals(expResult, result);
     }

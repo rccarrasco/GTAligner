@@ -1,7 +1,6 @@
 package gtaligner;
 
 import gtaligner.io.FileExtensionFilter;
-import gtaligner.io.Messages;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

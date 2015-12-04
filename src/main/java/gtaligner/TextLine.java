@@ -72,10 +72,18 @@ public class TextLine {
 
     /**
      *
-     * @return the number of characters in this TextLine
+     * @return the number of characters (including whitespace) in this TextLine
      */
     public int length() {
         return content.length();
+    }
+    
+    /**
+     * 
+     * @return the number of non-space characters in this TextLine
+     */
+    public int textsize() {
+        return content.replaceAll("\\p{Space}", "").length();
     }
 
     /**
