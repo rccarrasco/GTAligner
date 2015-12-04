@@ -293,45 +293,6 @@ public class BWImage {
         return sum / (double) values.length;
     }
 
-    public int vprojection(int x) {
-        int value = 0;
-
-        for (int y = 0; y < img.getHeight(); ++y) {
-            int rgb = img.getRGB(x, y);
-            if (isBlack(x, y)) {
-                ++value;
-            }
-        }
-        return value;
-    }
-
-    private int[] vprojections() {
-        int[] values = new int[img.getWidth()];
-
-        for (int x = 0; x < img.getWidth(); ++x) {
-            values[x] = vprojection(x);
-            //System.err.println(x + " " + values[x]);
-        }
-        return values;
-    }
-
-    public void split(int num) {
-        int[] plot = vprojections();
-        double av = average(plot);
-        ArrayList<Integer> gaps = new ArrayList<>();
-
-        int r = 0;
-        for (int n = 0; n < plot.length; ++n) {
-            if (plot[n] < 0.5 * av) {
-                r += (av - plot[n]);
-            } else if (r > 0) {
-                //System.out.println(n + ", " + r);
-                gaps.add(r);
-                r = 0;
-            }
-        }
-
-    }
 
     public static void main(String[] args) {
         for (String arg : args) {
@@ -354,7 +315,7 @@ public class BWImage {
                 System.out.print(" " + num / (double) text.length());
             }
             System.out.println();
-            image.split(10);
+            //image.split(10);
         }
     }
 }
