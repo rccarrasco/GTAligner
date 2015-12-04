@@ -106,6 +106,12 @@ public class BWImage extends BufferedImage {
         return getRed(x, y) + getGreen(x, y) + getBlue(x, y);
     }
 
+    /**
+     *
+     * @param x column number
+     * @param y row number
+     * @return true if the pixel at position (x,y) is a black pixel
+     */
     public final boolean isBlack(int x, int y) {
         return luminosity(x, y) == 0;
     }

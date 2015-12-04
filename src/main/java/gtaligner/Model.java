@@ -290,6 +290,13 @@ public class Model {
      */
     public String toString(char separator, String format) {
         StringBuilder builder = new StringBuilder();
+
+        builder.append("char");
+        for (Feature feature : Feature.values()) {
+            builder.append(separator).append(feature);
+        }
+        builder.append('\n');
+
         for (Map.Entry<Character, FeatureVector> entry : features.entrySet()) {
             builder.append(entry.getKey())
                     .append(separator)
