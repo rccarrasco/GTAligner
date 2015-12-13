@@ -18,7 +18,7 @@ package gtaligner.math;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class BooleanMatrix {
 

@@ -54,14 +54,16 @@ for arg in sys.argv[1:]:
                     pix[x,y] = 0x0000ff
             prev = False
             
-    if dark:
-        bw += 1
-    #        print x, D, max(D) - min(D), g
+        print x, w#D, max(D) - min(D), g
         X.append(s)
         Y.append(w)
+            
+    if dark:
+        bw += 1
+        
             
 
     print arg, w, s, g, p, bw
     img.save("colored.png", "PNG")
     pyplot.plot(X, Y)
-    #pyplot.show()
+    pyplot.show()

@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 /**
  * A sample of TextLines and the integer features associated to every TextLine
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class TextSample {
 

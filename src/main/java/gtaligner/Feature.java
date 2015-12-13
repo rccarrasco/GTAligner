@@ -18,7 +18,7 @@ package gtaligner;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public enum Feature {
 

@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class TextLineTest {
     

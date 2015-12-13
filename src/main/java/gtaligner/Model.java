@@ -31,7 +31,7 @@ import java.util.StringTokenizer;
 /**
  * Provides a value for every character and feature
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class Model {
 

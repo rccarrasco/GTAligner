@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class Messages {
 

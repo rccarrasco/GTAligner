@@ -13,7 +13,7 @@ import java.nio.file.Files;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class TextReader {
 

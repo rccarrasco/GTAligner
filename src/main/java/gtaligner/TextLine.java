@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * A line of text with normalized whitespace.
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class TextLine {
 

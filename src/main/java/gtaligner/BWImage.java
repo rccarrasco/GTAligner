@@ -1,7 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 rafa
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package gtaligner;
 
@@ -17,15 +28,15 @@ import javax.imageio.ImageIO;
 /**
  * An extended BufferedImage
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class BWImage extends BufferedImage {
 
     private int weight;
-    private int[] projection;
-    private int[] skyline;
-    private int[] baseline;
-    private int[] profile;
+    private int[] projection; // cummulative values of vertical projections
+    private int[] skyline;    // max y-value of dark pixels
+    private int[] baseline;   // min y-value of dar pixels
+    private int[] profile;    // number of dark pixles with a white right-neighbour
 
     /**
      * Basic constructor
@@ -42,18 +53,19 @@ public class BWImage extends BufferedImage {
         int width = getWidth();
         int height = getHeight();
 
-        projection = new int[width];
+        projection = new int[width + 1];
         skyline = new int[width];
         baseline = new int[width];
         profile = new int[width];
 
         for (int x = 0; x < width; ++x) {
+            projection[x + 1] = projection[x];
             skyline[x] = -1;
             baseline[x] = -1;
             for (int y = 0; y < height; ++y) {
                 if (isBlack(x, y)) {
                     ++weight;
-                    ++projection[x];
+                    ++projection[x + 1];
                     skyline[x] = y;
                     if (baseline[x] < 0) {
                         baseline[x] = y;
@@ -126,12 +138,23 @@ public class BWImage extends BufferedImage {
 
     /**
      *
+     * @param xlow the lower x-value
+     * @param xhigh the higher x-value
+     * @return the number of dark pixels in the sub-image made of columns between
+     * xlow and xhigh
+     */
+    public int weight(int xlow, int xhigh) {
+        return projection[xhigh] - projection[xlow];
+    }
+
+    /**
+     *
      * @return Number of columns in this image containing some dark pixels
      */
     public int shadow() {
         int value = 0;
         for (int x = 0; x < getWidth(); ++x) {
-            if (projection[x] > 0) {
+            if (projection[x + 1] > projection[x]) {
                 ++value;
             }
         }
@@ -165,10 +188,10 @@ public class BWImage extends BufferedImage {
     }
 
     public int bwcols() {
-        int value = projection[getWidth() - 1] > 0 ? 1 : 0;
+        int value = projection[getWidth()] > projection[getWidth() - 1] ? 1 : 0;
 
-        for (int x = 1; x < getWidth(); ++x) {
-            if (projection[x - 1] > 0 && projection[x] == 0) {
+        for (int x = 1; x < getWidth() - 1; ++x) {
+            if (projection[x + 1] > projection[x] && projection[x + 2] == projection[x + 1]) {
                 value += 1;
             }
         }

@@ -21,7 +21,7 @@ import java.util.EnumMap;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class FeatureVector extends EnumMap<Feature, MutableDouble> {
 

@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  * @deprecated
  */
 public class OldModel {

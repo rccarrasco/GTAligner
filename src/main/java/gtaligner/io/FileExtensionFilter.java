@@ -21,7 +21,7 @@ import java.io.FilenameFilter;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class FileExtensionFilter implements FilenameFilter {
 

@@ -24,7 +24,7 @@ import java.util.Set;
 /**
  * Maps characters to double values
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public final class CharMap extends HashMap<Character, MutableDouble> {
 

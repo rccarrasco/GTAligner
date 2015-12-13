@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class CharCounter extends HashMap<Character, MutableInt> {
 

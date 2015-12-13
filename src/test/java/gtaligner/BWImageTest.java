@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author rafa
+ * @author carrasco@ua.es
  */
 public class BWImageTest {
 
@@ -25,6 +25,7 @@ public class BWImageTest {
      * Test of weight method, of class BImage.
      *
      * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
     public void testWeight() throws URISyntaxException, IOException {
@@ -34,6 +35,10 @@ public class BWImageTest {
         BWImage instance = new BWImage(file);
         int expResult = 442;
         int result = instance.weight();
+        assertEquals(expResult, result);
+
+        expResult = 60;
+        result = instance.weight(9, 11);
         assertEquals(expResult, result);
 
         resourceUrl = getClass().getResource("/lines/sample1.jpeg");
@@ -48,6 +53,7 @@ public class BWImageTest {
      * Test of shadow method, of class BImage.
      *
      * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
     public void testShadow() throws URISyntaxException, IOException {
@@ -72,6 +78,7 @@ public class BWImageTest {
      * Test of gauge method, of class BImage.
      *
      * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
     public void testGauge() throws URISyntaxException, IOException {
@@ -96,6 +103,7 @@ public class BWImageTest {
      * Test of profile method, of class BImage.
      *
      * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     @Test
     public void testProfileE() throws URISyntaxException, IOException {
@@ -126,7 +134,7 @@ public class BWImageTest {
         int expResult = 1;
         int result = instance.bwcols();
         assertEquals(expResult, result);
-        
+
         resourceUrl = getClass().getResource("/lines/sample1.jpeg");
         file = new File(resourceUrl.toURI());
         instance = new BWImage(file);
