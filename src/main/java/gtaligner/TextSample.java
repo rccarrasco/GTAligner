@@ -23,17 +23,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * A sample of TextLines and the integer features associated to every TextLine
+ * A sample of BWImages and their associated content stored as TextLine.
  *
  * @author carrasco@ua.es
  */
 public class TextSample {
 
     private int size;
+    private BWImage[] images;
     private TextLine[] lines;
     private FeatureVector[] features;
     private CharCounter charstats;
@@ -45,6 +44,7 @@ public class TextSample {
      */
     public TextSample(List<File> files) {
         size = files.size();
+        images = new BWImage[size];
         lines = new TextLine[size];
         features = new FeatureVector[size];
         charstats = new CharCounter();
@@ -57,7 +57,8 @@ public class TextSample {
                 String dir = path.substring(0, path.lastIndexOf('.'));
                 String text = TextReader.read(new File(dir + ".txt"));
                 TextLine line = new TextLine(text);
-                
+
+                images[n] = image;
                 lines[n] = line;
                 features[n] = image.getFeatures();
                 charstats.increment(line.toCharArray());
@@ -77,7 +78,7 @@ public class TextSample {
     }
 
     public TextSample(TextLine[] lines, FeatureVector[] features) {
-        this.size = lines.length; 
+        this.size = lines.length;
         this.lines = lines;
         this.features = features;
         this.charstats = new CharCounter();
@@ -110,6 +111,15 @@ public class TextSample {
      */
     public TextLine getLine(int n) {
         return lines[n];
+    }
+
+    /**
+     *
+     * @param n a line number
+     * @return the image of the n-th TextLine in this TextSample
+     */
+    public BWImage getImage(int n) {
+        return images[n];
     }
 
     /**

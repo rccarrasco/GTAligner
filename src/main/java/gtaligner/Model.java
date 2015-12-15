@@ -192,23 +192,31 @@ public class Model {
         return (err / numchar);
     }
 
+    private double delta(TextLine line, BWImage image, Feature feature) {
+        String content = line.getContent();
+        double expectedValue = image.getFeature(feature);
+        double value = getValue(content, feature);
+        return 100 * (expectedValue - value) / expectedValue;
+    }
+
     /**
      * Relative differences between the expected values and those provided by
      * this Model
      *
      * @param sample a TextSample containing TextLines and line features
-     * @param feature a particular feature
      */
-    public void printInfo(TextSample sample, Feature feature) {
+    public void printInfo(TextSample sample) {
 
         for (int n = 0; n < sample.size(); ++n) {
             TextLine line = sample.getLine(n);
-            String content = line.getContent();
-            double expectedValue = sample.getFeatures(n).getValue(feature);
-            double value = getValue(content, feature);
-            double delta = 100 * (expectedValue - value) / expectedValue;
+            BWImage image = sample.getImage(n);
 
-            System.out.println(String.format("%.2f", delta) + " " + content);
+            double delta_w = delta(line, image, Feature.WEIGHT);
+            double delta_s = delta(line, image, Feature.SHADOW);
+
+            System.out.println(String.format("%.2f", delta_w)
+                    + " " + String.format("%.2f", delta_s)
+                    + " " + line.getContent());
         }
     }
 

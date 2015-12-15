@@ -26,17 +26,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * An extended BufferedImage
+ * An extended BufferedImage with pre-computed features
  *
  * @author carrasco@ua.es
  */
 public class BWImage extends BufferedImage {
 
-    private int weight;
-    private int[] projection; // cummulative values of vertical projections
-    private int[] skyline;    // max y-value of dark pixels
-    private int[] baseline;   // min y-value of dar pixels
-    private int[] profile;    // number of dark pixles with a white right-neighbour
+    private int[] weights;   // cummulative values of vertical projections
+    private int[] shadows;   // cummulative number of dark columns
+    private int[] skyline;   // max y-value of dark pixels
+    private int[] baseline;  // min y-value of dar pixels
+    private int[] profile;   // number of dark pixels with a white right-neighbour
 
     /**
      * Basic constructor
@@ -53,19 +53,20 @@ public class BWImage extends BufferedImage {
         int width = getWidth();
         int height = getHeight();
 
-        projection = new int[width + 1];
+        weights = new int[width + 1];
+        shadows = new int[width + 1];
         skyline = new int[width];
         baseline = new int[width];
         profile = new int[width];
 
         for (int x = 0; x < width; ++x) {
-            projection[x + 1] = projection[x];
+            weights[x + 1] = weights[x];
+            shadows[x + 1] = shadows[x];
             skyline[x] = -1;
             baseline[x] = -1;
             for (int y = 0; y < height; ++y) {
                 if (isBlack(x, y)) {
-                    ++weight;
-                    ++projection[x + 1];
+                    ++weights[x + 1];
                     skyline[x] = y;
                     if (baseline[x] < 0) {
                         baseline[x] = y;
@@ -74,6 +75,9 @@ public class BWImage extends BufferedImage {
                         ++profile[x];
                     }
                 }
+            }
+            if (weights[x + 1] > weights[x]) {
+                ++shadows[x + 1];
             }
         }
     }
@@ -133,18 +137,18 @@ public class BWImage extends BufferedImage {
      * @return the number of dark pixels in this image
      */
     public int weight() {
-        return weight;
+        return weights[getWidth()];
     }
 
     /**
      *
      * @param xlow the lower x-value
      * @param xhigh the higher x-value
-     * @return the number of dark pixels in the sub-image made of columns between
-     * xlow and xhigh
+     * @return the number of dark pixels in the sub-image made of columns
+     * between xlow and xhigh
      */
     public int weight(int xlow, int xhigh) {
-        return projection[xhigh] - projection[xlow];
+        return weights[xhigh] - weights[xlow];
     }
 
     /**
@@ -152,15 +156,20 @@ public class BWImage extends BufferedImage {
      * @return Number of columns in this image containing some dark pixels
      */
     public int shadow() {
-        int value = 0;
-        for (int x = 0; x < getWidth(); ++x) {
-            if (projection[x + 1] > projection[x]) {
-                ++value;
-            }
-        }
-        return value;
+        return shadows[getWidth()];
     }
 
+    
+     /**
+     *
+     * @param xlow the lower x-value
+     * @param xhigh the higher x-value
+     * @return the number of dark columns in the sub-image between xlow and xhigh
+     */
+    public int shadow(int xlow, int xhigh) {
+        return shadows[xhigh] - shadows[xlow];
+    }
+    
     /**
      *
      * @return Number of rows expanded by the image (added for every column)
@@ -188,10 +197,10 @@ public class BWImage extends BufferedImage {
     }
 
     public int bwcols() {
-        int value = projection[getWidth()] > projection[getWidth() - 1] ? 1 : 0;
+        int value = weights[getWidth()] > weights[getWidth() - 1] ? 1 : 0;
 
         for (int x = 1; x < getWidth() - 1; ++x) {
-            if (projection[x + 1] > projection[x] && projection[x + 2] == projection[x + 1]) {
+            if (weights[x + 1] > weights[x] && weights[x + 2] == weights[x + 1]) {
                 value += 1;
             }
         }

@@ -95,7 +95,7 @@ public class Main {
             System.out.println(model.toString('\t', "%.1f"));
             System.out.println("error = " + errors[errors.length - 1]);
 
-            //model.printInfo(sample, Feature.WEIGHT);
+            model.printInfo(sample);
 
         }
     }
